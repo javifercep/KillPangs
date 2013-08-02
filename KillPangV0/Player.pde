@@ -14,7 +14,7 @@ class Player{
  void updateplayer(){
    x+=vel;
    if(x<0) x=0;
-   if(x+10>width) x=width;
+   if(x+10>width) x=width-10;
  }
  
  void drawplayer(float h){

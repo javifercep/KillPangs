@@ -7,15 +7,15 @@ int azul = color(0, 0, 255);
 
 int colorControl=0;
 
-DataFromArduino Ardu = new DataFromArduino();
-
+Teclado Ardu = new Teclado();
+Player one= new Player();
 
 
 void setup()
 {
   size(600, 600);
-  InitJoystickCOM(); /* Initializes communication with Joystick*/
-  rectMode(CENTER);
+  //InitJoystickCOM(); /* Initializes communication with Joystick*/
+  //rectMode(CENTER);
   frameRate(60);
   //thread("captureData");
 }
@@ -23,9 +23,6 @@ void setup()
 void draw()
 {
   background(0);
-
-  if (Ardu.getDataFromBuffer())
-  {
     if (Ardu.getSWState()==0)
       if (colorControl++ == 3) colorControl = 0;
     switch(colorControl)
@@ -43,8 +40,10 @@ void draw()
       fill(azul);
       break;
     }
-  }
-  rect(Ardu.getX(), Ardu.getY(), 50, 50, 7);
+  one.setvel(Ardu.getX()*10.);
+  one.updateplayer();
+  one.drawplayer(500);
+  rect(00,500,600,100);
 }
 
 
