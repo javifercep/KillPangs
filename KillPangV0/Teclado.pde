@@ -9,7 +9,7 @@ class Teclado {
     px=t;
   }
   void setY(int t) {
-   py=t;
+    py=t;
   }
   void setSWState(int t) {
     swon=t;
@@ -22,7 +22,7 @@ class Teclado {
   }
   int getSWState() {
     int temp=swon;
-    if(swon==0) swon=1;
+    if (swon==0) swon=1;
     return temp;
   }
 }
@@ -30,8 +30,8 @@ class Teclado {
 void keyPressed() {
   if (keyCode==UP) {
     Ardu.setY(-1);
-  
-  }else if (keyCode==DOWN) {
+  }
+  else if (keyCode==DOWN) {
     Ardu.setY(1);
   }
 
@@ -51,14 +51,15 @@ void keyReleased() {
   else if (keyCode==RIGHT) {
     Ardu.setX(0);
   }
-if (keyCode==UP) {
-    Ardu.setY(0);
-  
-}else if (keyCode==DOWN) {
+  if (keyCode==UP) {
     Ardu.setY(0);
   }
-  
+  else if (keyCode==DOWN) {
+    Ardu.setY(0);
+  }
+
   if (key==' ') {
     Ardu.setSWState(0);
   }
 }
+
