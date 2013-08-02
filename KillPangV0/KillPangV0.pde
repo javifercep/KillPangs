@@ -1,5 +1,5 @@
 import processing.serial.*;
-hola
+
 int blanco = color(255);
 int rojo = color(255, 0, 0);
 int verde = color(0, 255, 0);
@@ -72,3 +72,4 @@ void serialEvent(Serial joystickCOM) {
     inString=null;
   }
 }
+
