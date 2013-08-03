@@ -7,10 +7,14 @@ int azul = color(0, 0, 255);
 
 int colorControl=0;
 
+int numballs=100;
+
+boolean thrcontrol=false;
+
 Teclado Ardu = new Teclado();
 Player one= new Player();
 Bullet bala[]=new Bullet[5];
-Ball fuad[]= new Ball[10];
+Ball fuad[]= new Ball[numballs];
 
 
 void setup()
@@ -20,12 +24,12 @@ void setup()
   for (int i=0; i<5; i++) {
     bala[i]= new Bullet(10, 475);
   }
-  for (int i=0; i<10; i++) {
-    fuad[i]= new Ball(15+40*i, 40, 2*(random(-2, 2)), 2*(random(-2, 2)));
+  for (int i=0; i<numballs; i++) {
+    fuad[i]= new Ball(random(15,500), random(15,400), 2*(random(-2, 2)), 2*(random(-2, 2)));
     fuad[i].activate();
   }
 
-
+  thread("ballshit");
   noStroke();
 }
 
@@ -33,6 +37,7 @@ void draw()
 {
   /*ambientLight(40,40,40);
    directionalLight(126, 126, 126, 0, 0, -1);*/
+   thrcontrol=true;
   lights();
   background(200);
   if (Ardu.getSWState()==0) {
@@ -75,7 +80,7 @@ void draw()
   rect(00, 500, 600, 100);
   println(frameRate);
   fill(34, 64, 123);
-  for (int i=0; i<10; i++) {
+  for (int i=0; i<numballs; i++) {
     fuad[i].drawball();
     fuad[i].ballupdate();
   }
