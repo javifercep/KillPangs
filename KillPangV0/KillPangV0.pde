@@ -7,7 +7,7 @@ int azul = color(0, 0, 255);
 
 int colorControl=0;
 
-int numballs=100;
+int numballs=10;
 
 boolean thrcontrol=false;
 
@@ -37,9 +37,10 @@ void draw()
 {
   /*ambientLight(40,40,40);
    directionalLight(126, 126, 126, 0, 0, -1);*/
-   thrcontrol=true;
+  
   lights();
   background(200);
+  thrcontrol=true;
   if (Ardu.getSWState()==0) {
     for (int i=0; i<5; i++) {
       if (bala[i].bulletavailable()) {
