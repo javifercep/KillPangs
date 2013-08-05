@@ -4,7 +4,7 @@ String dataReceived = ""; // Incoming serial data
 public void InitJoystickCOM()
 {
   println(Serial.list());
-  String portName = Serial.list()[0];
+  String portName = Serial.list()[2];
   joystickCOM = new Serial(this, portName, 115200);
 }
 
@@ -39,13 +39,15 @@ public class DataFromArduino {
     {
       String[] coordenadas = split(Buffer.get(0), ':');
       posx=map(Float.parseFloat(coordenadas[0]), 0, 1023, 25, 575);
-      if (posx < 200)      posBX = -1;
-      else if (posx >800)  posBX =  1;
+      if (posx <100.0)      posBX = -1;
+      else if (posx >500.0)  posBX =  1;
       else                posBX =  0;
+      println(posBX);
       posy=map(Float.parseFloat(coordenadas[1]), 0, 1023, 25, 575);
-      if (posy < 200)      posBY = -1;
-      else if (posy >800)  posBY =  1;
+      if (posy < 100.0)      posBY = -1;
+      else if (posy >500.0)  posBY =  1;
       else                posBY =  0;
+      println(posBY);
       swon=Integer.parseInt(coordenadas[2].substring(0, 1));
       Buffer.remove(0);
       return true;
@@ -67,13 +69,13 @@ public class DataFromArduino {
     return posy;
   }
 
-  public float getBinX()
+  public int getBinX()
   {
     /* Return -1, 0 or 1*/
     return posBX;
   }
 
-  public float getBinY()
+  public int getBinY()
   {
     /* Return -1, 0 or 1*/
     return posBY;

@@ -65,7 +65,7 @@ void ballshit() {
     if (thrcontrol) {
       for (int n=numballs-1; n>=0; n--) {
         for (int m=0; m<n; m++) {
-          println(m);
+          //println(m);
           if (PVector.dist(fuad[n].getpos(), fuad[m].getpos())<30) {
             colision(fuad[n], fuad[m]);
             /*fuad[n].touch();
