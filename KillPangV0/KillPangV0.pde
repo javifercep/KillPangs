@@ -7,7 +7,7 @@ int azul = color(0, 0, 255);
 
 int colorControl=0;
 
-int numballs=10;
+int numballs=30;
 
 boolean thrcontrol=false;
 
@@ -27,6 +27,7 @@ void setup()
   for (int i=0; i<numballs; i++) {
     fuad[i]= new Ball(random(15,500), random(15,400), 2*(random(-2, 2)), 2*(random(-2, 2)));
     fuad[i].activate();
+    fuad[i].touch();
   }
 
   thread("ballshit");
@@ -69,6 +70,7 @@ void draw()
   for (int i=0; i<5; i++) {
     bala[i].drawbullet();
     bala[i].bulletupdate();
+    bala[i].touchball(fuad,numballs);
     if (bala[i].gety()<=0) {
       bala[i].removebullet();
     }
@@ -78,12 +80,15 @@ void draw()
   one.updateplayer();
   one.drawplayer(500);
   fill(1, 67, 88);
+  rectMode(CORNER);
   rect(00, 500, 600, 100);
   println(frameRate);
   fill(34, 64, 123);
   for (int i=0; i<numballs; i++) {
-    fuad[i].drawball();
-    fuad[i].ballupdate();
+    if(fuad[i].ballask()){
+      fuad[i].drawball();
+      fuad[i].ballupdate();
+    }
   }
 }
 

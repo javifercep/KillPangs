@@ -7,9 +7,13 @@ class Ball {
     posy=y;
     velx=vx;
     vely=vy;
+    activate=false;
   }
   boolean ballavailable() {
     return !activate;
+  }
+  boolean ballask() {
+    return activate;
   }
   void activate() {
     if (!activate) {
@@ -57,6 +61,13 @@ class Ball {
   void touch() {
     ballcolor=color(random(255), random(255), random(255));
   }
+  PVector nextpos() {
+    return new PVector(posx-velx, posy-vely);
+  }
+
+  void removeball() {
+    activate=false;
+  }
 }
 
 
@@ -64,12 +75,15 @@ void ballshit() {
   while (true) {
     if (thrcontrol) {
       for (int n=numballs-1; n>=0; n--) {
-        for (int m=0; m<n; m++) {
-          println(m);
-          if (PVector.dist(fuad[n].getpos(), fuad[m].getpos())<30) {
-            colision(fuad[n], fuad[m]);
-            /*fuad[n].touch();
-             fuad[m].touch();*/
+        if (fuad[n].ballask()) {
+          for (int m=0; m<n; m++) {
+            if (fuad[m].ballask()) {
+              if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<30) {
+                colision(fuad[n], fuad[m]);
+                /*fuad[n].touch();
+                 fuad[m].touch();*/
+              }
+            }
           }
         }
       }

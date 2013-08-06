@@ -13,12 +13,14 @@ class Player {
   }
   void updateplayer() {
     x+=vel;
-    if (x<0) x=0;
-    if (x+10>width) x=width-10;
+    if (x<5) x=5;
+    if (x+5>width) x=width-5;
+    println(x);
   }
 
   void drawplayer(float h) {
-    rect(x, h-20, 10, 20);
+    rectMode(CENTER);
+    rect(x, h-10, 10, 20);
   }
 }
 
