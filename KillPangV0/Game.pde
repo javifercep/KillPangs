@@ -27,14 +27,14 @@ void ShowGame()
     }
   }
   fill(111, 55, 222);
-  one.setvel(Ardu.getX()*10.);
+  one.setvel(Ardu.getX()/50.);
   one.updateplayer();
   one.drawplayer(500);
   fill(1, 67, 88);
   rectMode(CORNER);
   rect(00, 500, 600, 100);
-  println(frameRate);
-  fill(34, 64, 123);
+  //println(frameRate);
+  
   for (int i=0; i<numballs; i++) {
     if (fuad[i].ballask()) {
       fuad[i].drawball();

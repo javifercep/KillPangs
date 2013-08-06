@@ -24,7 +24,7 @@ void setupMenus()
   for (int i=0; i<USBdisponible.length;i++)
   {
     ListBoxItem lbi=ListaUSB.addItem(USBdisponible[i], i);
-    lbi.setColorBackground(color(100));
+    lbi.setColorBackground(color(100,0,20));
   }
   //ListaUSB.setVisible(true);
 

@@ -19,7 +19,7 @@ DataFromArduino Ardu = new DataFromArduino();
 Player one= new Player();
 Bullet bala[]=new Bullet[5];
 Ball fuad[]= new Ball[numballs];
-DisplayStateMachine display = new DisplayStateMachine(1);
+DisplayStateMachine display = new DisplayStateMachine(0);
 
 
 
@@ -27,7 +27,8 @@ void setup()
 {
   size(600, 600, OPENGL);
   frameRate(60);
-  //setupMenus();
+  setupMenus();
+  
 }
 
 void draw()
