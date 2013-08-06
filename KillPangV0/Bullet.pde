@@ -21,6 +21,7 @@ class Bullet {
   }
 
   void drawbullet() {
+    rectMode(CENTER);
     if (on) {
       rect(posx, posy, 5, 5);
     }
@@ -36,6 +37,18 @@ class Bullet {
   }
   float getx() {
     return posx;
+  }
+  void touchball(Ball[] b, int nb) {
+    if (on) {
+      for (int i=0; i<nb; i++) {
+        if (b[i].ballask()) {
+          if (PVector.dist(b[i].getpos(), new PVector(posx, posy))<2.5+15) {
+            removebullet();
+            b[i].removeball();
+          }
+        }
+      }
+    }
   }
 }
 

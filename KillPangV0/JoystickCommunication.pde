@@ -1,11 +1,27 @@
 Serial joystickCOM;
 String dataReceived = ""; // Incoming serial data
+boolean conected=false;
 
-public void InitJoystickCOM()
+public void InitJoystickCOM(String portName)
 {
+<<<<<<< HEAD
   println(Serial.list());
   String portName = Serial.list()[2];
+=======
+  if (conected)
+  {
+    println("Desconectando...");
+    joystickCOM.clear();
+    joystickCOM.stop();
+  }
+  println("Conectando al puerto "+portName);
+>>>>>>> origin/Sr.Cepeda
   joystickCOM = new Serial(this, portName, 115200);
+  println("CONECTADO");
+  conected=true;
+  ListaUSB.hide();
+  //ListaUSB.setVisible(true);
+  display.setControlDisplay(1);
 }
 
 void serialEvent(Serial joystickCOM) {
