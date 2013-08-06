@@ -49,17 +49,23 @@ public class DataFromArduino {
     if (Buffer.size()>0)
     {
       String[] coordenadas = split(Buffer.get(0), ':');
-      posx=map(Float.parseFloat(coordenadas[0]), 0, 1023, 25, 575);
-      if (posx <100.0)      posBX = -1;
-      else if (posx >500.0)  posBX =  1;
-      else                posBX =  0;
-      println(posBX);
-      posy=map(Float.parseFloat(coordenadas[1]), 0, 1023, 25, 575);
-      if (posy < 100.0)      posBY = -1;
-      else if (posy >500.0)  posBY =  1;
-      else                posBY =  0;
-      println(posBY);
-      swon=Integer.parseInt(coordenadas[2].substring(0, 1));
+      if (coordenadas[0].length()<4)
+      {
+        posx=map(Float.parseFloat(coordenadas[0]), 0, 1023, -500.0, 500.0);
+        if (posx <-250.0)      posBX = -1;
+        else if (posx >250.0)  posBX =  1;
+        else                posBX =  0;
+        if (coordenadas[1].length()<4)
+        {
+          //println(posBX);
+          posy=map(Float.parseFloat(coordenadas[1]), 0, 1023, -500.0, 500.0);
+          if (posy < -250.0)      posBY = -1;
+          else if (posy > 250.0)  posBY =  1;
+          else                posBY =  0;
+          //println(posBY);
+          swon=Integer.parseInt(coordenadas[2].substring(0, 1));
+        }
+      }
       Buffer.remove(0);
       return true;
     }

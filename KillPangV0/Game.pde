@@ -58,6 +58,7 @@ void ShowGame()
   fill(111, 55, 222);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   one.setvel(Ardu.getX()*10.);
   one.updateplayer();
   one.drawplayer(500);
@@ -93,13 +94,16 @@ void InitGame()
 =======
   one.setvel(Ardu.getX()*10.);
 >>>>>>> Chaos comes to us
+=======
+  one.setvel(Ardu.getX()/50.);
+>>>>>>> Game works!
   one.updateplayer();
   one.drawplayer(500);
   fill(1, 67, 88);
   rectMode(CORNER);
   rect(00, 500, 600, 100);
-  println(frameRate);
-  fill(34, 64, 123);
+  //println(frameRate);
+  
   for (int i=0; i<numballs; i++) {
     if (fuad[i].ballask()) {
       fuad[i].drawball();

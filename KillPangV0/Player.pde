@@ -15,7 +15,7 @@ class Player {
     x+=vel;
     if (x<5) x=5;
     if (x+5>width) x=width-5;
-    println(x);
+    //println(x);
   }
 
   void drawplayer(float h) {

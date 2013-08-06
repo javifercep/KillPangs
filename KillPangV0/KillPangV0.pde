@@ -19,7 +19,7 @@ DataFromArduino Ardu = new DataFromArduino();
 Player one= new Player();
 Bullet bala[]=new Bullet[5];
 Ball fuad[]= new Ball[numballs];
-DisplayStateMachine display = new DisplayStateMachine(1);
+DisplayStateMachine display = new DisplayStateMachine(0);
 
 
 
@@ -27,6 +27,7 @@ void setup()
 {
   size(600, 600, OPENGL);
   frameRate(60);
+<<<<<<< HEAD
 <<<<<<< HEAD
   //setupMenus();
 =======
@@ -43,6 +44,10 @@ void setup()
   thread("ballshit");
   noStroke();
 >>>>>>> Portillo's code working with Joystick :)
+=======
+  setupMenus();
+  
+>>>>>>> Game works!
 }
 
 void draw()

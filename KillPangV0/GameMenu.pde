@@ -24,8 +24,13 @@ void setupMenus()
   for (int i=0; i<USBdisponible.length;i++)
   {
     ListBoxItem lbi=ListaUSB.addItem(USBdisponible[i], i);
+<<<<<<< HEAD
     lbi.setColorBackground(color(100));
   }*/
+=======
+    lbi.setColorBackground(color(100,0,20));
+  }
+>>>>>>> Game works!
   //ListaUSB.setVisible(true);
 
   FondoMainMenu=loadImage("fotofuad.jpg");
