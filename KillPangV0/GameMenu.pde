@@ -19,13 +19,13 @@ void setupMenus()
   ListaUSB.valueLabel().style().marginTop = 0;
   ListaUSB.actAsPulldownMenu(true);
 
-  String[] USBdisponible = joystickCOM.list();
+  /*String[] USBdisponible = joystickCOM.list();
 
   for (int i=0; i<USBdisponible.length;i++)
   {
     ListBoxItem lbi=ListaUSB.addItem(USBdisponible[i], i);
     lbi.setColorBackground(color(100));
-  }
+  }*/
   //ListaUSB.setVisible(true);
 
   FondoMainMenu=loadImage("fotofuad.jpg");
@@ -40,7 +40,7 @@ public void controlEvent(ControlEvent theEvent) {
     {
       int valorCOM=(int)theEvent.group().value();
       String[][] Puerto=ListaUSB.getListBoxItems();
-      InitJoystickCOM(Puerto[valorCOM][0]);
+      //InitJoystickCOM(Puerto[valorCOM][0]);
     }
   }
 }
