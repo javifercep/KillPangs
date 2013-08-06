@@ -4,10 +4,6 @@ boolean conected=false;
 
 public void InitJoystickCOM(String portName)
 {
-<<<<<<< HEAD
-  println(Serial.list());
-  String portName = Serial.list()[2];
-=======
   if (conected)
   {
     println("Desconectando...");
@@ -15,7 +11,6 @@ public void InitJoystickCOM(String portName)
     joystickCOM.stop();
   }
   println("Conectando al puerto "+portName);
->>>>>>> origin/Sr.Cepeda
   joystickCOM = new Serial(this, portName, 115200);
   println("CONECTADO");
   conected=true;
