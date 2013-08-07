@@ -1,5 +1,3 @@
-import controlP5.*;
-
 import processing.serial.*;
 
 int blanco = color(255);

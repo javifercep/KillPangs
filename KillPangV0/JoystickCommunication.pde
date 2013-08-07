@@ -14,7 +14,7 @@ public void InitJoystickCOM(String portName)
   joystickCOM = new Serial(this, portName, 115200);
   println("CONECTADO");
   conected=true;
-  ListaUSB.hide();
+  //ListaUSB.hide();
   //ListaUSB.setVisible(true);
   display.setControlDisplay(1);
 }
@@ -24,7 +24,7 @@ void serialEvent(Serial joystickCOM) {
     dataReceived = joystickCOM.readStringUntil('f');
 
   //println(inString);
-  if (dataReceived != null && dataReceived.length()>=6)
+  if (dataReceived != null && dataReceived.length()>=7)
   {
     Ardu.addtoBuffer(dataReceived);
     dataReceived=null;
@@ -34,11 +34,17 @@ void serialEvent(Serial joystickCOM) {
 public class DataFromArduino {
   private StringList Buffer;
   private float posx, posy;
-  private int swon, posBX, posBY;
+  private int swon, swtrigger , posBX, posBY;
 
   public DataFromArduino ()
   {
     Buffer = new StringList();
+    posx=0.0;
+    posy=0.0;
+    swon = 1;
+    swtrigger = 1;
+    posBX=0;
+    posBY=0;
   }
 
   public boolean getDataFromBuffer() {
@@ -52,6 +58,7 @@ public class DataFromArduino {
       if (coordenadas[0].length()<4)
       {
         posx=map(Float.parseFloat(coordenadas[0]), 0, 1023, -500.0, 500.0);
+        if(posx<100 && posx>-100)posx=0;
         if (posx <-250.0)      posBX = -1;
         else if (posx >250.0)  posBX =  1;
         else                posBX =  0;
@@ -59,11 +66,13 @@ public class DataFromArduino {
         {
           //println(posBX);
           posy=map(Float.parseFloat(coordenadas[1]), 0, 1023, -500.0, 500.0);
+          if(posy<100 && posy>-100)posy=0;
           if (posy < -250.0)      posBY = -1;
           else if (posy > 250.0)  posBY =  1;
           else                posBY =  0;
           //println(posBY);
-          swon=Integer.parseInt(coordenadas[2].substring(0, 1));
+          swon=Integer.parseInt(coordenadas[2]);
+          swtrigger = Integer.parseInt(coordenadas[3].substring(0, 1));
         }
       }
       Buffer.remove(0);
@@ -102,6 +111,12 @@ public class DataFromArduino {
   {
     /* Return push Button State */
     return swon;
+  }
+  
+  public int getSWTriggerState()
+  {
+    /* Return push Button State */
+    return swtrigger;
   }
 
   public void addtoBuffer(String data)
