@@ -8,7 +8,7 @@ void ShowGame()
   thrcontrol=true;
   if (Ardu.getDataFromBuffer())
   {
-    if (Ardu.getSWState()==0) {
+    if (Ardu.getSWTriggerState()==0) {
       for (int i=0; i<5; i++) {
         if (bala[i].bulletavailable()) {
           bala[i].activate(one.getpos());
