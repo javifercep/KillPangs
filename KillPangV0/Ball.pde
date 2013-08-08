@@ -9,7 +9,7 @@ class Ball {
     vely=vy;
     activate=false;
   }
-  boolean ballavailable() {
+  boolean  ballavailable(){
     return !activate;
   }
   boolean ballask() {
@@ -177,5 +177,13 @@ void colision(Ball one, Ball two) {
     one.setvel(velone);
     two.setvel(veltwo);
   }
+}
+
+int checkNumBalls(Ball[] b, int nb)
+{
+  int count=0;
+  for(int i=0; i< nb;i++)
+    if(b[i].ballavailable())count++;
+  return count;
 }
 

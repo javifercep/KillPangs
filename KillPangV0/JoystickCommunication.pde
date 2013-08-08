@@ -17,6 +17,7 @@ public void InitJoystickCOM(String portName)
   //ListaUSB.hide();
   //ListaUSB.setVisible(true);
   display.setControlDisplay(1);
+  background(FondoMainMenu);
 }
 
 void serialEvent(Serial joystickCOM) {
