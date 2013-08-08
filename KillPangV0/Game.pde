@@ -41,6 +41,12 @@ void ShowGame()
       fuad[i].ballupdate();
     }
   }
+  
+  if(checkNumBalls(fuad, numballs)==numballs)
+  {
+    display.incControlDisplay();
+    background(255);
+  }
 }
 
 void InitGame()

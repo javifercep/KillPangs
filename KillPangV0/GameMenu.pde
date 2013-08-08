@@ -1,13 +1,15 @@
 
-PImage FondoMainMenu;
+PImage FondoMainMenu, FondoStartMenu;
 String[] USBdisponible;
 
 void setupMenus()
 {
   USBdisponible = joystickCOM.list();
-  FondoMainMenu=loadImage("fotofuad.jpg");
+  FondoStartMenu=loadImage("fotofuad.jpg");
+  FondoStartMenu.resize(width, height);
+  background(FondoStartMenu);
+  FondoMainMenu=loadImage("fuad.png");
   FondoMainMenu.resize(width, height);
-  background(FondoMainMenu);
 }
 
 /*public void controlEvent(ControlEvent theEvent) {
@@ -36,8 +38,33 @@ void ShowStartMenu()
   //background(FondoMainMenu);
 }
 
+
 void ShowMainMenu()
 {
+  textSize(38);
+  smooth();
+  fill(color(240, 20, 20));
+  text("KILL F.. PANG!!",150,150);
+  text("PULSE START", 150, 400);
+  Ardu.getDataFromBuffer();
+  if(Ardu.getSWTriggerState()==0)
+  {
+    display.incControlDisplay();
+  }
+}
+
+void ShowHighScoreMenu()
+{
+  textSize(38);
+  smooth();
+  fill(0);
+  text("Trabajando en ello",150,150);
+  Ardu.getDataFromBuffer();
+  if(Ardu.getSWTriggerState()==0)
+  {
+    display.setControlDisplay(1);
+    background(FondoMainMenu);
+  }
 }
 
 void keyPressed()
