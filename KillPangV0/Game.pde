@@ -131,8 +131,8 @@ void InitGame()
     bala[i]= new Bullet(10, 475);
   }
   for (int i=0; i<numballs; i++) {
-    fuad[i]= new Ball(random(15, 500), random(15, 400), 2*(random(-2, 2)), 2*(random(-2, 2)),random(-.1, .1),random(-.1, .1));
-    fuad[i].activate();
+    fuad[i]= new Ball();
+    fuad[i].activate(random(15, 500), random(15, 400), 2*(random(-2, 2)), 2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
   }
 
   thread("ballshit");
