@@ -1,10 +1,34 @@
+Serial joystickCOM;
+String dataReceived = ""; // Incoming serial data
+boolean conected=false;
+
+public void InitJoystickCOM(String portName)
+{
+  if (conected)
+  {
+    println("Desconectando...");
+    joystickCOM.clear();
+    joystickCOM.stop();
+  }
+  println("Conectando al puerto "+portName);
+  joystickCOM = new Serial(this, portName, 115200);
+  println("CONECTADO");
+  conected=true;
+  //ListaUSB.hide();
+  //ListaUSB.setVisible(true);
+  display.setControlDisplay(1);
+  background(FondoMainMenu);
+}
+
+
 class DataFromArduino {
-  int px, py, swon;
+  int px, py, swon,swtrigger;
   boolean pushed;
   DataFromArduino() {
     px=0;
     py=0;
     swon=1;
+    swtrigger = 1;
     pushed=false;
   }
   void setX(int t) {
@@ -16,6 +40,9 @@ class DataFromArduino {
   void setSWState(int t) {
     swon=t;
   }
+  void setSWTriggerState(int t) {
+    swtrigger=t;
+  }
   int getX() {
     return px;
   }
@@ -25,6 +52,11 @@ class DataFromArduino {
   int getSWState() {
     int temp=swon;
     if (swon==0) swon=1;
+    return temp;
+  }
+  int getSWTriggerState() {
+    int temp=swon;
+    if (swtrigger==0) swtrigger=1;
     return temp;
   }
   boolean getDataFromBuffer(){
@@ -80,6 +112,11 @@ void keyReleased() {
 
   if (key==' ') {
     Ardu.setSWState(0);
+    Ardu.setPushed();
+  }
+  
+  if (key==ENTER) {
+    Ardu.setSWTriggerState(0);
     Ardu.setPushed();
   }
 }
