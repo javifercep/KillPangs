@@ -116,9 +116,16 @@ void InitGame()
   
   if(checkNumBalls(fuad, numballs)== numballs)
   {
-    display.incControlDisplay();
-    background(255);
-    ballshit.quit();
+    if(level > maxLevel)
+    {
+      display.incControlDisplay();
+      background(255);
+      ballshit.quit();
+    }
+    else
+    {
+      nextLevel();
+    }
   }
 }
 
@@ -131,12 +138,26 @@ void InitGame()
     bala[i]= new Bullet(10, 475);
   }
   for (int i=0; i<numballs; i++) {
+<<<<<<< HEAD
     fuad[i]= new Ball();
     fuad[i].activate(random(15, 500), random(15, 400), 2*(random(-2, 2)), 2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
+=======
+    fuad[i]= new Ball(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1));
+    fuad[i].activate();
+>>>>>>> Primer commit! Niveles
   }
 
   thread("ballshit");
   noStroke();
 }
 
+<<<<<<< HEAD
 >>>>>>> Chaos comes to us
+=======
+void nextLevel()
+{
+  level++;
+}
+  
+
+>>>>>>> Primer commit! Niveles
