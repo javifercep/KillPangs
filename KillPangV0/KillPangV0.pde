@@ -9,10 +9,12 @@ int displayState=0;
 
 int colorControl=0;
 
-int numballs=30;
+int numballs = 30;
+
 int ballrad=15;
-int level = 0;
-int maxLevel = 3;
+
+int level = 1;
+int maxLevel = 4;
 
 boolean thrcontrol=false;
 
