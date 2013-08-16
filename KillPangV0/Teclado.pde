@@ -11,7 +11,6 @@ public void InitJoystickCOM(String portName)
     joystickCOM.stop();
   }
   println("Conectando al puerto "+portName);
-  joystickCOM = new Serial(this, portName, 115200);
   println("CONECTADO");
   conected=true;
   //ListaUSB.hide();
@@ -55,7 +54,7 @@ class DataFromArduino {
     return temp;
   }
   int getSWTriggerState() {
-    int temp=swon;
+    int temp=swtrigger;
     if (swtrigger==0) swtrigger=1;
     return temp;
   }
@@ -73,20 +72,20 @@ class DataFromArduino {
 
 void keyPressed() {
   if (keyCode==UP) {
-    Ardu.setY(-1);
+    Ardu.setY(-1023);
     Ardu.setPushed();
   }
   else if (keyCode==DOWN) {
-    Ardu.setY(1);
+    Ardu.setY(1023);
     Ardu.setPushed();
   }
 
   if (keyCode==LEFT) {
-    Ardu.setX(-1);
+    Ardu.setX(-1023);
     Ardu.setPushed();
   }
   else if (keyCode==RIGHT) {
-    Ardu.setX(1);
+    Ardu.setX(1023);
     Ardu.setPushed();
   }
 }

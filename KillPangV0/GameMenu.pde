@@ -15,22 +15,8 @@ String[] USBdisponible;
 
 void setupMenus()
 {
-<<<<<<< HEAD
-  cp = new ControlP5(this);
-  ListaUSB = cp.addListBox("usb")
-    .setPosition(170, 50)
-      .setSize(180, 120)
-        .setItemHeight(20)
-          .setBarHeight(30)
-            .setColorBackground(color(50, 200, 20))
-              .setColorActive(color(220, 200, 20));
-  ListaUSB.captionLabel().toUpperCase(true);
-  ListaUSB.captionLabel().set("COM");
-  ListaUSB.captionLabel().setColor(color(0));
-  ListaUSB.captionLabel().style().marginTop = 3;
-  ListaUSB.valueLabel().style().marginTop = 0;
-  ListaUSB.actAsPulldownMenu(true);
 
+<<<<<<< HEAD
   /*String[] USBdisponible = joystickCOM.list();
 
   for (int i=0; i<USBdisponible.length;i++)
@@ -46,6 +32,8 @@ void setupMenus()
   //ListaUSB.setVisible(true);
 
 =======
+=======
+>>>>>>> Update Ball class & fix Teclado bug
   USBdisponible = joystickCOM.list();
 <<<<<<< HEAD
 >>>>>>> Colours are beautiful! :D
@@ -98,6 +86,10 @@ void ShowStartMenu()
     text("Option "+Integer.toString(i+1)+": "+ USBdisponible[i], 150, 250+100*i);
   }
   //background(FondoMainMenu);
+<<<<<<< HEAD
+=======
+
+>>>>>>> Update Ball class & fix Teclado bug
 }
 
 
@@ -111,16 +103,21 @@ void ShowMainMenu()
   Ardu.getDataFromBuffer();
   if(Ardu.getSWTriggerState()==0)
   {
+<<<<<<< HEAD
+=======
+
+>>>>>>> Update Ball class & fix Teclado bug
     display.incControlDisplay();
   }
 }
 
 void InitHighScoreMenu()
 {
-   sumador = -20;
+  sumador = -20;
   counter = 0;
-  faud = new PShape[16];
   noStroke();
+  fill(255);
+  faud = new PShape[16];
 
   faudo = loadImage("faud.jpg");
   for (int i=0; i<16;i++) {
@@ -138,6 +135,10 @@ void InitHighScoreMenu()
   for (int i=0;i<2;i++) {
     for (int j=0; j<16;j++) {
       posiciones[i][j] = random(-3.14, 3.14);
+<<<<<<< HEAD
+=======
+
+>>>>>>> Update Ball class & fix Teclado bug
     }
   }
   
@@ -185,7 +186,7 @@ void ShowHighScoreMenu()
   }
 }
 
-void keyPressed()
+void keyTyped()
 {
   if (key=='1')
   { 

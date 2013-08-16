@@ -1,13 +1,21 @@
 class Ball {
-  float posx, posy, velx, vely;
+  float posx, posy, velx, vely, rotx=0 ,roty=0, velrx, velry;
   boolean activate;
   color ballcolor=color(0);
-  Ball(float x, float y, float vx, float vy) {
+  PShape obj;
+  Ball(float x, float y, float vx, float vy,float wx,float wy) {
     posx=x;
     posy=y;
     velx=vx;
     vely=vy;
     activate=false;
+    faudo = loadImage("faud.jpg");
+    noStroke();
+    fill(255);
+    obj=createShape(SPHERE, ballrad);
+    obj.setTexture(faudo);
+    velrx=wx;
+    velry=wy;
   }
   boolean  ballavailable() {
     return !activate;
@@ -24,18 +32,20 @@ class Ball {
   void ballupdate() {
     posy-=vely;
     posx-=velx;
-    if (posx-15<0 && velx>0) velx*=-1;
-    if (posx+15>width && velx<0) velx*=-1;
-    if (posy-15<0 && vely>0) vely*=-1;
-    if (posy+15>500 && vely<0) vely*=-1;
+    if (posx-ballrad<0 && velx>0) velx*=-1;
+    if (posx+ballrad>width && velx<0) velx*=-1;
+    if (posy-ballrad<0 && vely>0) vely*=-1;
+    if (posy+ballrad>500 && vely<0) vely*=-1;
   }
 
   void drawball() {
     if (activate) {
-      fill(ballcolor);
+
       pushMatrix();
       translate(posx, posy);
-      sphere(15);
+      rotateX(rotx+=velrx);
+      rotateY(roty+=velry);
+      shape(obj);
       popMatrix();
     }
   }
@@ -72,26 +82,26 @@ class Ball {
 
 
 /*void ballshit() {
-  while (true) {
-    if (thrcontrol) {
-      for (int n=numballs-1; n>=0; n--) {
-
-        if (fuad[n].ballask()) {
-          for (int m=0; m<n; m++) {
-            if (fuad[m].ballask()) {
-              if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<30) {
-                colision(fuad[n], fuad[m]);*/
-                /*fuad[n].touch();
-                 fuad[m].touch();*/
+ while (true) {
+ if (thrcontrol) {
+ for (int n=numballs-1; n>=0; n--) {
+ 
+ if (fuad[n].ballask()) {
+ for (int m=0; m<n; m++) {
+ if (fuad[m].ballask()) {
+ if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<30) {
+ colision(fuad[n], fuad[m]);*/
+/*fuad[n].touch();
+ fuad[m].touch();*/
 /*              }
-            }
-          }
-        }
-      }
-      thrcontrol=false;
-    }
-  }
-}*/
+ }
+ }
+ }
+ }
+ thrcontrol=false;
+ }
+ }
+ }*/
 
 class BallShit extends Thread {
 
@@ -125,7 +135,7 @@ class BallShit extends Thread {
           if (fuad[n].ballask()) {
             for (int m=0; m<n; m++) {
               if (fuad[m].ballask()) {
-                if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<30) {
+                if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<2*ballrad) {
                   colision(fuad[n], fuad[m]);
                   /*fuad[n].touch();
                    fuad[m].touch();*/
@@ -150,7 +160,7 @@ class BallShit extends Thread {
 
 void colision(Ball one, Ball two) {
   // get distances between the balls components
-  float r=15;
+  float r=ballrad;
   PVector velone=one.getvel();
   PVector veltwo=two.getvel();
   float m1=40, m2=40;

@@ -10,6 +10,7 @@ int displayState=0;
 int colorControl=0;
 
 int numballs=30;
+int ballrad=15;
 
 boolean thrcontrol=false;
 
@@ -53,6 +54,7 @@ void draw()
 {
 <<<<<<< HEAD
   display.ShowDisplay();
+<<<<<<< HEAD
 =======
   /*ambientLight(40,40,40);
    directionalLight(126, 126, 126, 0, 0, -1);*/
@@ -112,5 +114,8 @@ void draw()
     }
   }
 >>>>>>> Portillo's code working with Joystick :)
+=======
+  println(frameRate);
+>>>>>>> Update Ball class & fix Teclado bug
 }
 
