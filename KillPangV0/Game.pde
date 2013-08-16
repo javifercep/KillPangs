@@ -85,7 +85,10 @@ void InitGame()
     fuad[i].activate();
   }
 
-  thread("ballshit");
+  //thread("ballshit");
+  println("Iniciando");
+  ballshit = new BallShit("ball");
+  ballshit.start();
   noStroke();
 }
 
@@ -115,6 +118,7 @@ void InitGame()
   {
     display.incControlDisplay();
     background(255);
+    ballshit.quit();
   }
 }
 

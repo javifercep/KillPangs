@@ -24,7 +24,11 @@ public class DisplayStateMachine {
     case 3: 
       ShowGame();
       break;
-    case 4:
+       case 4:
+      InitHighScoreMenu();
+      controlDisplay=5;
+      break;
+    case 5:
       ShowHighScoreMenu();
       break;
     }
