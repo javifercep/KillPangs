@@ -35,7 +35,8 @@ void serialEvent(Serial joystickCOM) {
 public class DataFromArduino {
   private StringList Buffer;
   private float posx, posy;
-  private int swon, swtrigger , posBX, posBY;
+  private int swon, swtrigger, posBX, posBY, grenade,countgrenLectures;
+  private boolean granislaunch;
 
   public DataFromArduino ()
   {
@@ -46,6 +47,9 @@ public class DataFromArduino {
     swtrigger = 1;
     posBX=0;
     posBY=0;
+    grenade = 0;
+    granislaunch=false;
+    countgrenLectures=0;
   }
 
   public boolean getDataFromBuffer() {
@@ -59,7 +63,7 @@ public class DataFromArduino {
       if (coordenadas[0].length()<4)
       {
         posx=map(Float.parseFloat(coordenadas[0]), 0, 1023, -500.0, 500.0);
-        if(posx<100 && posx>-100)posx=0;
+        if (posx<100 && posx>-100)posx=0;
         if (posx <-250.0)      posBX = -1;
         else if (posx >250.0)  posBX =  1;
         else                posBX =  0;
@@ -67,13 +71,16 @@ public class DataFromArduino {
         {
           //println(posBX);
           posy=map(Float.parseFloat(coordenadas[1]), 0, 1023, -500.0, 500.0);
-          if(posy<100 && posy>-100)posy=0;
+          if (posy<100 && posy>-100)posy=0;
           if (posy < -250.0)      posBY = -1;
           else if (posy > 250.0)  posBY =  1;
           else                posBY =  0;
           //println(posBY);
-          swon=Integer.parseInt(coordenadas[2]);
-          swtrigger = Integer.parseInt(coordenadas[3].substring(0, 1));
+          grenade = Integer.parseInt(coordenadas[2]);
+          granislaunch = GrenadeisLaunched();
+          //println(grenade);
+          swon=Integer.parseInt(coordenadas[3]);
+          swtrigger = Integer.parseInt(coordenadas[4].substring(0, 1));
         }
       }
       Buffer.remove(0);
@@ -108,12 +115,42 @@ public class DataFromArduino {
     return posBY;
   }
 
+  public int getGrenade()
+  {
+    /*Return grenade value*/
+    return grenade;
+  }
+  
+  public boolean getGranadeLaunch()
+  {
+    
+    /*Return grenade value*/
+    return granislaunch;
+  }
+  
+  public boolean GrenadeisLaunched()
+  {
+    boolean temp = false;
+    /* Return true if granade is launched*/
+    if(grenade > 700)
+    {
+      countgrenLectures ++;
+      if(countgrenLectures == 5)
+      {
+        temp=true;
+        countgrenLectures = 0;
+      }
+    }
+    return temp;
+  }
+
+
   public int getSWState()
   {
     /* Return push Button State */
     return swon;
   }
-  
+
   public int getSWTriggerState()
   {
     /* Return push Button State */
