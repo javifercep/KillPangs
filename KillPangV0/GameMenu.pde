@@ -127,7 +127,7 @@ void ShowHighScoreMenu()
     translate(120, 0, 0);
   }
   //println(frameRate);
-   Ardu.getDataFromBuffer();
+  Ardu.getDataFromBuffer();
   if(Ardu.getSWTriggerState()==0)
   {
     display.incControlDisplay();

@@ -42,7 +42,7 @@ void ShowGame()
     }
   }
   
-  if(checkNumBalls(fuad, numballs)==numballs)
+  if(checkNumBalls(fuad, numballs)== numballs)
   {
     display.incControlDisplay();
     background(255);
