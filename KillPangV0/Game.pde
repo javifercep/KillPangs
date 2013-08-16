@@ -8,7 +8,7 @@ void ShowGame()
   thrcontrol=true;
   if (Ardu.getDataFromBuffer())
   {
-    if (Ardu.getSWState()==0) {
+    if (Ardu.getSWTriggerState()==0) {
       for (int i=0; i<5; i++) {
         if (bala[i].bulletavailable()) {
           bala[i].activate(one.getpos());
@@ -27,19 +27,26 @@ void ShowGame()
     }
   }
   fill(111, 55, 222);
-  one.setvel(Ardu.getX()*10.);
+  one.setvel(Ardu.getX()/50.);
   one.updateplayer();
   one.drawplayer(500);
   fill(1, 67, 88);
   rectMode(CORNER);
   rect(00, 500, 600, 100);
-  println(frameRate);
-  fill(34, 64, 123);
+  //println(frameRate);
+  
   for (int i=0; i<numballs; i++) {
     if (fuad[i].ballask()) {
       fuad[i].drawball();
       fuad[i].ballupdate();
     }
+  }
+  
+  if(checkNumBalls(fuad, numballs)==numballs)
+  {
+    display.incControlDisplay();
+    background(255);
+    ballshit.quit();
   }
 }
 
@@ -53,7 +60,10 @@ void InitGame()
     fuad[i].activate();
   }
 
-  thread("ballshit");
+  //thread("ballshit");
+  println("Iniciando");
+  ballshit = new BallShit("ball");
+  ballshit.start();
   noStroke();
 }
 

@@ -13,13 +13,23 @@ public class DisplayStateMachine {
     case 0: 
       ShowStartMenu();
       break;
-
-    case 1: 
-      InitGame();
-      controlDisplay=2;
+    case 1:
+      ShowMainMenu();
       break;
+
     case 2: 
+      InitGame();
+      controlDisplay=3;
+      break;
+    case 3: 
       ShowGame();
+      break;
+       case 4:
+      InitHighScoreMenu();
+      controlDisplay=5;
+      break;
+    case 5:
+      ShowHighScoreMenu();
       break;
     }
   }

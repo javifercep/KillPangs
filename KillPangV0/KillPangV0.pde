@@ -1,5 +1,3 @@
-import controlP5.*;
-
 import processing.serial.*;
 
 int blanco = color(255);
@@ -19,7 +17,8 @@ DataFromArduino Ardu = new DataFromArduino();
 Player one= new Player();
 Bullet bala[]=new Bullet[5];
 Ball fuad[]= new Ball[numballs];
-DisplayStateMachine display = new DisplayStateMachine(1);
+DisplayStateMachine display = new DisplayStateMachine(0);
+BallShit ballshit;
 
 
 
@@ -27,7 +26,8 @@ void setup()
 {
   size(600, 600, OPENGL);
   frameRate(60);
-  //setupMenus();
+  setupMenus();
+  
 }
 
 void draw()
