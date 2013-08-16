@@ -1,4 +1,15 @@
+import ddf.minim.*;
 
+PImage img;
+PImage faudo;
+PShape[] faud;
+float y=0, x=0;
+float[][] aleatorio;
+float[][] posiciones;
+Minim minim;
+AudioPlayer kick;
+float counter;
+float sumador;
 PImage FondoMainMenu, FondoStartMenu;
 String[] USBdisponible;
 
@@ -53,17 +64,73 @@ void ShowMainMenu()
   }
 }
 
+void InitHighScoreMenu()
+{
+   sumador = -20;
+  counter = 0;
+  faud = new PShape[16];
+  noStroke();
+
+  faudo = loadImage("faud.jpg");
+  for (int i=0; i<16;i++) {
+    faud[i]=createShape(SPHERE, 45);
+    faud[i].setTexture(faudo);
+  }
+
+  aleatorio = new float[2][16];
+  for (int i=0;i<2;i++) {
+    for (int j=0; j<16;j++) {
+      aleatorio[i][j] = random(-3.14, 3.14);
+    }
+  }
+  posiciones = new float[2][16];
+  for (int i=0;i<2;i++) {
+    for (int j=0; j<16;j++) {
+      posiciones[i][j] = random(-3.14, 3.14);
+    }
+  }
+  
+  minim = new Minim(this);
+  kick = minim.loadFile("gasolina.mp3",1024);
+  kick.play();
+  
+  img = loadImage("fondo.jpeg");
+  img.resize(width,height);
+  
+  sphereDetail(20);
+}
 void ShowHighScoreMenu()
 {
-  textSize(38);
-  smooth();
-  fill(0);
-  text("Trabajando en ello",150,150);
-  Ardu.getDataFromBuffer();
+  background(255);
+  if (true) {
+    img.loadPixels();
+    for(int i = 0; i <img.width*img.height; i++) {
+      color c = img.pixels[i];
+      color c2 = color((red(c)+random(0,3))%255,(green(c)+random(0,3))%255,(blue(c)+random(0,3))%255);
+      img.pixels[i] = c2;
+    }
+     img.updatePixels();
+  }
+  image(img,0,0,width,height);
+  translate(70, 70, 0);
+  for (int i=0;i<4;i++) {
+    pushMatrix();
+    for (int j=0; j<4;j++) {
+      pushMatrix();
+      rotateX(posiciones[0][4*i+j]+=(aleatorio[0][4*i+j])/50);
+      rotateY(posiciones[1][4*i+j]+=(aleatorio[1][4*i+j])/50);
+      shape(faud[4*i+j]);
+      popMatrix();
+      translate(0, 120, 0);
+    } 
+    popMatrix();
+    translate(120, 0, 0);
+  }
+  //println(frameRate);
+   Ardu.getDataFromBuffer();
   if(Ardu.getSWTriggerState()==0)
   {
-    display.setControlDisplay(1);
-    background(FondoMainMenu);
+    display.incControlDisplay();
   }
 }
 
@@ -121,4 +188,10 @@ void keyPressed()
   }
 }
 
+void stop()
+{
+  kick.close();
+  minim.stop();
+  super.stop();
+}
 

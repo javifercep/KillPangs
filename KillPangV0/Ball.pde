@@ -9,7 +9,7 @@ class Ball {
     vely=vy;
     activate=false;
   }
-  boolean  ballavailable(){
+  boolean  ballavailable() {
     return !activate;
   }
   boolean ballask() {
@@ -71,7 +71,7 @@ class Ball {
 }
 
 
-void ballshit() {
+/*void ballshit() {
   while (true) {
     if (thrcontrol) {
       for (int n=numballs-1; n>=0; n--) {
@@ -80,16 +80,70 @@ void ballshit() {
           for (int m=0; m<n; m++) {
             if (fuad[m].ballask()) {
               if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<30) {
-                colision(fuad[n], fuad[m]);
+                colision(fuad[n], fuad[m]);*/
                 /*fuad[n].touch();
                  fuad[m].touch();*/
-              }
+/*              }
             }
           }
         }
       }
       thrcontrol=false;
     }
+  }
+}*/
+
+class BallShit extends Thread {
+
+  boolean running;           // Is the thread running?  Yes or no?
+  String id;                 // Thread name
+  int count;                 // counter
+
+  // Constructor, create the thread
+  // It is not running by default
+  BallShit (String s) {
+    running = false;
+    id = s;
+    count = 0;
+  }
+
+  // Overriding "start()"
+  void start () {
+    // Set running equal to true
+    running = true;
+    // Do whatever start does in Thread, don't forget this!
+    super.start();
+  }
+
+
+  // We must implement run, this gets triggered by start()
+  void run () {
+    while (running) {
+      if (thrcontrol) {
+        for (int n=numballs-1; n>=0; n--) {
+
+          if (fuad[n].ballask()) {
+            for (int m=0; m<n; m++) {
+              if (fuad[m].ballask()) {
+                if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<30) {
+                  colision(fuad[n], fuad[m]);
+                  /*fuad[n].touch();
+                   fuad[m].touch();*/
+                }
+              }
+            }
+          }
+        }
+        thrcontrol=false;
+      }
+    }
+  }
+
+  // Our method that quits the thread
+  void quit() { 
+    running = false;  // Setting running to false ends the loop in run()
+    // IUn case the thread is waiting. . .
+    //interrupt();
   }
 }
 
@@ -182,8 +236,8 @@ void colision(Ball one, Ball two) {
 int checkNumBalls(Ball[] b, int nb)
 {
   int count=0;
-  for(int i=0; i< nb;i++)
-    if(b[i].ballavailable())count++;
+  for (int i=0; i< nb;i++)
+    if (b[i].ballavailable())count++;
   return count;
 }
 

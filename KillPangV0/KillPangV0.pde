@@ -18,6 +18,7 @@ Player one= new Player();
 Bullet bala[]=new Bullet[5];
 Ball fuad[]= new Ball[numballs];
 DisplayStateMachine display = new DisplayStateMachine(0);
+BallShit ballshit;
 
 
 
