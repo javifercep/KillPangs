@@ -42,9 +42,10 @@ void ShowGame()
     }
   }
   
+  //end game or go to next level
   if(checkNumBalls(fuad, numballs)==numballs)
   {
-    if(level >= maxLevel)
+    if(level > maxLevel)
     {
       display.incControlDisplay();
       background(255);
@@ -62,13 +63,10 @@ void InitGame()
   for (int i=0; i<5; i++) {
     bala[i]= new Bullet(10, 475);
   }
-  int levelBalls = level*5;
   for (int i=0; i<numballs; i++) {
     fuad[i]= new Ball();
   }
-  for (int i=0; i<levelBalls; i++) {
-    fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
-  }
+  nextLevel();
 
   //thread("ballshit");
   println("Iniciando");
@@ -76,6 +74,7 @@ void InitGame()
   ballshit.start();
   noStroke();
 }
+//next level increases number of balls and speed
 void nextLevel()
 {
   level++;
@@ -83,5 +82,8 @@ void nextLevel()
   for (int i=0; i<levelBalls; i++) {
     fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
   }
+  PImage fua = loadImage("level" + level + ".jpg");
+  fua.resize(width, height);
+  background(fua);
+  delay(1000);
 }
-
