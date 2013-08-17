@@ -132,13 +132,29 @@ void ShowHighScoreMenu()
     translate(120, 0, 0);
   }
   //println(frameRate);
-   Ardu.getDataFromBuffer();
+  Ardu.getDataFromBuffer();
   if(Ardu.getSWTriggerState()==0)
   {
     display.incControlDisplay();
   }
 }
 
+void LevelUp()
+{
+  PImage fua = loadImage("level" + level + ".jpg");
+  fua.resize(width, height);
+  background(fua);
+  textSize(38);
+  smooth();
+  fill(color(240, 20, 20));
+  text("Level" + level, 150,150);
+  text("PULSE START", 150, 400);
+  Ardu.getDataFromBuffer();
+  if(Ardu.getSWTriggerState()==0)
+  {
+    display.setControlDisplay(3);
+  }
+}
 void keyTyped()
 {
   if (key=='1')
