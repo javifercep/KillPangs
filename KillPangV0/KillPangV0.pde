@@ -13,8 +13,8 @@ int numballs = 30;
 
 int ballrad=15;
 
-int level = 1;
-int maxLevel = 4;
+int level = 0;
+int maxLevel = 3;
 
 boolean thrcontrol=false;
 

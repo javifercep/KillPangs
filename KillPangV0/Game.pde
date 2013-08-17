@@ -114,9 +114,14 @@ void InitGame()
     }
   }
   
+<<<<<<< HEAD
   if(checkNumBalls(fuad, numballs)== numballs)
+=======
+  //end game or go to next level
+  if(checkNumBalls(fuad, numballs)==numballs)
+>>>>>>> Fotos intercaladas niveles intento-de
   {
-    if(level >= maxLevel)
+    if(level > maxLevel)
     {
       display.incControlDisplay();
       background(255);
@@ -137,7 +142,6 @@ void InitGame()
   for (int i=0; i<5; i++) {
     bala[i]= new Bullet(10, 475);
   }
-  int levelBalls = level*5;
   for (int i=0; i<numballs; i++) {
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -150,14 +154,19 @@ void InitGame()
 =======
     fuad[i]= new Ball();
   }
+<<<<<<< HEAD
   for (int i=0; i<levelBalls; i++) {
     fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
 >>>>>>> Niveles funcionando
   }
+=======
+  nextLevel();
+>>>>>>> Fotos intercaladas niveles intento-de
 
   thread("ballshit");
   noStroke();
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -165,6 +174,9 @@ void InitGame()
 =======
 =======
 >>>>>>> Niveles funcionando
+=======
+//next level increases number of balls and speed
+>>>>>>> Fotos intercaladas niveles intento-de
 void nextLevel()
 {
   level++;
@@ -172,6 +184,13 @@ void nextLevel()
   for (int i=0; i<levelBalls; i++) {
     fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
   }
+  PImage fua = loadImage("level" + level + ".jpg");
+  fua.resize(width, height);
+  background(fua);
+  delay(1000);
 }
+<<<<<<< HEAD
 
 >>>>>>> Primer commit! Niveles
+=======
+>>>>>>> Fotos intercaladas niveles intento-de
