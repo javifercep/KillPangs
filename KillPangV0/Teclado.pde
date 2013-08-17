@@ -19,7 +19,6 @@ public void InitJoystickCOM(String portName)
   background(FondoMainMenu);
 }
 
-
 class DataFromArduino {
   int px, py, swon,swtrigger;
   boolean pushed;
@@ -89,7 +88,6 @@ void keyPressed() {
     Ardu.setPushed();
   }
 }
-
 
 void keyReleased() {
   if (keyCode==LEFT) {

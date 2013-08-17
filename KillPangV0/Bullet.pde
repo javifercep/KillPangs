@@ -15,11 +15,9 @@ class Bullet {
       posy=iniy;
     }
   }
-
   void bulletupdate() {
     posy-=vel;
   }
-
   void drawbullet() {
     rectMode(CENTER);
     if (on) {

@@ -19,7 +19,6 @@ public class DisplayStateMachine {
 
     case 2: 
       InitGame();
-      controlDisplay=3;
       break;
     case 3: 
       ShowGame();
@@ -30,6 +29,9 @@ public class DisplayStateMachine {
       break;
     case 5:
       ShowHighScoreMenu();
+      break;
+    case 6:
+      LevelUp();
       break;
     }
   }

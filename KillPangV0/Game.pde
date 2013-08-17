@@ -121,7 +121,7 @@ void InitGame()
   if(checkNumBalls(fuad, numballs)==numballs)
 >>>>>>> Fotos intercaladas niveles intento-de
   {
-    if(level > maxLevel)
+    if(level >= maxLevel)
     {
       display.incControlDisplay();
       background(255);
@@ -184,10 +184,7 @@ void nextLevel()
   for (int i=0; i<levelBalls; i++) {
     fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
   }
-  PImage fua = loadImage("level" + level + ".jpg");
-  fua.resize(width, height);
-  background(fua);
-  delay(1000);
+  display.setControlDisplay(6);
 }
 <<<<<<< HEAD
 

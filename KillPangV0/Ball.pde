@@ -193,7 +193,6 @@ void colision(Ball one, Ball two) {
     PVector[] bTemp = {
       new PVector(), new PVector()
       };
-
       /* this ball's position is relative to the other
        so you can use the vector between them (bVect) as the 
        reference point in the rotation expressions.
@@ -219,7 +218,6 @@ void colision(Ball one, Ball two) {
     PVector[] vFinal = {  
       new PVector(), new PVector()
       };
-
       // final rotated velocity for b[0]
       vFinal[0].x = ((m1 - m2) * vTemp[0].x + 2 * m2 * vTemp[1].x) / (m1 + m2);
     vFinal[0].y = vTemp[0].y;
