@@ -17,51 +17,14 @@ PGraphics graphfondo;
 void setupMenus()
 {
 
-<<<<<<< HEAD
-  /*String[] USBdisponible = joystickCOM.list();
-
-  for (int i=0; i<USBdisponible.length;i++)
-  {
-    ListBoxItem lbi=ListaUSB.addItem(USBdisponible[i], i);
-<<<<<<< HEAD
-    lbi.setColorBackground(color(100));
-  }*/
-=======
-    lbi.setColorBackground(color(100,0,20));
-  }
->>>>>>> Game works!
-  //ListaUSB.setVisible(true);
-
-=======
-=======
->>>>>>> Update Ball class & fix Teclado bug
   USBdisponible = joystickCOM.list();
-<<<<<<< HEAD
->>>>>>> Colours are beautiful! :D
-  FondoMainMenu=loadImage("fotofuad.jpg");
-=======
   FondoStartMenu=loadImage("fotofuad.jpg");
   FondoStartMenu.resize(width, height);
   background(FondoStartMenu);
   FondoMainMenu=loadImage("fuad.png");
->>>>>>> Fuad is special... for us
   FondoMainMenu.resize(width, height);
 }
 
-<<<<<<< HEAD
-public void controlEvent(ControlEvent theEvent) {
-
-  if (theEvent.isGroup())
-  {
-    if (theEvent.name().equals("usb"))
-    {
-      int valorCOM=(int)theEvent.group().value();
-      String[][] Puerto=ListaUSB.getListBoxItems();
-      //InitJoystickCOM(Puerto[valorCOM][0]);
-    }
-  }
-}
-=======
 /*public void controlEvent(ControlEvent theEvent) {
  
  if (theEvent.isGroup())
@@ -74,7 +37,6 @@ public void controlEvent(ControlEvent theEvent) {
  }
  }
  }*/
->>>>>>> Colours are beautiful! :D
 void ShowStartMenu()
 {
   textSize(38);
@@ -87,10 +49,7 @@ void ShowStartMenu()
     text("Option "+Integer.toString(i+1)+": "+ USBdisponible[i], 150, 250+100*i);
   }
   //background(FondoMainMenu);
-<<<<<<< HEAD
-=======
 
->>>>>>> Update Ball class & fix Teclado bug
 }
 
 
@@ -104,10 +63,7 @@ void ShowMainMenu()
   Ardu.getDataFromBuffer();
   if(Ardu.getSWTriggerState()==0)
   {
-<<<<<<< HEAD
-=======
 
->>>>>>> Update Ball class & fix Teclado bug
     display.incControlDisplay();
   }
 }
@@ -136,10 +92,7 @@ void InitHighScoreMenu()
   for (int i=0;i<2;i++) {
     for (int j=0; j<8;j++) {
       posiciones[i][j] = random(-3.14, 3.14);
-<<<<<<< HEAD
-=======
 
->>>>>>> Update Ball class & fix Teclado bug
     }
   }
   
@@ -183,12 +136,10 @@ void ShowHighScoreMenu()
     popMatrix();
     translate(400, 0, 0);
   }
-<<<<<<< HEAD
+  
   //println(frameRate);
   Ardu.getDataFromBuffer();
-=======
-   Ardu.getDataFromBuffer();
->>>>>>> Update HighScore, now uses Shader
+
   if(Ardu.getSWTriggerState()==0)
   {
     display.incControlDisplay();
