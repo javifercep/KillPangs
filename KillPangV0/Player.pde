@@ -4,7 +4,6 @@ class Player {
     x=width/2.;
     vel=0;
   } 
-
   void setvel(float v) {
     vel=v;
   }
