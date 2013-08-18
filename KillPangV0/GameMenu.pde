@@ -12,7 +12,8 @@ float counter;
 float sumador;
 PImage FondoMainMenu, FondoStartMenu;
 String[] USBdisponible;
-
+PShader shaderfondo;
+PGraphics graphfondo;
 void setupMenus()
 {
 
@@ -117,23 +118,23 @@ void InitHighScoreMenu()
   counter = 0;
   noStroke();
   fill(255);
-  faud = new PShape[16];
+  faud = new PShape[8];
 
   faudo = loadImage("faud.jpg");
-  for (int i=0; i<16;i++) {
+  for (int i=0; i<8;i++) {
     faud[i]=createShape(SPHERE, 45);
     faud[i].setTexture(faudo);
   }
 
-  aleatorio = new float[2][16];
+  aleatorio = new float[2][8];
   for (int i=0;i<2;i++) {
-    for (int j=0; j<16;j++) {
+    for (int j=0; j<8;j++) {
       aleatorio[i][j] = random(-3.14, 3.14);
     }
   }
-  posiciones = new float[2][16];
+  posiciones = new float[2][8];
   for (int i=0;i<2;i++) {
-    for (int j=0; j<16;j++) {
+    for (int j=0; j<8;j++) {
       posiciones[i][j] = random(-3.14, 3.14);
 <<<<<<< HEAD
 =======
@@ -148,24 +149,28 @@ void InitHighScoreMenu()
   
   img = loadImage("fondo.jpeg");
   img.resize(width,height);
-  
+  fill(255);
   sphereDetail(20);
+  shaderfondo = loadShader("fondo.glsl");
+  graphfondo = createGraphics(width,height,OPENGL);
+  graphfondo.noSmooth();
+  graphfondo.beginDraw();
+  graphfondo.image(img,0,0,width,height);
+  graphfondo.endDraw();
+  shaderfondo.set("resolution", float(graphfondo.width), float(graphfondo.height)); 
+  shaderfondo.set("mask",graphfondo);  
+  background(255);
+  
 }
 void ShowHighScoreMenu()
 {
-  background(255);
-  if (true) {
-    img.loadPixels();
-    for(int i = 0; i <img.width*img.height; i++) {
-      color c = img.pixels[i];
-      color c2 = color((red(c)+random(0,3))%255,(green(c)+random(0,3))%255,(blue(c)+random(0,3))%255);
-      img.pixels[i] = c2;
-    }
-     img.updatePixels();
-  }
-  image(img,0,0,width,height);
-  translate(70, 70, 0);
-  for (int i=0;i<4;i++) {
+  graphfondo.beginDraw();
+  graphfondo.shader(shaderfondo);
+  graphfondo.rect(0, 0, graphfondo.width, graphfondo.height);
+  graphfondo.endDraw();
+  image(graphfondo,0,0,width,height);
+  translate(100,70, 0);
+  for (int i=0;i<2;i++) {
     pushMatrix();
     for (int j=0; j<4;j++) {
       pushMatrix();
@@ -173,13 +178,17 @@ void ShowHighScoreMenu()
       rotateY(posiciones[1][4*i+j]+=(aleatorio[1][4*i+j])/50);
       shape(faud[4*i+j]);
       popMatrix();
-      translate(0, 120, 0);
+      translate(0, 150, 0);
     } 
     popMatrix();
-    translate(120, 0, 0);
+    translate(400, 0, 0);
   }
+<<<<<<< HEAD
   //println(frameRate);
   Ardu.getDataFromBuffer();
+=======
+   Ardu.getDataFromBuffer();
+>>>>>>> Update HighScore, now uses Shader
   if(Ardu.getSWTriggerState()==0)
   {
     display.incControlDisplay();
