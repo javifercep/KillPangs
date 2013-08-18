@@ -42,7 +42,7 @@ class Bullet {
     if (on) {
       for (int i=0; i<nb; i++) {
         if (b[i].ballask()) {
-          if (PVector.dist(b[i].getpos(), new PVector(posx, posy))<2.5+15) {
+          if (PVector.dist(b[i].getpos(), new PVector(posx, posy))<2.5+b[i].getrad()) {
             removebullet();
             b[i].removeball();
           }

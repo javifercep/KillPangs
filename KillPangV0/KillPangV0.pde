@@ -10,6 +10,7 @@ int displayState=0;
 int colorControl=0;
 
 int numballs=30;
+int ballrad=15;
 
 boolean thrcontrol=false;
 
@@ -33,5 +34,6 @@ void setup()
 void draw()
 {
   display.ShowDisplay();
+  println(frameRate);
 }
 
