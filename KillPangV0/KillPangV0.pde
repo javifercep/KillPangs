@@ -31,10 +31,6 @@ void setup()
 {
   size(600, 600, OPENGL);
   frameRate(60);
-<<<<<<< HEAD
-<<<<<<< HEAD
-  //setupMenus();
-=======
   InitJoystickCOM();
   for (int i=0; i<5; i++) {
     bala[i]= new Bullet(10, 475);
@@ -45,9 +41,7 @@ void setup()
     fuad[i].touch();
   }
 
-  thread("ballshit");
   noStroke();
->>>>>>> Portillo's code working with Joystick :)
 =======
   setupMenus();
   
