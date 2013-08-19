@@ -30,9 +30,6 @@ public class DisplayStateMachine {
     case 5:
       ShowHighScoreMenu();
       break;
-    case 6:
-      LevelUp();
-      break;
     }
   }
 
