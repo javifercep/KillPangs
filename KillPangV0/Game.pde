@@ -12,7 +12,7 @@ void ShowGame()
   thrcontrol=true;
   if (Ardu.getDataFromBuffer())
   {
-    if (Ardu.getSWTriggerState()==0) {
+    if (Ardu.getSWTriggerState()==0 && one.asktimedead()) {
       for (int i=0; i<5; i++) {
         if (bala[i].bulletavailable()) {
           bala[i].activate(one.getpos());
@@ -32,9 +32,12 @@ void ShowGame()
   one.setvel(Ardu.getX()/50.);
   one.updateplayer();
   one.drawplayer(500);
+  one.ballkillplayer(fuad, numballs);
   fill(1, 67, 88);
   rectMode(CORNER);
-  rect(00, 500, 600, 100);
+  rect(0, 500, 600, 100);
+  fill(255,0,0);
+  text("Lives: "+one.numliv(),50,560);
   lights();
 
   for (int i=0; i<numballs; i++) {
@@ -50,6 +53,7 @@ void ShowGame()
     if (level >= maxLevel)
     {
       display.incControlDisplay();
+      timing.stopTime();
       background(255);
       ballshit.quit();
     }
@@ -57,6 +61,12 @@ void ShowGame()
     {
       nextLevel();
     }
+  }
+  if (one.askalive() == false) {
+    display.setControlDisplay(6);
+    timing.stopTime();
+    background(255);
+    ballshit.quit();
   }
 }
 
@@ -72,6 +82,7 @@ void InitGame()
   for (int i=0; i<5;i++) {
     bala[i].removebullet();
   }
+  one.resetplayer();
 }
 //next level increases number of balls and speed
 void nextLevel()
@@ -86,6 +97,18 @@ void nextLevel()
   display.setControlDisplay(3);
   for (int i=0; i<5;i++) {
     bala[i].removebullet();
+  }
+}
+
+void gameover() {
+  background(0);
+  textSize(40);
+  fill(255, 0, 0);
+  text("GAME OVER", 200, 200);
+  Ardu.getDataFromBuffer();
+  if (Ardu.getSWTriggerState()==0)
+  {
+    display.setControlDisplay(4);
   }
 }
 

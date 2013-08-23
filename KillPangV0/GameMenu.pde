@@ -20,7 +20,7 @@ String ranking[][];
 void InitConfigurations()
 {
   /*Here you can load all images and throw all the threads that you want*/
-    for (int i=0; i<5; i++) {
+  for (int i=0; i<5; i++) {
     bala[i]= new Bullet(10, 475);
   }
   for (int i=0; i<numballs; i++) {
@@ -60,12 +60,7 @@ void ShowMainMenu()
   fill(color(240, 20, 20));
   text("KILL F.. PANG!!", 150, 150);
   text("PULSE START", 150, 400);
-  Ardu.getDataFromBuffer();
-  if (Ardu.getSWTriggerState()==0)
-  {
-
-    display.incControlDisplay();
-  }
+  namePlayer.writingName();
 }
 
 void addranking(String name, int point) {
@@ -141,7 +136,7 @@ void InitHighScoreMenu()
   shaderfondo.set("resolution", float(graphfondo.width), float(graphfondo.height)); 
   shaderfondo.set("mask", graphfondo);  
   background(255);
-  addranking("Portillo", (int)(numPoints.getPuntuation()*timing.getMul()));
+  addranking(namePlayer.getName(), (int)(numPoints.getPuntuation()*timing.getMul()));
 }
 void ShowHighScoreMenu()
 {
@@ -171,10 +166,11 @@ void ShowHighScoreMenu()
   }
 
   Ardu.getDataFromBuffer();
-  if (Ardu.getSWTriggerState()==0)
+  if (Ardu.getSWState()==0)
   {
     kick.close();
     background(FondoMainMenu);
+    namePlayer.restart();
     display.setControlDisplay(1);
   }
 }
