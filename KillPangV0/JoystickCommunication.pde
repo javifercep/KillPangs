@@ -12,6 +12,7 @@ public void InitJoystickCOM(String portName)
   }
   println("Conectando al puerto "+portName);
   joystickCOM = new Serial(this, portName, 115200);
+  joystickCOM.bufferUntil('f');
   println("CONECTADO");
   conected=true;
   //ListaUSB.hide();
@@ -21,11 +22,9 @@ public void InitJoystickCOM(String portName)
 }
 
 void serialEvent(Serial joystickCOM) {
-  if (joystickCOM.available()>1)
-    dataReceived = joystickCOM.readStringUntil('f');
-
-  //println(inString);
-  if (dataReceived != null && dataReceived.length()>=7)
+    dataReceived = joystickCOM.readString();
+    
+  if (dataReceived != null)
   {
     Ardu.addtoBuffer(dataReceived);
     dataReceived=null;
