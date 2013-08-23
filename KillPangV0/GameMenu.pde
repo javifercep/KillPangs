@@ -20,7 +20,7 @@ String ranking[][];
 void InitConfigurations()
 {
   /*Here you can load all images and throw all the threads that you want*/
-  for (int i=0; i<5; i++) {
+    for (int i=0; i<5; i++) {
     bala[i]= new Bullet(10, 475);
   }
   for (int i=0; i<numballs; i++) {
@@ -141,7 +141,7 @@ void InitHighScoreMenu()
   shaderfondo.set("resolution", float(graphfondo.width), float(graphfondo.height)); 
   shaderfondo.set("mask", graphfondo);  
   background(255);
-  addranking("Portillo", 0);
+  addranking("Portillo", (int)(numPoints.getPuntuation()*timing.getMul()));
 }
 void ShowHighScoreMenu()
 {

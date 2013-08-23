@@ -5,7 +5,7 @@ void setup()
 {
   size(600, 600, OPENGL);
   frameRate(60);
-  setupMenus();
+  setupMenus();  
 }
 
 void draw()

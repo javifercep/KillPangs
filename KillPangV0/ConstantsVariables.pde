@@ -4,6 +4,11 @@ static final int ballrad = 150;
 static final int maxLevel = 10;
 static final float bulletrad = 2.5;
 
+static final int ballExploted = 10;
+static final long timedivisor = 60000;
+
+int numLives = 3;
+
 boolean thrcontrol=false;
 DataFromArduino Ardu = new DataFromArduino();
 Player one= new Player();

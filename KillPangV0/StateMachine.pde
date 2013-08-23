@@ -30,6 +30,9 @@ public class DisplayStateMachine {
     case 5:
       ShowHighScoreMenu();
       break;
+    case 6:
+      gameover();
+      break;
     }
   }
 
@@ -52,3 +55,4 @@ public class DisplayStateMachine {
     controlDisplay--;
   }
 }
+
