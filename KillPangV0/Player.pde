@@ -4,7 +4,6 @@ class Player {
     x=width/2.;
     vel=0;
   } 
-
   void setvel(float v) {
     vel=v;
   }
@@ -20,6 +19,7 @@ class Player {
 
   void drawplayer(float h) {
     rectMode(CENTER);
+    fill(247, 220, 199);
     rect(x, h-10, 10, 20);
   }
 }

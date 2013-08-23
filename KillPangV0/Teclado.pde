@@ -21,7 +21,7 @@ public void InitJoystickCOM(String portName)
 
 
 class DataFromArduino {
-  int px, py, swon,swtrigger;
+  int px, py, swon, swtrigger;
   boolean pushed;
   DataFromArduino() {
     px=0;
@@ -58,14 +58,13 @@ class DataFromArduino {
     if (swtrigger==0) swtrigger=1;
     return temp;
   }
-  boolean getDataFromBuffer(){
+  boolean getDataFromBuffer() {
     boolean temp;
     temp=pushed;
-    if(pushed)pushed=false;
+    if (pushed)pushed=false;
     return temp;
-    
   }
-  void setPushed(){
+  void setPushed() {
     pushed=true;
   }
 }
@@ -113,7 +112,7 @@ void keyReleased() {
     Ardu.setSWState(0);
     Ardu.setPushed();
   }
-  
+
   if (key==ENTER) {
     Ardu.setSWTriggerState(0);
     Ardu.setPushed();

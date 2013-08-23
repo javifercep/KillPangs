@@ -1,17 +1,12 @@
 class Ball {
-  float posx, posy, velx, vely, rotx=0 ,roty=0, velrx, velry, rad;
+  float posx, posy, velx, vely, rotx=0, roty=0, velrx, velry, rad;
   boolean activate;
   color ballcolor=color(0);
   PShape obj;
   Ball() {
-    
+
     activate=false;
     faudo = loadImage("faud.jpg");
-    /*noStroke();
-    fill(255);
-    obj=createShape(SPHERE, 15);
-    obj.setTexture(faudo);*/
-    
   }
   boolean  ballavailable() {
     return !activate;
@@ -19,21 +14,20 @@ class Ball {
   boolean ballask() {
     return activate;
   }
-  void activate(float x, float y, float vx, float vy,float wx,float wy,float r) {
+  void activate(float x, float y, float vx, float vy, float wx, float wy, float r) {
     if (!activate) {
       activate=true;
       posx=x;
-    posy=y;
-    velx=vx;
-    vely=vy;
-    velrx=wx;
-    velry=wy;
-    rad=r;
-    //faudo = loadImage("faud.jpg");
-    noStroke();
-    fill(255);
-    obj=createShape(SPHERE, r);
-    obj.setTexture(faudo);
+      posy=y;
+      velx=vx;
+      vely=vy;
+      velrx=wx;
+      velry=wy;
+      rad=r;
+      noStroke();
+      fill(255);
+      obj=createShape(SPHERE, r);
+      obj.setTexture(faudo);
     }
   }
 
@@ -65,7 +59,7 @@ class Ball {
   PVector getvel() {
     return new PVector(velx, vely);
   }
-  
+
   float getrad() {
     return rad;
   }
@@ -92,34 +86,12 @@ class Ball {
   }
 }
 
-
-/*void ballshit() {
- while (true) {
- if (thrcontrol) {
- for (int n=numballs-1; n>=0; n--) {
- 
- if (fuad[n].ballask()) {
- for (int m=0; m<n; m++) {
- if (fuad[m].ballask()) {
- if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<30) {
- colision(fuad[n], fuad[m]);*/
-/*fuad[n].touch();
- fuad[m].touch();*/
-/*              }
- }
- }
- }
- }
- thrcontrol=false;
- }
- }
- }*/
-
 class BallShit extends Thread {
 
   boolean running;           // Is the thread running?  Yes or no?
   String id;                 // Thread name
   int count;                 // counter
+
 
   // Constructor, create the thread
   // It is not running by default
@@ -136,7 +108,6 @@ class BallShit extends Thread {
     // Do whatever start does in Thread, don't forget this!
     super.start();
   }
-
 
   // We must implement run, this gets triggered by start()
   void run () {
@@ -172,10 +143,10 @@ class BallShit extends Thread {
 
 void colision(Ball one, Ball two) {
   // get distances between the balls components
-  float r1=one.getrad(),r2=two.getrad();
+  float r1=one.getrad(), r2=two.getrad();
   PVector velone=one.getvel();
   PVector veltwo=two.getvel();
-  float m1=pow(3,r1), m2=pow(3,r2);
+  float m1=pow(3, r1), m2=pow(3, r2);
   PVector bVect = PVector.sub(one.getpos(), two.getpos());
 
   // calculate magnitude of the vector separating the balls
@@ -193,7 +164,6 @@ void colision(Ball one, Ball two) {
     PVector[] bTemp = {
       new PVector(), new PVector()
       };
-
       /* this ball's position is relative to the other
        so you can use the vector between them (bVect) as the 
        reference point in the rotation expressions.
@@ -219,7 +189,6 @@ void colision(Ball one, Ball two) {
     PVector[] vFinal = {  
       new PVector(), new PVector()
       };
-
       // final rotated velocity for b[0]
       vFinal[0].x = ((m1 - m2) * vTemp[0].x + 2 * m2 * vTemp[1].x) / (m1 + m2);
     vFinal[0].y = vTemp[0].y;

@@ -14,7 +14,19 @@ PImage FondoMainMenu, FondoStartMenu;
 String[] USBdisponible;
 PShader shaderfondo;
 PGraphics graphfondo;
+
 String ranking[][];
+
+void InitConfigurations()
+{
+  /*Here you can load all images and throw all the threads that you want*/
+  for (int i=0; i<5; i++) {
+    bala[i]= new Bullet(10, 475);
+  }
+  for (int i=0; i<numballs; i++) {
+    fuad[i]= new Ball();
+  }
+}
 void setupMenus()
 {
 
@@ -24,20 +36,9 @@ void setupMenus()
   background(FondoStartMenu);
   FondoMainMenu=loadImage("fuad.png");
   FondoMainMenu.resize(width, height);
+  InitConfigurations();
 }
 
-/*public void controlEvent(ControlEvent theEvent) {
- 
- if (theEvent.isGroup())
- {
- if (theEvent.name().equals("usb"))
- {
- int valorCOM=(int)theEvent.group().value();
- String[][] Puerto=ListaUSB.getListBoxItems();
- InitJoystickCOM(Puerto[valorCOM][0]);
- }
- }
- }*/
 void ShowStartMenu()
 {
   textSize(38);
@@ -49,7 +50,6 @@ void ShowStartMenu()
     fill(color(240, 80, 50));
     text("Option "+Integer.toString(i+1)+": "+ USBdisponible[i], 150, 250+100*i);
   }
-  //background(FondoMainMenu);
 }
 
 
@@ -173,10 +173,11 @@ void ShowHighScoreMenu()
   Ardu.getDataFromBuffer();
   if (Ardu.getSWTriggerState()==0)
   {
-    display.incControlDisplay();
+    kick.close();
+    background(FondoMainMenu);
+    display.setControlDisplay(1);
   }
 }
-
 void keyTyped()
 {
   if (key=='1')
@@ -229,12 +230,5 @@ void keyTyped()
       }
     }
   }
-}
-
-void stop()
-{
-  kick.close();
-  minim.stop();
-  super.stop();
 }
 
