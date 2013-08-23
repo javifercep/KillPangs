@@ -1,5 +1,6 @@
 
 PImage fua;
+int level = 0;
 
 void ShowGame()
 {
@@ -25,7 +26,6 @@ void ShowGame()
       }
     }
   }
-  fill(255, 67, 23);
   for (int i=0; i<5; i++) {
     bala[i].drawbullet();
     bala[i].bulletupdate();
@@ -34,7 +34,6 @@ void ShowGame()
       bala[i].removebullet();
     }
   }
-  fill(111, 55, 222);
   one.setvel(Ardu.getX()/50.);
   one.updateplayer();
   one.drawplayer(500);
@@ -49,18 +48,11 @@ void ShowGame()
       fuad[i].ballupdate();
     }
   }
-<<<<<<< HEAD
-
-  if (checkNumBalls(fuad, numballs)==numballs)
-  {
-    if (level >= maxLevel)
-=======
   
   //end game or go to next level
   if(checkNumBalls(fuad, numballs)==numballs)
   {
     if(level >= maxLevel)
->>>>>>> origin/MrMartin
     {
       display.incControlDisplay();
       background(255);
@@ -75,20 +67,8 @@ void ShowGame()
 
 void InitGame()
 {
-  for (int i=0; i<5; i++) {
-    bala[i]= new Bullet(10, 475);
-  }
-  for (int i=0; i<numballs; i++) {
-    fuad[i]= new Ball();
-<<<<<<< HEAD
-    fuad[i].activate(random(15, 500), random(15, 400), 2*(random(-2, 2)), 2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), ballrad);
-=======
->>>>>>> origin/MrMartin
-  }
+  level=0;
   nextLevel();
-
-  //thread("ballshit");
-  println("Iniciando");
   ballshit = new BallShit("ball");
   ballshit.start();
   noStroke();
@@ -97,19 +77,12 @@ void InitGame()
 void nextLevel()
 {
   level++;
-  int levelBalls = level*5;
+  int levelBalls = level;
   for (int i=0; i<levelBalls; i++) {
-<<<<<<< HEAD
-    fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), ballrad);
+    fuad[i].activate(random(15, 500), random(15, 400), level*0.2*(random(-2, 2)), level*0.2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad/level);
   }
-  display.setControlDisplay(3);
-}
-
-=======
-    fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
-  }
-  fua = loadImage("level" + level + ".jpg");
+  fua = loadImage("level" + (level%3+1) + ".jpg");
   fua.resize(width, height);
   display.setControlDisplay(3);
 }
->>>>>>> origin/MrMartin
+

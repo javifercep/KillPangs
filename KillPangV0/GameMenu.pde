@@ -16,6 +16,17 @@ PShader shaderfondo;
 PGraphics graphfondo;
 
 String ranking[][];
+
+void InitConfigurations()
+{
+  /*Here you can load all images and throw all the threads that you want*/
+    for (int i=0; i<5; i++) {
+    bala[i]= new Bullet(10, 475);
+  }
+  for (int i=0; i<numballs; i++) {
+    fuad[i]= new Ball();
+  }
+}
 void setupMenus()
 {
 
@@ -25,6 +36,7 @@ void setupMenus()
   background(FondoStartMenu);
   FondoMainMenu=loadImage("fuad.png");
   FondoMainMenu.resize(width, height);
+  InitConfigurations();
 }
 
 void ShowStartMenu()
@@ -157,15 +169,9 @@ void ShowHighScoreMenu()
     popMatrix();
     translate(400, 0, 0);
   }
-<<<<<<< HEAD
 
   Ardu.getDataFromBuffer();
- if(Ardu.getSWTriggerState()==0)
-=======
-  //println(frameRate);
-  Ardu.getDataFromBuffer();
-  if(Ardu.getSWTriggerState()==0)
->>>>>>> origin/MrMartin
+  if (Ardu.getSWTriggerState()==0)
   {
     kick.close();
     background(FondoMainMenu);
@@ -225,5 +231,4 @@ void keyTyped()
     }
   }
 }
-
 

@@ -2,6 +2,7 @@ Serial joystickCOM;
 String dataReceived = ""; // Incoming serial data
 boolean conected=false;
 
+
 public void InitJoystickCOM(String portName)
 {
   if (conected)
