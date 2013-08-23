@@ -142,7 +142,9 @@ void ShowHighScoreMenu()
 
   if(Ardu.getSWTriggerState()==0)
   {
-    display.incControlDisplay();
+    kick.close();
+    background(FondoMainMenu);
+    display.setControlDisplay(1);
   }
 }
 
