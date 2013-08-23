@@ -1,10 +1,14 @@
+
+PImage fua;
+int level = 0;
+
 void ShowGame()
 {
-  /*ambientLight(40,40,40);
-   directionalLight(126, 126, 126, 0, 0, -1);*/
-
-  lights();
-  background(200);
+  image(fua, 0, 0);
+  textSize(38);
+  smooth();
+  fill(color(240, 20, 20));
+  text("Level" + level, 150, 150);
   thrcontrol=true;
   if (Ardu.getDataFromBuffer())
   {
@@ -17,7 +21,6 @@ void ShowGame()
       }
     }
   }
-  fill(255, 67, 23);
   for (int i=0; i<5; i++) {
     bala[i].drawbullet();
     bala[i].bulletupdate();
@@ -26,15 +29,14 @@ void ShowGame()
       bala[i].removebullet();
     }
   }
-  fill(111, 55, 222);
   one.setvel(Ardu.getX()/50.);
   one.updateplayer();
   one.drawplayer(500);
   fill(1, 67, 88);
   rectMode(CORNER);
   rect(00, 500, 600, 100);
-  //println(frameRate);
-  
+  lights();
+
   for (int i=0; i<numballs; i++) {
     if (fuad[i].ballask()) {
       fuad[i].drawball();
@@ -42,9 +44,10 @@ void ShowGame()
     }
   }
 
-  if(checkNumBalls(fuad, numballs)==numballs)
+  //end game or go to next level
+  if (checkNumBalls(fuad, numballs)==numballs)
   {
-    if(level >= maxLevel)
+    if (level >= maxLevel)
     {
       display.incControlDisplay();
       background(255);
@@ -59,28 +62,30 @@ void ShowGame()
 
 void InitGame()
 {
-  for (int i=0; i<5; i++) {
-    bala[i]= new Bullet(10, 475);
-  }
-  for (int i=0; i<numballs; i++) {
-    fuad[i]= new Ball();
-    fuad[i].activate(random(15, 500), random(15, 400), 2*(random(-2, 2)), 2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
-  }
+  level=0;
+  numPoints.clearPuntuation();
+  timing.startTime();
   nextLevel();
-
-  //thread("ballshit");
-  println("Iniciando");
   ballshit = new BallShit("ball");
   ballshit.start();
   noStroke();
+  for (int i=0; i<5;i++) {
+    bala[i].removebullet();
+  }
 }
 //next level increases number of balls and speed
 void nextLevel()
 {
   level++;
-  int levelBalls = level*5;
+  int levelBalls = level;
   for (int i=0; i<levelBalls; i++) {
-    fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
+    fuad[i].activate(random(15, 500), random(15, 400), level*0.2*(random(-2, 2)), level*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), ballrad/level);
   }
-  display.setControlDisplay(6);
+  fua = loadImage("level" + (level%3+1) + ".jpg");
+  fua.resize(width, height);
+  display.setControlDisplay(3);
+  for (int i=0; i<5;i++) {
+    bala[i].removebullet();
+  }
 }
+

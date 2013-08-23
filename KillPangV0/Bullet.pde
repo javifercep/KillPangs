@@ -21,7 +21,8 @@ class Bullet {
   void drawbullet() {
     rectMode(CENTER);
     if (on) {
-      rect(posx, posy, 5, 5);
+      fill(255);
+      rect(posx, posy, bulletrad+bulletrad, bulletrad+bulletrad);
     }
   }
 
@@ -40,7 +41,7 @@ class Bullet {
     if (on) {
       for (int i=0; i<nb; i++) {
         if (b[i].ballask()) {
-          if (PVector.dist(b[i].getpos(), new PVector(posx, posy))<2.5+b[i].getrad()) {
+          if (PVector.dist(b[i].getpos(), new PVector(posx, posy))<bulletrad+b[i].getrad()) {
             removebullet();
             b[i].removeball();
           }

@@ -89,37 +89,17 @@ class Ball {
 
   void removeball() {
     activate=false;
+    numPoints.addPuntuation(ballExploted*numLives);
   }
 }
 
-
-/*void ballshit() {
- while (true) {
- if (thrcontrol) {
- for (int n=numballs-1; n>=0; n--) {
- 
- if (fuad[n].ballask()) {
- for (int m=0; m<n; m++) {
- if (fuad[m].ballask()) {
- if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<30) {
- colision(fuad[n], fuad[m]);*/
-/*fuad[n].touch();
- fuad[m].touch();*/
-/*              }
- }
- }
- }
- }
- thrcontrol=false;
- }
- }
- }*/
 
 class BallShit extends Thread {
 
   boolean running;           // Is the thread running?  Yes or no?
   String id;                 // Thread name
   int count;                 // counter
+
 
   // Constructor, create the thread
   // It is not running by default
@@ -136,7 +116,6 @@ class BallShit extends Thread {
     // Do whatever start does in Thread, don't forget this!
     super.start();
   }
-
 
   // We must implement run, this gets triggered by start()
   void run () {

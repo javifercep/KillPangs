@@ -2,6 +2,7 @@ Serial joystickCOM;
 String dataReceived = ""; // Incoming serial data
 boolean conected=false;
 
+
 public void InitJoystickCOM(String portName)
 {
   if (conected)
@@ -59,14 +60,14 @@ public class DataFromArduino {
     if (Buffer.size()>0)
     {
       String[] coordenadas = split(Buffer.get(0), ':');
-      if (coordenadas[0].length()<4)
+      if (coordenadas[0].length()<5)
       {
         posx=map(Float.parseFloat(coordenadas[0]), 0, 1023, -500.0, 500.0);
         if (posx<100 && posx>-100)posx=0;
         if (posx <-250.0)      posBX = -1;
         else if (posx >250.0)  posBX =  1;
         else                posBX =  0;
-        if (coordenadas[1].length()<4)
+        if (coordenadas[1].length()<5)
         {
           //println(posBX);
           posy=map(Float.parseFloat(coordenadas[1]), 0, 1023, -500.0, 500.0);
