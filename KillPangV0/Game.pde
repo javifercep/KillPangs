@@ -1,10 +1,18 @@
+
+PImage fua;
+
 void ShowGame()
 {
   /*ambientLight(40,40,40);
    directionalLight(126, 126, 126, 0, 0, -1);*/
 
   lights();
-  background(200);
+  //  TODO Apply transparency without changing color
+  image(fua, 0,0);
+  textSize(38);
+  smooth();
+  fill(color(240, 20, 20));
+  text("Level" + level, 150,150);
   thrcontrol=true;
   if (Ardu.getDataFromBuffer())
   {
@@ -41,10 +49,18 @@ void ShowGame()
       fuad[i].ballupdate();
     }
   }
+<<<<<<< HEAD
 
   if (checkNumBalls(fuad, numballs)==numballs)
   {
     if (level >= maxLevel)
+=======
+  
+  //end game or go to next level
+  if(checkNumBalls(fuad, numballs)==numballs)
+  {
+    if(level >= maxLevel)
+>>>>>>> origin/MrMartin
     {
       display.incControlDisplay();
       background(255);
@@ -64,7 +80,10 @@ void InitGame()
   }
   for (int i=0; i<numballs; i++) {
     fuad[i]= new Ball();
+<<<<<<< HEAD
     fuad[i].activate(random(15, 500), random(15, 400), 2*(random(-2, 2)), 2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), ballrad);
+=======
+>>>>>>> origin/MrMartin
   }
   nextLevel();
 
@@ -80,8 +99,17 @@ void nextLevel()
   level++;
   int levelBalls = level*5;
   for (int i=0; i<levelBalls; i++) {
+<<<<<<< HEAD
     fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), ballrad);
   }
   display.setControlDisplay(3);
 }
 
+=======
+    fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
+  }
+  fua = loadImage("level" + level + ".jpg");
+  fua.resize(width, height);
+  display.setControlDisplay(3);
+}
+>>>>>>> origin/MrMartin

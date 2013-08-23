@@ -157,16 +157,21 @@ void ShowHighScoreMenu()
     popMatrix();
     translate(400, 0, 0);
   }
+<<<<<<< HEAD
 
   Ardu.getDataFromBuffer();
  if(Ardu.getSWTriggerState()==0)
+=======
+  //println(frameRate);
+  Ardu.getDataFromBuffer();
+  if(Ardu.getSWTriggerState()==0)
+>>>>>>> origin/MrMartin
   {
     kick.close();
     background(FondoMainMenu);
     display.setControlDisplay(1);
   }
 }
-
 void keyTyped()
 {
   if (key=='1')

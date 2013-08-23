@@ -16,7 +16,10 @@ int ballrad=15;
 int level = 0;
 int maxLevel = 3;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/MrMartin
 boolean thrcontrol=false;
 
 DataFromArduino Ardu = new DataFromArduino();

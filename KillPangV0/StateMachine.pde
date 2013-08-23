@@ -19,7 +19,6 @@ public class DisplayStateMachine {
 
     case 2: 
       InitGame();
-      controlDisplay=3;
       break;
     case 3: 
       ShowGame();
@@ -53,4 +52,3 @@ public class DisplayStateMachine {
     controlDisplay--;
   }
 }
-
