@@ -41,6 +41,7 @@ void ShowGame()
       fuad[i].ballupdate();
     }
   }
+<<<<<<< HEAD
 
   if(checkNumBalls(fuad, numballs)==numballs)
   {
@@ -54,6 +55,14 @@ void ShowGame()
     {
       nextLevel();
     }
+=======
+  
+  if(checkNumBalls(fuad, numballs)==numballs)
+  {
+    display.incControlDisplay();
+    background(255);
+    ballshit.quit();
+>>>>>>> origin/Portillo
   }
 }
 

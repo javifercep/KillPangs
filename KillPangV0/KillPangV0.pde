@@ -9,12 +9,17 @@ int displayState=0;
 
 int colorControl=0;
 
+<<<<<<< HEAD
 int numballs = 30;
 
 int ballrad=15;
 
 int level = 0;
 int maxLevel = 3;
+=======
+int numballs=30;
+int ballrad=15;
+>>>>>>> origin/Portillo
 
 boolean thrcontrol=false;
 
@@ -31,11 +36,17 @@ void setup()
 {
   size(600, 600, OPENGL);
   frameRate(60);
+<<<<<<< HEAD
   setupMenus();  
+=======
+  setupMenus();
+  
+>>>>>>> origin/Portillo
 }
 
 void draw()
 {
   display.ShowDisplay();
+  println(frameRate);
 }
 

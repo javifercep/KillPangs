@@ -19,20 +19,31 @@ public class DisplayStateMachine {
 
     case 2: 
       InitGame();
+<<<<<<< HEAD
+=======
+      controlDisplay=3;
+>>>>>>> origin/Portillo
       break;
     case 3: 
       ShowGame();
       break;
+<<<<<<< HEAD
     case 4:
+=======
+       case 4:
+>>>>>>> origin/Portillo
       InitHighScoreMenu();
       controlDisplay=5;
       break;
     case 5:
       ShowHighScoreMenu();
       break;
+<<<<<<< HEAD
     case 6:
       LevelUp();
       break;
+=======
+>>>>>>> origin/Portillo
     }
   }
 
