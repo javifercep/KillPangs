@@ -34,18 +34,17 @@ void ShowGame()
   rectMode(CORNER);
   rect(00, 500, 600, 100);
   //println(frameRate);
-  
+
   for (int i=0; i<numballs; i++) {
     if (fuad[i].ballask()) {
       fuad[i].drawball();
       fuad[i].ballupdate();
     }
   }
-<<<<<<< HEAD
 
-  if(checkNumBalls(fuad, numballs)==numballs)
+  if (checkNumBalls(fuad, numballs)==numballs)
   {
-    if(level >= maxLevel)
+    if (level >= maxLevel)
     {
       display.incControlDisplay();
       background(255);
@@ -55,14 +54,6 @@ void ShowGame()
     {
       nextLevel();
     }
-=======
-  
-  if(checkNumBalls(fuad, numballs)==numballs)
-  {
-    display.incControlDisplay();
-    background(255);
-    ballshit.quit();
->>>>>>> origin/Portillo
   }
 }
 
@@ -73,7 +64,7 @@ void InitGame()
   }
   for (int i=0; i<numballs; i++) {
     fuad[i]= new Ball();
-    fuad[i].activate(random(15, 500), random(15, 400), 2*(random(-2, 2)), 2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
+    fuad[i].activate(random(15, 500), random(15, 400), 2*(random(-2, 2)), 2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), ballrad);
   }
   nextLevel();
 
@@ -89,7 +80,8 @@ void nextLevel()
   level++;
   int levelBalls = level*5;
   for (int i=0; i<levelBalls; i++) {
-    fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)),random(-.1, .1),random(-.1, .1),ballrad);
+    fuad[i].activate(random(15, 500), random(15, 400), level*2*(random(-2, 2)), level*2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), ballrad);
   }
-  display.setControlDisplay(6);
+  display.setControlDisplay(3);
 }
+

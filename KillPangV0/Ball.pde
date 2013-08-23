@@ -120,7 +120,7 @@ class BallShit extends Thread {
   boolean running;           // Is the thread running?  Yes or no?
   String id;                 // Thread name
   int count;                 // counter
-<<<<<<< HEAD
+
 
   // Constructor, create the thread
   // It is not running by default
@@ -137,26 +137,6 @@ class BallShit extends Thread {
     // Do whatever start does in Thread, don't forget this!
     super.start();
   }
-
-=======
-
-  // Constructor, create the thread
-  // It is not running by default
-  BallShit (String s) {
-    running = false;
-    id = s;
-    count = 0;
-  }
-
-  // Overriding "start()"
-  void start () {
-    // Set running equal to true
-    running = true;
-    // Do whatever start does in Thread, don't forget this!
-    super.start();
-  }
-
->>>>>>> origin/Portillo
 
   // We must implement run, this gets triggered by start()
   void run () {
