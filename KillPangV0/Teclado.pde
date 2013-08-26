@@ -21,11 +21,13 @@ public void InitJoystickCOM(String portName)
 
 
 class DataFromArduino {
-  int px, py, swon, swtrigger;
+  int px, py, swon, swtrigger, pby, pbx;
   boolean pushed;
   DataFromArduino() {
     px=0;
     py=0;
+    pbx=0;
+    pby=0;
     swon=1;
     swtrigger = 1;
     pushed=false;
@@ -35,6 +37,12 @@ class DataFromArduino {
   }
   void setY(int t) {
     py=t;
+  }
+  void setBinY(int t) {
+    pby=t;
+  }
+  void setBinX(int t) {
+     pbx=t;
   }
   void setSWState(int t) {
     swon=t;
@@ -47,6 +55,12 @@ class DataFromArduino {
   }
   int getY() {
     return py;
+  }
+  int getBinY() {
+    return pby;
+  }
+  int getBinX() {
+    return pbx;
   }
   int getSWState() {
     int temp=swon;
@@ -72,19 +86,23 @@ class DataFromArduino {
 void keyPressed() {
   if (keyCode==UP) {
     Ardu.setY(-1023);
+    Ardu.setBinY(-1);
     Ardu.setPushed();
   }
   else if (keyCode==DOWN) {
     Ardu.setY(1023);
+    Ardu.setBinY(1);
     Ardu.setPushed();
   }
 
   if (keyCode==LEFT) {
     Ardu.setX(-1023);
+    Ardu.setBinX(-1);
     Ardu.setPushed();
   }
   else if (keyCode==RIGHT) {
     Ardu.setX(1023);
+    Ardu.setBinY(1);
     Ardu.setPushed();
   }
 }
@@ -93,18 +111,22 @@ void keyPressed() {
 void keyReleased() {
   if (keyCode==LEFT) {
     Ardu.setX(0);
+    Ardu.setBinX(0);
     Ardu.setPushed();
   }
   else if (keyCode==RIGHT) {
     Ardu.setX(0);
+    Ardu.setBinX(0);
     Ardu.setPushed();
   }
   if (keyCode==UP) {
     Ardu.setY(0);
+    Ardu.setBinY(0);
     Ardu.setPushed();
   }
   else if (keyCode==DOWN) {
     Ardu.setY(0);
+    Ardu.setBinY(0);
     Ardu.setPushed();
   }
 

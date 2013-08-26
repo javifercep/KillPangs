@@ -20,7 +20,7 @@ String ranking[][];
 void InitConfigurations()
 {
   /*Here you can load all images and throw all the threads that you want*/
-    for (int i=0; i<5; i++) {
+  for (int i=0; i<5; i++) {
     bala[i]= new Bullet(10, 475);
   }
   for (int i=0; i<numballs; i++) {
@@ -60,41 +60,59 @@ void ShowMainMenu()
   fill(color(240, 20, 20));
   text("KILL F.. PANG!!", 150, 150);
   text("PULSE START", 150, 400);
-  Ardu.getDataFromBuffer();
-  if (Ardu.getSWTriggerState()==0)
-  {
-
-    display.incControlDisplay();
-  }
+  namePlayer.writingName();
 }
 
 void addranking(String name, int point) {
-  String ranktemp[];
-  ranktemp = loadStrings("data/Ranking.txt");
-  ranking=new String[ranktemp.length][];
-  for (int i=0; i<ranktemp.length; i++) {
-    ranking[i] = split(ranktemp[i], ' ');
-  }
-  int tempp=point;
-  String tempn=name;
-  boolean control=false;
-  for (int i=0; i<ranking.length;i++ ) {
-    if (Integer.parseInt(ranking[i][1]) < tempp || (control && Integer.parseInt(ranking[i][1]) <= tempp)) {
-      int newtempp=Integer.parseInt(ranking[i][1]);
-      ranking[i][1]=""+tempp;
-      tempp=newtempp;
-      String newtempn=ranking[i][0];
-      ranking[i][0]=tempn;
-      tempn=newtempn;
-      control=true;
+  BufferedReader reader;
+  String line;
+  PrintWriter output;
+  int shownum=0;
+  boolean stop=true;
+  reader = createReader("data/Ranking.txt");
+  output = createWriter("data/temporal");
+  while (stop) {
+    try {
+      line = reader.readLine();
+    } 
+    catch (IOException e) {
+      e.printStackTrace();
+      line = null;
+    }
+    if (line==null) stop=false;
+    else {
+      String inf[]= split(line, ' ');
+      if (Integer.parseInt(inf[1])<point) {
+        output.println(name + " " + point);
+        if (shownum<10) {
+          ranking[shownum][0]=name;
+          ranking[shownum][1]=point+"";
+          shownum++;
+        }
+        point=-1;
+      }
+      output.println(inf[0] + " " + inf[1]);
+      if (shownum<10) {
+        ranking[shownum][0]=inf[0];
+        ranking[shownum][1]=inf[1];
+        shownum++;
+      }
     }
   }
-  String newrank[];
-  newrank=new String[10];
-  for (int i=0; i<ranking.length;i++ ) {
-    newrank[i]=ranking[i][0]+' '+ranking[i][1];
+  if (point>0) {
+    output.println(name + " " + point);
+    if (shownum<10) {
+      ranking[shownum][0]=name;
+      ranking[shownum][1]=point+"";
+      shownum++;
+    }
   }
-  saveStrings("data/Ranking.txt", newrank);
+  output.flush();
+  output.close();
+  String ranktemp[] = loadStrings("data/temporal");
+  saveStrings("data/Ranking.txt", ranktemp);
+  File file = sketchFile("data/temporal");
+  file.delete();
 }
 
 void InitHighScoreMenu()
@@ -141,7 +159,8 @@ void InitHighScoreMenu()
   shaderfondo.set("resolution", float(graphfondo.width), float(graphfondo.height)); 
   shaderfondo.set("mask", graphfondo);  
   background(255);
-  addranking("Portillo", (int)(numPoints.getPuntuation()*timing.getMul()));
+  ranking=new String[10][2];
+  addranking(namePlayer.getName(), (int)(numPoints.getPuntuation()*timing.getMul()));
 }
 void ShowHighScoreMenu()
 {
@@ -171,10 +190,11 @@ void ShowHighScoreMenu()
   }
 
   Ardu.getDataFromBuffer();
-  if (Ardu.getSWTriggerState()==0)
+  if (Ardu.getSWState()==0)
   {
     kick.close();
     background(FondoMainMenu);
+    namePlayer.restart();
     display.setControlDisplay(1);
   }
 }

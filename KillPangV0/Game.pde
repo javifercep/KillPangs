@@ -35,7 +35,9 @@ void ShowGame()
   one.ballkillplayer(fuad, numballs);
   fill(1, 67, 88);
   rectMode(CORNER);
-  rect(00, 500, 600, 100);
+  rect(0, 500, 600, 100);
+  fill(255,0,0);
+  text("Lives: "+one.numliv(),50,560);
   lights();
 
   for (int i=0; i<numballs; i++) {
@@ -51,6 +53,7 @@ void ShowGame()
     if (level >= maxLevel)
     {
       display.incControlDisplay();
+      timing.stopTime();
       background(255);
       ballshit.quit();
     }
@@ -59,9 +62,9 @@ void ShowGame()
       nextLevel();
     }
   }
-
   if (one.askalive() == false) {
     display.setControlDisplay(6);
+    timing.stopTime();
     background(255);
     ballshit.quit();
   }
@@ -97,11 +100,11 @@ void nextLevel()
   }
 }
 
-void gameover(){
+void gameover() {
   background(0);
   textSize(40);
-  fill(255,0,0);
-  text("GAME OVER",200,200);
+  fill(255, 0, 0);
+  text("GAME OVER", 200, 200);
   Ardu.getDataFromBuffer();
   if (Ardu.getSWTriggerState()==0)
   {
