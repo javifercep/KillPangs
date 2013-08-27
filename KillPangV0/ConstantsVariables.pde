@@ -3,7 +3,8 @@ static final int numballs = 30;
 static final int ballrad = 150;
 static final int maxLevel = 10;
 static final float bulletrad = 2.5;
-
+static final float zmax=1000;
+static final float zmin=0;
 static final int ballExploted = 10;
 static final long timedivisor = 60000;
 

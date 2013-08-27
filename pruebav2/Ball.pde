@@ -89,7 +89,7 @@ class Ball {
 
   void removeball() {
     activate=false;
-    numPoints.addPuntuation(ballExploted*numLives);
+    //numPoints.addPuntuation(ballExploted*numLives);
   }
 }
 
@@ -121,13 +121,13 @@ class BallShit extends Thread {
   void run () {
     while (running) {
       if (thrcontrol) {
-        for (int n=numballs-1; n>=0; n--) {
+        for (int n=30-1; n>=0; n--) {
 
-          if (fuad[n].ballask()) {
+          if (cara.surfuads[n].ballask()) {
             for (int m=0; m<n; m++) {
-              if (fuad[m].ballask()) {
-                if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<2*ballrad) {
-                  colision(fuad[n], fuad[m]);
+              if (cara.surfuads[m].ballask()) {
+                if (PVector.dist(cara.surfuads[n].nextpos(), cara.surfuads[m].nextpos())<2*15) {
+                  colision(cara.surfuads[n], cara.surfuads[m]);
                   /*fuad[n].touch();
                    fuad[m].touch();*/
                 }
