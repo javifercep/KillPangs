@@ -3,6 +3,7 @@ class surfaces {
   float posz, velz;
   boolean activate;
   int numsurballs;
+  int radio;
   surfaces () {
     surfuads= new Ball[30];
     for (int i=0; i<30; i++) {
@@ -10,19 +11,20 @@ class surfaces {
     }
   } 
 
-  void activesurface(int nsbs) {
+  void activesurface(int nsbs, int rad) {
     if (activate==false) {
       activate=true;
       posz=zmax;
       velz=2;
       numsurballs=nsbs;
+      radio=rad;
       genballs();
     }
   }
 
   void genballs() {
     for (int i=0; i<numsurballs; i++) {
-      surfuads[i].activate(random(15, 500), random(15, 500), 5*0.2*(random(-2, 2)), 5*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), 15);
+      surfuads[i].activate(random(15, 500), random(15, 500), 5*0.2*(random(-2, 2)), 5*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), radio);
     }
   }
 
@@ -38,15 +40,19 @@ class surfaces {
       }
     }
   }
-  void drawsurface() {
+  void drawsurface(PGraphics cam) {
     if (activate) {
       for (int i=0; i<numsurballs; i++) {
-        surfuads[i].drawball(posz);
+        surfuads[i].drawball(posz,cam);
       }
     }
   }
   void removesurface(){
     activate=false;
+    activesurface(4,radio);
+  }
+  float getz(){
+   return posz; 
   }
 }
 
