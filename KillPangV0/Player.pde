@@ -32,7 +32,7 @@ class Player {
     rectMode(CENTER);
     if (deadtime.EventTime()) fill(247, 220, 199);
     else fill(255, 0, 0);
-    rect(x, h-10, 10, 20);
+    rect(x, h-width*10/600., width*10/600.,height*20/600.);
   }
   void killplayer() {
     if (deadtime.EventTime()) {
@@ -53,7 +53,7 @@ class Player {
   void ballkillplayer(Ball[] b, int nb) {
     for (int i=0; i<nb; i++) {
       if (b[i].ballask()) {
-        if (PVector.dist(b[i].getpos(), new PVector(x, 500-15))<bulletrad+b[i].getrad()+5) {
+        if (PVector.dist(b[i].getpos(), new PVector(x,  height*5/6.-15))<bulletrad+b[i].getrad()+width*10/600./2.) {
           killplayer();
         }
       }

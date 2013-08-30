@@ -20,8 +20,9 @@ String ranking[][];
 void InitConfigurations()
 {
   /*Here you can load all images and throw all the threads that you want*/
+  bulletrad = height*2.5/600.;
   for (int i=0; i<5; i++) {
-    bala[i]= new Bullet(10, 475);
+    bala[i]= new Bullet(height*10/600.,  height*5/6.-15);
   }
   for (int i=0; i<numballs; i++) {
     fuad[i]= new Ball();
@@ -44,11 +45,11 @@ void ShowStartMenu()
   textSize(38);
   smooth();
   fill(color(240, 80, 50));
-  text("Select an Option: ", 150, 150);
+  text("Select an Option: ", width*150/600., height*150/600.);
   for (int i=0; i<USBdisponible.length; i++)
   {
     fill(color(240, 80, 50));
-    text("Option "+Integer.toString(i+1)+": "+ USBdisponible[i], 150, 250+100*i);
+    text("Option "+Integer.toString(i+1)+": "+ USBdisponible[i], width*150/600., height*(250+100*i)/600.);
   }
 }
 
@@ -58,8 +59,8 @@ void ShowMainMenu()
   textSize(38);
   smooth();
   fill(color(240, 20, 20));
-  text("KILL F.. PANG!!", 150, 150);
-  text("PULSE START", 150, 400);
+  text("KILL F.. PANG!!", width*150/600., height*150/600.);
+  text("PULSE START", width*150/600., height*400/600.);
   namePlayer.writingName();
 }
 
@@ -125,7 +126,7 @@ void InitHighScoreMenu()
 
   faudo = loadImage("faud.jpg");
   for (int i=0; i<8;i++) {
-    faud[i]=createShape(SPHERE, 45);
+    faud[i]=createShape(SPHERE, height*45/600.);
     faud[i].setTexture(faudo);
   }
 
@@ -170,11 +171,11 @@ void ShowHighScoreMenu()
   graphfondo.endDraw();
   image(graphfondo, 0, 0, width, height);
   stroke(0);
-  text("Ranking", 200, 100, 0);
+  text("Ranking", width*200/600., height*100/600., 0);
   for (int i=0; i<ranking.length; i++) {
-    text(ranking[i][0]+' '+ranking[i][1], 200, 160+i*40, 0);
+    text(ranking[i][0]+' '+ranking[i][1], width*200/600., height*(160+i*40)/600., 0);
   }
-  translate(100, 70, 0);
+  translate( width*100/600., height*70/600., 0);
   for (int i=0;i<2;i++) {
     pushMatrix();
     for (int j=0; j<4;j++) {
@@ -183,10 +184,10 @@ void ShowHighScoreMenu()
       rotateY(posiciones[1][4*i+j]+=(aleatorio[1][4*i+j])/50);
       shape(faud[4*i+j]);
       popMatrix();
-      translate(0, 150, 0);
+      translate(0, height*150/600., 0);
     } 
     popMatrix();
-    translate(400, 0, 0);
+    translate(width*400/600., 0, 0);
   }
 
   Ardu.getDataFromBuffer();

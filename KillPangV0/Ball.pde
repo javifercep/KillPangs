@@ -43,7 +43,7 @@ class Ball {
     if (posx-rad<0 && velx>0) velx*=-1;
     if (posx+rad>width && velx<0) velx*=-1;
     if (posy-rad<0 && vely>0) vely*=-1;
-    if (posy+rad>height-100 && vely<0) vely*=-1;
+    if (posy+rad>height-height/6. && vely<0) vely*=-1;
   }
 
   void drawball(float z) {
@@ -138,7 +138,7 @@ class BallShit extends Thread {
           if (fuad[n].ballask()) {
             for (int m=0; m<n; m++) {
               if (fuad[m].ballask()) {
-                if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<2*ballrad) {
+                if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<2*fuad[n].getrad()) {
                   colision(fuad[n], fuad[m]);
                   /*fuad[n].touch();
                    fuad[m].touch();*/
@@ -148,6 +148,7 @@ class BallShit extends Thread {
           }
         }
         thrcontrol=false;
+       
       }
     }
   }
@@ -166,7 +167,7 @@ void colision(Ball one, Ball two) {
   float r1=one.getrad(),r2=two.getrad();
   PVector velone=one.getvel();
   PVector veltwo=two.getvel();
-  float m1=pow(3,r1), m2=pow(3,r2);
+  float m1=pow(3,r1/10.), m2=pow(3,r2/10.);
   PVector bVect = PVector.sub(one.getpos(), two.getpos());
 
   // calculate magnitude of the vector separating the balls

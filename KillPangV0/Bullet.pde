@@ -1,7 +1,7 @@
 class Bullet {
   float posx, iniy, posy, vel;
   boolean on;
-  Bullet(float v, int y) {
+  Bullet(float v, float y) {
     vel=v;
     iniy=y;
   }

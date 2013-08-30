@@ -3,7 +3,8 @@ import processing.serial.*;
 
 void setup()
 {
-  size(600, 600, OPENGL);
+  int displaysize=min(displayWidth, displayHeight);
+  size(displaysize, displaysize, OPENGL);
   frameRate(60);
   setupMenus();  
 }

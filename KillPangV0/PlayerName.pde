@@ -48,9 +48,9 @@ public class PlayerName {
     textSize(48);
     String player = new String(name);
     fill(255);
-    rect(x-10, y-40, 150, 50);
+    rect(width*(x-10)/600., height*(y-40)/600., width*150/600., height*50/600.);
     fill(255, 0, 0);
-    text(player, x, y);
+    text(player, width*x/600., height*y/600.);
   }
 
   public void writingName()
