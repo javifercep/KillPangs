@@ -34,25 +34,24 @@ class surfaces {
       for (int i=0; i<numsurballs; i++) {
         surfuads[i].ballupdate();
       }
-      if(posz>zmin){
-        removesurface();
-        
-      }
     }
   }
   void drawsurface(PGraphics cam) {
     if (activate) {
       for (int i=0; i<numsurballs; i++) {
-        surfuads[i].drawball(posz,cam);
+        surfuads[i].drawball(posz, cam);
       }
     }
   }
-  void removesurface(){
+  void removesurface() {
     activate=false;
-    activesurface(4,radio);
+    activesurface(4, radio);
   }
-  float getz(){
-   return posz; 
+  float getz() {
+    return posz;
+  }
+  boolean surfaceask() {
+    return activate;
   }
 }
 
