@@ -57,6 +57,29 @@ class Ball {
     }
   }
 
+  void drawball() {
+    if (activate) {
+
+      pushMatrix();
+      translate(posx, posy, 0);
+      rotateX(rotx+=velrx);
+      rotateY(roty+=velry);
+      shape(obj);
+      popMatrix();
+    }
+  }
+
+  void drawball(float z) {
+    if (activate) {
+
+      pushMatrix();
+      translate(posx, posy, z);
+      rotateX(rotx+=velrx);
+      rotateY(roty+=velry);
+      shape(obj);
+      popMatrix();
+    }
+  }
   PVector getpos() {
     return new PVector(posx, posy);
   }

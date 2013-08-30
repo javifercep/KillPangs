@@ -42,7 +42,7 @@ void ShowGame()
 
   for (int i=0; i<numballs; i++) {
     if (fuad[i].ballask()) {
-      fuad[i].drawball(0);
+      fuad[i].drawball();
       fuad[i].ballupdate();
     }
   }

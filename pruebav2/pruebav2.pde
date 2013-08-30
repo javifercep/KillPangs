@@ -40,8 +40,8 @@ void setup() {
 
 void draw() {
   thrcontrol=true;
-  lefttex.camera(width/2.0+inv*14, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, -1000, 0, 1, 0);
-  righttex.camera(width/2.0-inv*14, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, -1000, 0, 1, 0);
+  lefttex.camera(width/2.0+inv*dif, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, -500, 0, 1, 0);
+  righttex.camera(width/2.0-inv*dif, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, -500, 0, 1, 0);
 
   one.setvelx(Ardu.getX()/50.);
   one.setvely(Ardu.getY()/50.);
@@ -58,7 +58,7 @@ void draw() {
   if (cara[controlsur].getz()>-1500) {
     controlsur++;
     controlsur%=5;
-    cara[controlsur].activesurface(4,15);
+    cara[controlsur].activesurface(4,15*controlsur);
   }
   shader(shader3D);
   rect(0, 0, width, height);
@@ -69,6 +69,7 @@ void draw() {
   ellipse(width/2.0-mouseX/10.,height/2.0,30,30);
   //image(lefttex,0,0, width, height);*/
    println(dif);
+   println((height/2.0) / tan(PI*30.0 / 180.0));
 }
 
 void drawall(PGraphics cam) {
