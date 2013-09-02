@@ -197,6 +197,7 @@ void ShowHighScoreMenu()
     background(FondoMainMenu);
     namePlayer.restart();
     display.setControlDisplay(1);
+    Ardu.resetAll();
   }
 }
 void keyTyped()

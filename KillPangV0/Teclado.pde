@@ -81,6 +81,17 @@ class DataFromArduino {
   void setPushed() {
     pushed=true;
   }
+  
+  void resetAll()
+  {
+    px=0;
+    py=0;
+    pbx=0;
+    pby=0;
+    swon=1;
+    swtrigger = 1;
+    pushed=false;
+  }
 }
 
 void keyPressed() {
