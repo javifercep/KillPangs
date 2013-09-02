@@ -48,7 +48,6 @@ void draw() {
   righttex.camera(-inv*dif+one.getposx(), one.getposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getposx(),one.getposy(), 0*width*-500/600., 0, 1, 0);
   one.setvelx(Ardu.getX()/50.);
   one.setvely(Ardu.getY()/50.);
-  one.updateshot();
   if (Ardu.getSWTriggerState()==0) {
     one.shot(cara);
   }
@@ -56,6 +55,7 @@ void draw() {
   drawall(lefttex);
   drawall(righttex);
   ////////////////////////////////////////
+  one.updateshot();
   while (thrcontrol) {
   }
   for (int i=0; i<5;i++) {
@@ -86,25 +86,27 @@ void drawall(PGraphics cam) {
   cam.beginDraw();
   cam.background(0);
   cam.noStroke();
-  cam.spotLight(255, 233, 0, width/2.0, 0, zmax/4., 0, 1, 0, PI, 2);
-  cam.spotLight(255, 233, 0, width/2.0, 0, zmax*2/4., 0, 1, 0, PI, 2);
-  cam.spotLight(255, 233, 0, width/2.0, 0, zmax*3/4., 0, 1, 0, PI, 2);
-  cam.spotLight(255, 233, 0, width/2.0, 0, zmax, 0, 1, 0, PI, 2);
+  cam.spotLight(247,221,164, width/2.0, 0, zmax/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247,221,164, width/2.0, 0, zmax*2/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247,221,164, width/2.0, 0, zmax*3/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247,221,164, width/2.0, 0, zmax, 0, 1, 0, PI, 2);
   cam.ambientLight(102, 102, 102);
   cam.fill(255);
   cuad1(cam);
   cuad2(cam);
   cuad3(cam);
   cuad4(cam);
-  cam.noLights();
-  cam.fill(0, 145, 80);
-  one.drawshot(cam);
-  cam.lights();
   cam.fill(255);
   for (int i=0; i<5;i++) {
     cara[i].drawsurface(cam);
   }
   ellipse(width/2.0, height/2.0, 30, 30);
+  cam.hint(DISABLE_DEPTH_TEST);
+  cam.noLights();
+  cam.fill(0, 145, 80);
+  one.drawshot(cam);
+  cam.hint(ENABLE_DEPTH_TEST);
+  cam.lights();
   cam.endDraw();
 }
 

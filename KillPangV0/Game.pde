@@ -74,14 +74,18 @@ void InitGame()
   level=0;
   numPoints.clearPuntuation();
   timing.startTime();
+  for (int i=0; i<5;i++) {
+    bala[i].removebullet();
+  }
+  for (int i=0; i<numballs; i++) {
+   fuad[i].resetball();
+  }
+  one.resetplayer();
   nextLevel();
   ballshit = new BallShit("ball");
   ballshit.start();
   noStroke();
-  for (int i=0; i<5;i++) {
-    bala[i].removebullet();
-  }
-  one.resetplayer();
+  
 }
 //next level increases number of balls and speed
 void nextLevel()

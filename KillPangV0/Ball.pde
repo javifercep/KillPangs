@@ -103,6 +103,9 @@ class Ball {
     activate=false;
     numPoints.addPuntuation(ballExploted*numLives);
   }
+  void resetball(){
+    activate=false;
+  }
 }
 
 
