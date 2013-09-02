@@ -102,7 +102,7 @@ void keyPressed() {
   }
   else if (keyCode==RIGHT) {
     Ardu.setX(1023);
-    Ardu.setBinY(1);
+    Ardu.setBinX(1);
     Ardu.setPushed();
   }
 }
@@ -135,7 +135,7 @@ void keyReleased() {
     Ardu.setPushed();
   }
 
-  if (key==ENTER) {
+  if (key=='z') {
     Ardu.setSWTriggerState(0);
     Ardu.setPushed();
   }

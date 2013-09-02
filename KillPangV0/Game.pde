@@ -92,7 +92,7 @@ void nextLevel()
   level++;
   int levelBalls = level;
   for (int i=0; i<levelBalls; i++) {
-    fuad[i].activate(random(width*(ballrad/level)/600., width-width*(ballrad/level)/600.), random(width*(ballrad/level)/600., height*5/6.-width*(ballrad/level)/600.), level*0.2*(random(-2, 2)), level*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), width*(ballrad/level)/600.);
+   fuad[i].activate(random(width*(ballrad/level)/600., width-width*(ballrad/level)/600.), random(width*(ballrad/level)/600., height*5/6.-width*(ballrad/level)/600.-height*30/600.), level*0.2*(random(-2, 2)), level*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), width*(ballrad/level)/600.);
   }
   fua = loadImage("level" + (level%3+1) + ".jpg");
   fua.resize(width, height);

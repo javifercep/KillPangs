@@ -83,10 +83,10 @@ public class PlayerName {
           time.startTime(300);
           while (!time.EventTime ());
         }
-        while (Ardu.getBinY () != 0)
+        /*while (Ardu.getBinY () != 0)
         {
           Ardu.getDataFromBuffer();
-        }
+        }*/
       }
       if (charsIntroduced == 3)
       {

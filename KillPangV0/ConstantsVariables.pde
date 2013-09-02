@@ -1,7 +1,7 @@
 
 static final int numballs = 30;
 static final int ballrad = 150;
-static final int maxLevel = 10;
+static final int maxLevel = 30;
 float bulletrad;
 static final float zmax=1000;
 static final float zmin=0;
