@@ -1,3 +1,5 @@
+import SimpleOpenNI.*;
+
 import processing.serial.*;
 
 float zmax;
@@ -38,16 +40,19 @@ void setup() {
   lefttex.noStroke();
   righttex.noStroke();
   cara[0].activesurface(4, 15);
+  if (!kin.InitKinect())
+    println("Faaaaail!");
 }
 
 void draw() {
+  
   thrcontrol=true;
   //lefttex.camera(width/2.0+inv*dif+one.getposx(), height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
   //righttex.camera(width/2.0-inv*dif+one, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
   lefttex.camera(inv*dif+one.getposx(), one.getposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getposx(), one.getposy(), 0*width*-500/600., 0, 1, 0);
-  righttex.camera(-inv*dif+one.getposx(), one.getposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getposx(),one.getposy(), 0*width*-500/600., 0, 1, 0);
-  one.setvelx(Ardu.getX()/50.);
-  one.setvely(Ardu.getY()/50.);
+  righttex.camera(-inv*dif+one.getposx(), one.getposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getposx(), one.getposy(), 0*width*-500/600., 0, 1, 0);
+  //one.setvelx(Ardu.getX()/50.);
+  //one.setvely(Ardu.getY()/50.);
   if (Ardu.getSWTriggerState()==0) {
     one.shot(cara);
   }
@@ -55,15 +60,15 @@ void draw() {
   drawall(lefttex);
   drawall(righttex);
   ////////////////////////////////////////
-  one.updateshot();
+  one.updateshot(kin.getNeck());
   while (thrcontrol) {
   }
   for (int i=0; i<5;i++) {
     cara[i].updatesurface();
     if (cara[i].getz()>zmin) {
-        cara[i].removesurface();
-        one.loselive();
-      }
+      cara[i].removesurface();
+      one.loselive();
+    }
   }
   if (cara[controlsur].getz()>zmax*3/4.) {
     controlsur++;
@@ -72,24 +77,28 @@ void draw() {
   }
   shader(shader3D);
   rect(0, 0, width, height);
+  resetShader();
+  kin.update();
+  kin.trackUserOne();
+  //kin.showTrack();
   /*resetShader();
    noLights();
    fill(255);
    ellipse(width/2.0+mouseX/10.,height/2.0,30,30);
    ellipse(width/2.0-mouseX/10.,height/2.0,30,30);
    //image(lefttex,0,0, width, height);*/
-  println(dif);
-  println((height/2.0) / tan(PI*30.0 / 180.0));
+  /*println(dif);
+  println((height/2.0) / tan(PI*30.0 / 180.0));*/
 }
 
 void drawall(PGraphics cam) {
   cam.beginDraw();
   cam.background(0);
   cam.noStroke();
-  cam.spotLight(247,221,164, width/2.0, 0, zmax/4., 0, 1, 0, PI, 2);
-  cam.spotLight(247,221,164, width/2.0, 0, zmax*2/4., 0, 1, 0, PI, 2);
-  cam.spotLight(247,221,164, width/2.0, 0, zmax*3/4., 0, 1, 0, PI, 2);
-  cam.spotLight(247,221,164, width/2.0, 0, zmax, 0, 1, 0, PI, 2);
+  cam.spotLight(247, 221, 164, width/2.0, 0, zmax/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247, 221, 164, width/2.0, 0, zmax*2/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247, 221, 164, width/2.0, 0, zmax*3/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247, 221, 164, width/2.0, 0, zmax, 0, 1, 0, PI, 2);
   cam.ambientLight(102, 102, 102);
   cam.fill(255);
   cuad1(cam);

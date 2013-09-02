@@ -26,6 +26,23 @@ class shoter {
     if (posx<0) posx=0;
     if (posy<0) posy=0;
   }
+  
+   void updateshot(PVector vec) {
+    PVector aux = new PVector(); 
+    if(vec.x>600) aux.x = 600;
+    else if(vec.x < -600) aux.x = -600;
+    else aux.x = vec.x;
+    if(vec.y>600) aux.y = 600;
+    else if(vec.y < -600) aux.y = -600;
+    else aux.y = vec.y;
+    posx = map(aux.x,-600.,600.,0,width);
+    posy = map(aux.y,-600.,600.,height,0);
+    if (posx>width) posx=width;
+    if (posy>height) posy=height;
+    if (posx<0) posx=0;
+    if (posy<0) posy=0;
+  }
+  
   void drawshot(PGraphics cam) {
     cam.ellipse(posx, posy, 10, 10);
   }
