@@ -7,6 +7,7 @@ volatile int cont=0, contgatillo=0;;
 void setup()
 {
   Serial.begin(115200);
+  analogReference(EXTERNAL);
   pinMode(3,INPUT_PULLUP);
   pinMode(2,INPUT_PULLUP);
   Timer3.initialize(20000);
@@ -43,6 +44,11 @@ void enviadato()
   Serial.print(":");
   Serial.print(analogRead(A1));
   Serial.print(":");
+  
+  //Comment before play game
+  Serial.print(analogRead(A2));
+  Serial.print(":");
+  
   if(swon==0)
   {
     Serial.print(swon);
@@ -76,5 +82,4 @@ void gatillo(){
     esperagatillo=true;
   }
 }
-
 

@@ -7,7 +7,7 @@ void setup()
   size(displaysize, displaysize, OPENGL);
   frameRate(60);
   setupMenus();
-  display.setControlDisplay(1);  
+  display.setControlDisplay(0);  
 }
 
 void draw()

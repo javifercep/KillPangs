@@ -26,7 +26,7 @@ public void setup()
   size(displaysize, displaysize, OPENGL);
   frameRate(60);
   setupMenus();
-  display.setControlDisplay(1);  
+  display.setControlDisplay(0);  
 }
 
 public void draw()
@@ -690,7 +690,7 @@ public void ShowHighScoreMenu()
     background(FondoMainMenu);
     namePlayer.restart();
     display.setControlDisplay(1);
-    Ardu.resetAll();
+    //Ardu.resetAll();
   }
 }
 public void keyTyped()
@@ -744,6 +744,176 @@ public void keyTyped()
         InitJoystickCOM(USBdisponible[4]);
       }
     }
+  }
+}
+
+Serial joystickCOM;
+String dataReceived = ""; // Incoming serial data
+boolean conected=false;
+
+
+public void InitJoystickCOM(String portName)
+{
+  if (conected)
+  {
+    println("Desconectando...");
+    joystickCOM.clear();
+    joystickCOM.stop();
+  }
+  println("Conectando al puerto "+portName);
+  joystickCOM = new Serial(this, portName, 115200);
+  joystickCOM.bufferUntil('f');
+  println("CONECTADO");
+  conected=true;
+  //ListaUSB.hide();
+  //ListaUSB.setVisible(true);
+  display.setControlDisplay(1);
+  background(FondoMainMenu);
+}
+
+public void serialEvent(Serial joystickCOM) {
+    dataReceived = joystickCOM.readString();
+    
+  if (dataReceived != null)
+  {
+    Ardu.addtoBuffer(dataReceived);
+    dataReceived=null;
+  }
+}
+
+public class DataFromArduino {
+  private StringList Buffer;
+  private float posx, posy;
+  private int swon, swtrigger, posBX, posBY, grenade,countgrenLectures;
+  private boolean granislaunch;
+
+  public DataFromArduino ()
+  {
+    Buffer = new StringList();
+    posx=0.0f;
+    posy=0.0f;
+    swon = 1;
+    swtrigger = 1;
+    posBX=0;
+    posBY=0;
+    grenade = 0;
+    granislaunch=false;
+    countgrenLectures=0;
+  }
+
+  public boolean getDataFromBuffer() {
+    /*Check if there are available data, get data and update
+     the buffer. Converts analog data to binary data. Return 
+     TRUE if data has been adquired, and FALSE otherwise*/
+
+    if (Buffer.size()>0)
+    {
+      String[] coordenadas = split(Buffer.get(0), ':');
+      if (coordenadas[0].length()<5)
+      {
+        posx=map(Float.parseFloat(coordenadas[0]), 0, 1023, -500.0f, 500.0f);
+        if (posx<100 && posx>-100)posx=0;
+        if (posx <-250.0f)      posBX = -1;
+        else if (posx >250.0f)  posBX =  1;
+        else                posBX =  0;
+        if (coordenadas[1].length()<5)
+        {
+          //println(posBX);
+          posy=map(Float.parseFloat(coordenadas[1]), 0, 1023, -500.0f, 500.0f);
+          if (posy<100 && posy>-100)posy=0;
+          if (posy < -250.0f)      posBY = -1;
+          else if (posy > 250.0f)  posBY =  1;
+          else                posBY =  0;
+          //println(posBY);
+          grenade = Integer.parseInt(coordenadas[2]);
+          granislaunch = GrenadeisLaunched();
+          //println(grenade);
+          swon=Integer.parseInt(coordenadas[3]);
+          swtrigger = Integer.parseInt(coordenadas[4].substring(0, 1));
+        }
+      }
+      Buffer.remove(0);
+      return true;
+    }
+    else
+      return false;
+  }
+
+  /*IMPORTANT: Use this functions immediatly after getDataFromBuffer function*/
+  public float getX()
+  {
+    /* Return a value between 0 and 1023*/
+    return posx;
+  }
+
+  public float getY()
+  {
+    /* Return a value between 0 and 1023*/
+    return posy;
+  }
+
+  public int getBinX()
+  {
+    /* Return -1, 0 or 1*/
+    return posBX;
+  }
+
+  public int getBinY()
+  {
+    /* Return -1, 0 or 1*/
+    return posBY;
+  }
+
+  public int getGrenade()
+  {
+    /*Return grenade value*/
+    return grenade;
+  }
+  
+  public boolean getGranadeLaunch()
+  {
+    
+    /*Return grenade value*/
+    return granislaunch;
+  }
+  
+  public boolean GrenadeisLaunched()
+  {
+    boolean temp = false;
+    /* Return true if granade is launched*/
+    if(grenade > 700)
+    {
+      countgrenLectures ++;
+      if(countgrenLectures == 5)
+      {
+        temp=true;
+        countgrenLectures = 0;
+      }
+    }
+    return temp;
+  }
+
+
+  public int getSWState()
+  {
+    /* Return push Button State */
+    return swon;
+  }
+
+  public int getSWTriggerState()
+  {
+    /* Return push Button State */
+    return swtrigger;
+  }
+
+  public void addtoBuffer(String data)
+  {
+    Buffer.append(data);
+  }
+
+  public int dataAvailable()
+  {
+    return Buffer.size();
   }
 }
 
@@ -894,10 +1064,10 @@ public class PlayerName {
           time.startTime(300);
           while (!time.EventTime ());
         }
-        /*while (Ardu.getBinY () != 0)
+        while (Ardu.getBinY () != 0)
         {
           Ardu.getDataFromBuffer();
-        }*/
+        }
       }
       if (charsIntroduced == 3)
       {
@@ -1040,160 +1210,6 @@ class surfaces {
     for (int i=0; i<numsurballs; i++) {
       surfuads[i].drawball(posz);
     }
-  }
-}
-
-Serial joystickCOM;
-String dataReceived = ""; // Incoming serial data
-boolean conected=false;
-
-public void InitJoystickCOM(String portName)
-{
-  if (conected)
-  {
-    println("Desconectando...");
-    joystickCOM.clear();
-    joystickCOM.stop();
-  }
-  println("Conectando al puerto "+portName);
-  println("CONECTADO");
-  conected=true;
-  //ListaUSB.hide();
-  //ListaUSB.setVisible(true);
-  display.setControlDisplay(1);
-  background(FondoMainMenu);
-}
-
-
-class DataFromArduino {
-  int px, py, swon, swtrigger, pby, pbx;
-  boolean pushed;
-  DataFromArduino() {
-    px=0;
-    py=0;
-    pbx=0;
-    pby=0;
-    swon=1;
-    swtrigger = 1;
-    pushed=false;
-  }
-  public void setX(int t) {
-    px=t;
-  }
-  public void setY(int t) {
-    py=t;
-  }
-  public void setBinY(int t) {
-    pby=t;
-  }
-  public void setBinX(int t) {
-     pbx=t;
-  }
-  public void setSWState(int t) {
-    swon=t;
-  }
-  public void setSWTriggerState(int t) {
-    swtrigger=t;
-  }
-  public int getX() {
-    return px;
-  }
-  public int getY() {
-    return py;
-  }
-  public int getBinY() {
-    return pby;
-  }
-  public int getBinX() {
-    return pbx;
-  }
-  public int getSWState() {
-    int temp=swon;
-    if (swon==0) swon=1;
-    return temp;
-  }
-  public int getSWTriggerState() {
-    int temp=swtrigger;
-    if (swtrigger==0) swtrigger=1;
-    return temp;
-  }
-  public boolean getDataFromBuffer() {
-    boolean temp;
-    temp=pushed;
-    if (pushed)pushed=false;
-    return temp;
-  }
-  public void setPushed() {
-    pushed=true;
-  }
-  
-  public void resetAll()
-  {
-    px=0;
-    py=0;
-    pbx=0;
-    pby=0;
-    swon=1;
-    swtrigger = 1;
-    pushed=false;
-  }
-}
-
-public void keyPressed() {
-  if (keyCode==UP) {
-    Ardu.setY(-1023);
-    Ardu.setBinY(-1);
-    Ardu.setPushed();
-  }
-  else if (keyCode==DOWN) {
-    Ardu.setY(1023);
-    Ardu.setBinY(1);
-    Ardu.setPushed();
-  }
-
-  if (keyCode==LEFT) {
-    Ardu.setX(-1023);
-    Ardu.setBinX(-1);
-    Ardu.setPushed();
-  }
-  else if (keyCode==RIGHT) {
-    Ardu.setX(1023);
-    Ardu.setBinX(1);
-    Ardu.setPushed();
-  }
-}
-
-
-public void keyReleased() {
-  if (keyCode==LEFT) {
-    Ardu.setX(0);
-    Ardu.setBinX(0);
-    Ardu.setPushed();
-  }
-  else if (keyCode==RIGHT) {
-    Ardu.setX(0);
-    Ardu.setBinX(0);
-    Ardu.setPushed();
-  }
-  if (keyCode==UP) {
-    Ardu.setY(0);
-    Ardu.setBinY(0);
-    Ardu.setPushed();
-  }
-  else if (keyCode==DOWN) {
-    Ardu.setY(0);
-    Ardu.setBinY(0);
-    Ardu.setPushed();
-  }
-
-  if (key==' ') {
-    Ardu.setSWState(0);
-    Ardu.setPushed();
-  }
-
-  if (key=='z') {
-    Ardu.setSWTriggerState(0);
-    Ardu.setPushed();
   }
 }
 
