@@ -43,6 +43,14 @@ class surfaces {
       }
     }
   }
+  
+  void drawsurfacecenter(PGraphics cam,int g) {
+    if (activate) {
+      for (int i=0; i<numsurballs; i++) {
+        surfuads[i].drawballcenter(posz, cam,g,i+1);
+      }
+    }
+  }
   void removesurface() {
     activate=false;
     activesurface(4, radio);

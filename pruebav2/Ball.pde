@@ -56,6 +56,16 @@ class Ball {
       cam.popMatrix();
     }
   }
+  
+  void drawballcenter(float z, PGraphics cam, int g,int b) {
+    if (activate) {
+      cam.fill(color(0,g,b));
+      cam.pushMatrix();
+      cam.translate(posx, posy, z);
+      cam.sphere(rad);
+      cam.popMatrix();
+    }
+  }
 
   void drawball() {
     if (activate) {

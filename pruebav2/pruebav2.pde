@@ -13,9 +13,11 @@ shoter one= new shoter();
 PShader shader3D;
 PGraphics lefttex;
 PGraphics righttex;
+PGraphics center;
 int inv=1;
 int controlsur=0;
 float dif=0;
+int cal=1;
 void setup() {
   int displaysize=min(displayWidth, displayHeight);
   size(displaysize, displaysize, OPENGL);
@@ -33,34 +35,60 @@ void setup() {
   lefttex.noSmooth();
   righttex = createGraphics(width, height, OPENGL);
   righttex.noSmooth();
+  center = createGraphics(width, height, OPENGL);
+  center.noSmooth();
   shader3D.set("resolution", float(width), float(height));
   shader3D.set("LeftTex", lefttex);
   shader3D.set("RightTex", righttex);
 
   lefttex.noStroke();
   righttex.noStroke();
+  center.noStroke();
   cara[0].activesurface(4, 15);
   if (!kin.InitKinect())
     println("Faaaaail!");
 }
 
+
+
+
 void draw() {
-  
+  println(kin.getHand());
   thrcontrol=true;
   //lefttex.camera(width/2.0+inv*dif+one.getposx(), height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
   //righttex.camera(width/2.0-inv*dif+one, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
-  lefttex.camera(inv*dif+one.getposx(), one.getposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getposx(), one.getposy(), 0*width*-500/600., 0, 1, 0);
-  righttex.camera(-inv*dif+one.getposx(), one.getposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getposx(), one.getposy(), 0*width*-500/600., 0, 1, 0);
-  //one.setvelx(Ardu.getX()/50.);
-  //one.setvely(Ardu.getY()/50.);
+  lefttex.camera(inv*dif+one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), 0*width*-500/600., 0, 1, 0);
+  righttex.camera(-inv*dif+one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), 0*width*-500/600., 0, 1, 0);
+  center.camera(one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), 0*width*-500/600., 0, 1, 0);
+  one.setvelx(Ardu.getX()/50.);
+  one.setvely(Ardu.getY()/50.);
   if (Ardu.getSWTriggerState()==0) {
-    one.shot(cara);
+    PVector mouse=kin.getHand();
+    if(mouse.x>width || mouse.x<0 || mouse.y>width || mouse.y<0){}
+    else{
+    center.loadPixels();
+    /*println(center.pixels[mouseX+mouseY*width]);
+    color ct=center.pixels[mouseX+mouseY*width];*/
+    println(center.pixels[(int)(mouse.x+mouse.y*width)]);
+    color ct=center.pixels[(int)(mouse.x+mouse.y*width)];
+    if(ct!=color(0,0,0)){
+    cara[(int)green(ct)-1].surfuads[(int)blue(ct)-1].removeball();
+    //one.shot(cara);
+    println(green(ct)-1);
+    }
+    }
   }
   ///////////////////////////////
   drawall(lefttex);
   drawall(righttex);
+  drawallcenter(center);
   ////////////////////////////////////////
-  one.updateshot(kin.getNeck());
+  //one.updateman();
+  //one.updateshot(new PVector(mouseX,mouseY));
+  one.updateman(kin.getNeck());
+  one.updateshot(kin.getHand());
+  
+  //kin.getNeck()
   while (thrcontrol) {
   }
   for (int i=0; i<5;i++) {
@@ -75,6 +103,7 @@ void draw() {
     controlsur%=5;
     cara[controlsur].activesurface(4, 15*controlsur);
   }
+  //image(center,0,0,width,height);
   shader(shader3D);
   rect(0, 0, width, height);
   resetShader();
@@ -109,7 +138,6 @@ void drawall(PGraphics cam) {
   for (int i=0; i<5;i++) {
     cara[i].drawsurface(cam);
   }
-  ellipse(width/2.0, height/2.0, 30, 30);
   cam.hint(DISABLE_DEPTH_TEST);
   cam.noLights();
   cam.fill(0, 145, 80);
@@ -118,6 +146,17 @@ void drawall(PGraphics cam) {
   cam.lights();
   cam.endDraw();
 }
+void drawallcenter(PGraphics cam) {
+  cam.beginDraw();
+  cam.background(0);
+  cam.noStroke();
+  cam.fill(255);
+  for (int i=0; i<5;i++) {
+    cara[i].drawsurfacecenter(cam,i+1);
+  }
+  cam.endDraw();
+}
+
 
 void cuad1(PGraphics cam) {
   cam.beginShape(QUADS);
@@ -153,5 +192,25 @@ void cuad4(PGraphics cam) {
   cam.vertex(width, width, zmax);
   cam.vertex(width, width, 2000);
   cam.endShape();
+}
+
+
+
+void mouseClicked(){
+ 
+  
+  if(cal==3){
+    kin.sety1(kin.getHandreal().y);
+    cal++;
+  }
+  if(cal==2){
+    kin.setx1(kin.getHandreal().x);
+    cal++;
+  }
+   if(cal==1){
+    kin.setx0y0(kin.getHandreal());
+    cal++;
+  }
+  println("yea");
 }
 

@@ -5,7 +5,7 @@ public class Kinect {
   private PVector neck;
   private PVector hand;
   private boolean right;
-
+  float x0=1,y0=2,x1=3,y1=4;
 
   public Kinect(boolean userhand)
   {
@@ -66,8 +66,9 @@ public class Kinect {
     translate(width/2., height/2.);
     fill(255,200, 150, 200);
     ellipse(neck.x/2., -neck.y/2., neck.z/4.0, neck.z / 4.0);
-    fill(0,200, 150);
-    ellipse(hand.x/2., -hand.y/2., hand.z/100.0, hand.z / 100.0);
+    /*fill(0,200, 150);
+    PVector m=getHand();
+    ellipse(m.x, m.y, hand.z/100.0, hand.z / 100.0);*/
     popMatrix();
   }
   
@@ -78,7 +79,25 @@ public class Kinect {
   
   PVector getHand()
   {
+    PVector ret=new PVector();
+    ret.x=width*(hand.x-x0)/(x1-x0);
+    ret.y=width*(hand.y-y0)/(y1-y0);
+    println(x0+"  "+x1+"  "+y0+"  "+y1);
+    return ret;
+  }
+  PVector getHandreal()
+  {
     return hand;
+  }
+  void setx0y0(PVector v){
+    x0=v.x;
+    y0=v.y;
+  }
+  void setx1(float v){
+    x1=v;
+  }
+  void sety1(float v){
+    y1=v;
   }
 }
 
