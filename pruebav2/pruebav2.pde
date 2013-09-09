@@ -56,11 +56,8 @@ void setup() {
 
 
 void draw() {
-  //println(frameRate);
-  println(kin.getHand());
+  println(frameRate);
   thrcontrol=true;
-  //lefttex.camera(width/2.0+inv*dif+one.getposx(), height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
-  //righttex.camera(width/2.0-inv*dif+one, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
   lefttex.camera(inv*dif+one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), width*-500/600., 0, 1, 0);
   righttex.camera(-inv*dif+one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), width*-500/600., 0, 1, 0);
   center.camera(one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), width*-500/600., 0, 1, 0);
@@ -73,20 +70,13 @@ void draw() {
     }
     else {
       center.loadPixels();
-      println(mouseX+mouseY*width);
-      println((int)(mouse.x+mouse.y*width));
-      /*println(center.pixels[mouseX+mouseY*width]);
-       color ct=center.pixels[mouseX+mouseY*width];*/
-      //println(center.pixels[(int)(mouse.x+mouse.y*width)]);
       color ct=center.pixels[(int)(mouse.x+mouse.y*width)];
       if (ct!=color(0, 0, 0)) {
         cara[(int)green(ct)-1].surfuads[(int)blue(ct)-1].removeball();
-        //one.shot(cara);
-        //println(green(ct)-1);
       }
     }
   }
-  ///////////////////////////////
+  ////////////////////////////////////////
   drawall(lefttex);
   drawall(righttex);
   drawallcenter(center);
@@ -95,8 +85,7 @@ void draw() {
   //one.updateshot();
   one.updateman(kin.getNeck());
   one.updateshot(kin.getHand());
-
-  //kin.getNeck()
+  
   while (thrcontrol) {
   }
   for (int i=0; i<5;i++) {
@@ -111,7 +100,6 @@ void draw() {
     controlsur%=5;
     cara[controlsur].activesurface(4, 15*controlsur);
   }
-  //image(center,0,0,width,height);
   shader(shader3D);
   rect(0, 0, width, height);
   resetShader();
@@ -119,14 +107,6 @@ void draw() {
   kin.update();
   kin.trackUserOne();
   //kin.showTrack();
-  /*resetShader();
-   noLights();
-   fill(255);
-   ellipse(width/2.0+mouseX/10.,height/2.0,30,30);
-   ellipse(width/2.0-mouseX/10.,height/2.0,30,30);
-   //image(lefttex,0,0, width, height);*/
-  /*println(dif);
-   println((height/2.0) / tan(PI*30.0 / 180.0));*/
 }
 
 void drawall(PGraphics cam) {
@@ -147,12 +127,6 @@ void drawall(PGraphics cam) {
   for (int i=0; i<5;i++) {
     cara[i].drawsurface(cam);
   }
-  //cam.hint(DISABLE_DEPTH_TEST);
-  //cam.noLights();
-  //cam.fill(0, 145, 80);
-  //one.drawshot(cam);
-  //cam.hint(ENABLE_DEPTH_TEST);
-  //cam.lights();
   cam.endDraw();
 }
 void drawallcenter(PGraphics cam) {
@@ -205,7 +179,7 @@ void cuad4(PGraphics cam) {
 
 
 
-void mouseClicked() {
+/*void mouseClicked() {
 
 
   if (cal==3) {
@@ -220,6 +194,5 @@ void mouseClicked() {
     kin.setx0y0(kin.getHandreal());
     cal++;
   }
-  println("yea");
-}
+}*/
 

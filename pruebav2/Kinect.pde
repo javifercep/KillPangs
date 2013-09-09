@@ -66,9 +66,9 @@ public class Kinect {
     translate(width/2., height/2.);
     fill(255,200, 150, 200);
     ellipse(neck.x/2., -neck.y/2., neck.z/4.0, neck.z / 4.0);
-    /*fill(0,200, 150);
+    fill(0,200, 150);
     PVector m=getHand();
-    ellipse(m.x, m.y, hand.z/100.0, hand.z / 100.0);*/
+    ellipse(m.x, m.y, hand.z/100.0, hand.z / 100.0);
     popMatrix();
   }
   

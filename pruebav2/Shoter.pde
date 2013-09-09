@@ -31,7 +31,7 @@ class shoter {
   PVector getscreenpos() {
     return new PVector((int)screenposx, (int)screenposy);
   }
-  void updateman() {
+  void updateman() {//with velocity
     manposx+=velx;
     manposy+=vely;
     if (manposx>width) manposx=width;
@@ -39,7 +39,7 @@ class shoter {
     if (manposx<0) manposx=0;
     if (manposy<0) manposy=0;
   }
-  void updateshot(PVector vec) {
+  void updateshot(PVector vec) {//with vector of position
     shotposx=manposx+vec.x-width/2.;
     shotposy=manposy+vec.y-height/2.;
     
@@ -47,10 +47,10 @@ class shoter {
      if (shotposy>height) shotposy=height;
      if (shotposx<0) shotposx=0;
      if (shotposy<0) shotposy=0;*/
-     screenposx=vec.x;
+    screenposx=vec.x;
     screenposy=vec.y;
   }
-  void updateshot() {
+  void updateshot() {//with velocity
     screenposx+=velx;
     screenposy+=vely;
     if (screenposx>width) screenposx=width;
@@ -61,7 +61,7 @@ class shoter {
     shotposy=manposy+screenposy-height/2.;
   }
 
-  void updateman(PVector vec) {
+  void updateman(PVector vec) {//with vector of position
     PVector aux = new PVector(); 
     if (vec.x>600) aux.x = 600;
     else if (vec.x < -600) aux.x = -600;
@@ -87,7 +87,7 @@ class shoter {
     image(mira,screenposx, screenposy, 100, 100);
     //cam.ellipse(shotposx, shotposy, 10, 10);
   }
-  void shot(surfaces face[]) {
+  void shot(surfaces face[]) {//deprecated
     boolean onlyone=true;
     for (int i=0; i<5 && onlyone;i++) {
       if (face[i].surfaceask()) {

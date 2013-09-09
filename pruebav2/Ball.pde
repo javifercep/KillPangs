@@ -4,12 +4,7 @@ class Ball {
   color ballcolor=color(0);
   PShape obj;
   Ball() {
-
     activate=false;
-    /*noStroke();
-     fill(255);
-     obj=createShape(SPHERE, 15);
-     obj.setTexture(faudo);*/
   }
   boolean  ballavailable() {
     return !activate;
@@ -27,7 +22,6 @@ class Ball {
       velrx=wx;
       velry=wy;
       rad=r;
-      //faudo = loadImage("faud.jpg");
       noStroke();
       fill(255);
       obj=createShape(SPHERE, r);
@@ -43,7 +37,7 @@ class Ball {
     if (posy-rad<0 && vely>0) vely*=-1;
     if (posy+rad>height-100 && vely<0) vely*=-1;
   }
-
+  
   void drawball(float z, PGraphics cam) {
     if (activate) {
 
@@ -55,10 +49,10 @@ class Ball {
       cam.popMatrix();
     }
   }
-  
-  void drawballcenter(float z, PGraphics cam, int g,int b) {
+
+  void drawballcenter(float z, PGraphics cam, int g, int b) {
     if (activate) {
-      cam.fill(color(0,g,b));
+      cam.fill(color(0, g, b));
       cam.pushMatrix();
       cam.translate(posx, posy, z);
       cam.sphere(rad);
@@ -111,7 +105,7 @@ class Ball {
     vely=v.y;
   }
 
-  void touch() {
+  void touch() {//deprecated
     ballcolor=color(random(255), random(255), random(255));
   }
   PVector nextpos() {
@@ -121,6 +115,9 @@ class Ball {
   void removeball() {
     activate=false;
     //numPoints.addPuntuation(ballExploted*numLives);
+  }
+   void resetball(){
+    activate=false;
   }
 }
 

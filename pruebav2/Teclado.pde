@@ -15,6 +15,8 @@ public void InitJoystickCOM(String portName)
   conected=true;
   //ListaUSB.hide();
   //ListaUSB.setVisible(true);
+  //display.setControlDisplay(1);
+  //background(FondoMainMenu);
 }
 
 
@@ -142,6 +144,10 @@ void keyReleased() {
   }
 
   if (key==ENTER) {
+    Ardu.setSWTriggerState(0);
+    Ardu.setPushed();
+  }
+  if (key=='z') {
     Ardu.setSWTriggerState(0);
     Ardu.setPushed();
   }
