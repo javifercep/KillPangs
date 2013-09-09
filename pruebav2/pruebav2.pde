@@ -53,29 +53,32 @@ void setup() {
 
 
 void draw() {
-  println(kin.getHand());
+  println(frameRate);
+  //println(kin.getHand());
   thrcontrol=true;
   //lefttex.camera(width/2.0+inv*dif+one.getposx(), height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
   //righttex.camera(width/2.0-inv*dif+one, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
-  lefttex.camera(inv*dif+one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), 0*width*-500/600., 0, 1, 0);
-  righttex.camera(-inv*dif+one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), 0*width*-500/600., 0, 1, 0);
-  center.camera(one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), 0*width*-500/600., 0, 1, 0);
+  lefttex.camera(inv*dif+one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), width*-500/600., 0, 1, 0);
+  righttex.camera(-inv*dif+one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), width*-500/600., 0, 1, 0);
+  center.camera(one.getmanposx(), one.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), one.getmanposx(), one.getmanposy(), width*-500/600., 0, 1, 0);
   one.setvelx(Ardu.getX()/50.);
   one.setvely(Ardu.getY()/50.);
   if (Ardu.getSWTriggerState()==0) {
     PVector mouse=kin.getHand();
-    if(mouse.x>width || mouse.x<0 || mouse.y>width || mouse.y<0){}
-    else{
-    center.loadPixels();
-    /*println(center.pixels[mouseX+mouseY*width]);
-    color ct=center.pixels[mouseX+mouseY*width];*/
-    println(center.pixels[(int)(mouse.x+mouse.y*width)]);
-    color ct=center.pixels[(int)(mouse.x+mouse.y*width)];
-    if(ct!=color(0,0,0)){
-    cara[(int)green(ct)-1].surfuads[(int)blue(ct)-1].removeball();
-    //one.shot(cara);
-    println(green(ct)-1);
+    //PVector mouse=one.getscreenpos();
+    if (mouse.x>width || mouse.x<0 || mouse.y>width || mouse.y<0) {
     }
+    else {
+      center.loadPixels();
+      /*println(center.pixels[mouseX+mouseY*width]);
+       color ct=center.pixels[mouseX+mouseY*width];*/
+      //println(center.pixels[(int)(mouse.x+mouse.y*width)]);
+      color ct=center.pixels[(int)(mouse.x+mouse.y*width)];
+      if (ct!=color(0, 0, 0)) {
+        cara[(int)green(ct)-1].surfuads[(int)blue(ct)-1].removeball();
+        //one.shot(cara);
+        //println(green(ct)-1);
+      }
     }
   }
   ///////////////////////////////
@@ -84,10 +87,10 @@ void draw() {
   drawallcenter(center);
   ////////////////////////////////////////
   //one.updateman();
-  //one.updateshot(new PVector(mouseX,mouseY));
+  //one.updateshot();
   one.updateman(kin.getNeck());
   one.updateshot(kin.getHand());
-  
+
   //kin.getNeck()
   while (thrcontrol) {
   }
@@ -109,7 +112,7 @@ void draw() {
   resetShader();
   kin.update();
   kin.trackUserOne();
-  //kin.showTrack();
+  kin.showTrack();
   /*resetShader();
    noLights();
    fill(255);
@@ -117,7 +120,7 @@ void draw() {
    ellipse(width/2.0-mouseX/10.,height/2.0,30,30);
    //image(lefttex,0,0, width, height);*/
   /*println(dif);
-  println((height/2.0) / tan(PI*30.0 / 180.0));*/
+   println((height/2.0) / tan(PI*30.0 / 180.0));*/
 }
 
 void drawall(PGraphics cam) {
@@ -152,7 +155,7 @@ void drawallcenter(PGraphics cam) {
   cam.noStroke();
   cam.fill(255);
   for (int i=0; i<5;i++) {
-    cara[i].drawsurfacecenter(cam,i+1);
+    cara[i].drawsurfacecenter(cam, i+1);
   }
   cam.endDraw();
 }
@@ -196,18 +199,18 @@ void cuad4(PGraphics cam) {
 
 
 
-void mouseClicked(){
- 
-  
-  if(cal==3){
+void mouseClicked() {
+
+
+  if (cal==3) {
     kin.sety1(kin.getHandreal().y);
     cal++;
   }
-  if(cal==2){
+  if (cal==2) {
     kin.setx1(kin.getHandreal().x);
     cal++;
   }
-   if(cal==1){
+  if (cal==1) {
     kin.setx0y0(kin.getHandreal());
     cal++;
   }

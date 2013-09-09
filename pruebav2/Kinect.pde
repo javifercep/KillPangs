@@ -47,7 +47,7 @@ public class Kinect {
       {
         context.getJointPositionSkeleton(userList[0], SimpleOpenNI.SKEL_NECK, neck);
         context.getJointPositionSkeleton(userList[0], SimpleOpenNI.SKEL_RIGHT_HAND, hand);
-        drawTrack();
+        //drawTrack();
       }
     }
   }
@@ -80,8 +80,8 @@ public class Kinect {
   PVector getHand()
   {
     PVector ret=new PVector();
-    ret.x=width*(hand.x-x0)/(x1-x0);
-    ret.y=width*(hand.y-y0)/(y1-y0);
+    ret.x=(int)(width*(hand.x-x0)/(x1-x0));
+    ret.y=(int)(width*(hand.y-y0)/(y1-y0));
     println(x0+"  "+x1+"  "+y0+"  "+y1);
     return ret;
   }

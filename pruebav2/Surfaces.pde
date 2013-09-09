@@ -24,7 +24,7 @@ class surfaces {
 
   void genballs() {
     for (int i=0; i<numsurballs; i++) {
-      surfuads[i].activate(random(15, 500), random(15, 500), 5*0.2*(random(-2, 2)), 5*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), radio);
+      surfuads[i].activate(random(15, 500), random(15, 500), 5*0.2*(random(-2, 2)), 5*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), height*radio/600.);
     }
   }
 
