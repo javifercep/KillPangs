@@ -79,11 +79,16 @@ public class Kinect {
   
   PVector getHand()
   {
-    PVector ret=new PVector();
+    /*PVector ret=new PVector();
     ret.x=(int)(width*(hand.x-x0)/(x1-x0));
     ret.y=(int)(width*(hand.y-y0)/(y1-y0));
     println(x0+"  "+x1+"  "+y0+"  "+y1);
-    return ret;
+    return ret;*/
+    PVector cent=PVector.sub(hand, neck);
+    cent.y*=-1;
+    cent.add(new PVector(width/2.,height/2.));
+    
+    return new PVector((int)cent.x,(int)cent.y);
   }
   PVector getHandreal()
   {

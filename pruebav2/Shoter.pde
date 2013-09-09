@@ -1,11 +1,10 @@
 class shoter {
-  float manposx, manposy, shotposx, shotposy, velx=0, vely=0, screenposx=0, screenposy=0;
+  float manposx, manposy, shotposx, shotposy, velx=0, vely=0, screenposx=0, screenposy=0,srx=0,sry=0;
   int lives=3;
-  PImage mira;
   shoter() {
     shotposx=250;
     shotposy=250;
-    mira = loadImage("mira.png");
+    
   }
   void setvelx(float v) {
     velx=v;
@@ -43,10 +42,13 @@ class shoter {
   void updateshot(PVector vec) {
     shotposx=manposx+vec.x-width/2.;
     shotposy=manposy+vec.y-height/2.;
+    
     /*if (shotposx>width) shotposx=width;
      if (shotposy>height) shotposy=height;
      if (shotposx<0) shotposx=0;
      if (shotposy<0) shotposy=0;*/
+     screenposx=vec.x;
+    screenposy=vec.y;
   }
   void updateshot() {
     screenposx+=velx;
@@ -76,9 +78,14 @@ class shoter {
   }
 
   void drawshot(PGraphics cam) {
-    //imageMode(CENTER);
-    //cam.image(mira,shotposx, shotposy, 30, 30);
-    cam.ellipse(shotposx, shotposy, 10, 10);
+    cam.imageMode(CENTER);
+    cam.image(mira,shotposx, shotposy, 100, 100);
+    //cam.ellipse(shotposx, shotposy, 10, 10);
+  }
+  void drawshot() {
+    imageMode(CENTER);
+    image(mira,screenposx, screenposy, 100, 100);
+    //cam.ellipse(shotposx, shotposy, 10, 10);
   }
   void shot(surfaces face[]) {
     boolean onlyone=true;

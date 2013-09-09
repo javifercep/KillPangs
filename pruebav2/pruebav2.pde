@@ -18,6 +18,7 @@ int inv=1;
 int controlsur=0;
 float dif=0;
 int cal=1;
+PImage mira;
 void setup() {
   int displaysize=min(displayWidth, displayHeight);
   size(displaysize, displaysize, OPENGL);
@@ -30,6 +31,8 @@ void setup() {
 
   ballshit = new BallShit("ball");
   ballshit.start();
+  mira = loadImage("mira.png");
+  faudo = loadImage("faud.jpg");
   shader3D = loadShader("3d.glsl");
   lefttex = createGraphics(width, height, OPENGL);
   lefttex.noSmooth();
@@ -53,8 +56,8 @@ void setup() {
 
 
 void draw() {
-  println(frameRate);
-  //println(kin.getHand());
+  //println(frameRate);
+  println(kin.getHand());
   thrcontrol=true;
   //lefttex.camera(width/2.0+inv*dif+one.getposx(), height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
   //righttex.camera(width/2.0-inv*dif+one, height/2.0, (height/2.0) / tan(PI*30.0 / 180.0), width/2.0, height/2.0, 0*width*-500/600., 0, 1, 0);
@@ -70,6 +73,8 @@ void draw() {
     }
     else {
       center.loadPixels();
+      println(mouseX+mouseY*width);
+      println((int)(mouse.x+mouse.y*width));
       /*println(center.pixels[mouseX+mouseY*width]);
        color ct=center.pixels[mouseX+mouseY*width];*/
       //println(center.pixels[(int)(mouse.x+mouse.y*width)]);
@@ -110,9 +115,10 @@ void draw() {
   shader(shader3D);
   rect(0, 0, width, height);
   resetShader();
+  one.drawshot();
   kin.update();
   kin.trackUserOne();
-  kin.showTrack();
+  //kin.showTrack();
   /*resetShader();
    noLights();
    fill(255);
@@ -125,7 +131,7 @@ void draw() {
 
 void drawall(PGraphics cam) {
   cam.beginDraw();
-  cam.background(0);
+  cam.background(128);
   cam.noStroke();
   cam.spotLight(247, 221, 164, width/2.0, 0, zmax/4., 0, 1, 0, PI, 2);
   cam.spotLight(247, 221, 164, width/2.0, 0, zmax*2/4., 0, 1, 0, PI, 2);
@@ -141,12 +147,12 @@ void drawall(PGraphics cam) {
   for (int i=0; i<5;i++) {
     cara[i].drawsurface(cam);
   }
-  cam.hint(DISABLE_DEPTH_TEST);
-  cam.noLights();
-  cam.fill(0, 145, 80);
-  one.drawshot(cam);
-  cam.hint(ENABLE_DEPTH_TEST);
-  cam.lights();
+  //cam.hint(DISABLE_DEPTH_TEST);
+  //cam.noLights();
+  //cam.fill(0, 145, 80);
+  //one.drawshot(cam);
+  //cam.hint(ENABLE_DEPTH_TEST);
+  //cam.lights();
   cam.endDraw();
 }
 void drawallcenter(PGraphics cam) {

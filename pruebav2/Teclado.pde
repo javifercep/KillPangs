@@ -107,7 +107,12 @@ void keyPressed() {
     Ardu.setPushed();
   }
 }
-
+void mouseReleased(){
+ if(mouseButton==RIGHT){
+  Ardu.setSWTriggerState(0);
+    Ardu.setPushed();
+ } 
+}
 
 void keyReleased() {
   if (keyCode==LEFT) {

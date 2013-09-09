@@ -6,7 +6,6 @@ class Ball {
   Ball() {
 
     activate=false;
-    faudo = loadImage("faud.jpg");
     /*noStroke();
      fill(255);
      obj=createShape(SPHERE, 15);
@@ -187,7 +186,7 @@ void colision(Ball one, Ball two) {
   float r1=one.getrad(), r2=two.getrad();
   PVector velone=one.getvel();
   PVector veltwo=two.getvel();
-  float m1=pow(3, r1), m2=pow(3, r2);
+  float m1=pow(3, r1/10), m2=pow(3, r2/10);
   PVector bVect = PVector.sub(one.getpos(), two.getpos());
 
   // calculate magnitude of the vector separating the balls
