@@ -37,7 +37,38 @@ class Ball {
     if (posy-rad<0 && vely>0) vely*=-1;
     if (posy+rad>height-height/6. && vely<0) vely*=-1;
   }
+  
+  void ballupdatesurface() {
+    posy-=vely;
+    posx-=velx;
+    if (posx-rad<width/2.-hallradx && velx>0) velx*=-1;
+    if (posx+rad>width/2.+hallradx && velx<0) velx*=-1;
+    if (posy-rad<height/2.-hallrady && vely>0) vely*=-1;
+    if (posy+rad>height/2.+hallrady && vely<0) vely*=-1;
+  }
+  
+  void drawball(float z, PGraphics cam) {
+    if (activate) {
 
+      cam.pushMatrix();
+      cam.translate(posx, posy, z);
+      cam.rotateX(rotx+=velrx);
+      cam.rotateY(roty+=velry);
+      cam.shape(obj);
+      cam.popMatrix();
+    }
+  }
+
+  void drawballcenter(float z, PGraphics cam, int g, int b) {
+    if (activate) {
+      cam.fill(color(0, g, b));
+      cam.pushMatrix();
+      cam.translate(posx, posy, z);
+      cam.sphere(rad);
+      cam.popMatrix();
+    }
+  }
+  
   void drawball(float z) {
     if (activate) {
 
@@ -144,6 +175,61 @@ class BallShit extends Thread {
         }
         thrcontrol=false;
        
+      }
+    }
+  }
+
+  // Our method that quits the thread
+  void quit() { 
+    running = false;  // Setting running to false ends the loop in run()
+    // IUn case the thread is waiting. . .
+    //interrupt();
+  }
+}
+
+class BallShit3D extends Thread {
+
+  boolean running;           // Is the thread running?  Yes or no?
+  String id;                 // Thread name
+  int count;                 // counter
+
+
+  // Constructor, create the thread
+  // It is not running by default
+  BallShit3D (String s) {
+    running = false;
+    id = s;
+    count = 0;
+  }
+
+  // Overriding "start()"
+  void start () {
+    // Set running equal to true
+    running = true;
+    // Do whatever start does in Thread, don't forget this!
+    super.start();
+  }
+
+  // We must implement run, this gets triggered by start()
+  void run () {
+    while (running) {
+      if (thrcontrol) {
+        for (int s=0; s<5;s++) {
+          for (int n=30-1; n>=0; n--) {
+            if (cara[s].surfuads[n].ballask()) {
+              for (int m=0; m<n; m++) {
+                if (cara[s].surfuads[m].ballask()) {
+                  if (PVector.dist(cara[s].surfuads[n].nextpos(), cara[s].surfuads[m].nextpos())<cara[s].surfuads[n].getrad()+cara[s].surfuads[m].getrad()) {
+                    colision(cara[s].surfuads[n], cara[s].surfuads[m]);
+                    //fuad[n].touch();
+                    // fuad[m].touch();
+                  }
+                }
+              }
+            }
+          }
+        }
+        thrcontrol=false;
       }
     }
   }

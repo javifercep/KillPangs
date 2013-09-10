@@ -1,3 +1,5 @@
+import SimpleOpenNI.*;
+
 import processing.serial.*;
 
 

@@ -26,7 +26,22 @@ void InitConfigurations()
   minim = new Minim(this);
   kick = minim.loadFile("gasolina.mp3", 1024);
   gamesound=minim.loadFile("sexy.mp3",1024);
+  disparo = minim.loadSample("disparo.mp3", 2048);
   shaderfondo = loadShader("fondo.glsl");
+  shader3D = loadShader("3d.glsl");
+  lefttex = createGraphics(width, height, OPENGL);
+  lefttex.noSmooth();
+  righttex = createGraphics(width, height, OPENGL);
+  righttex.noSmooth();
+  center = createGraphics(width, height, OPENGL);
+  center.noSmooth();
+  shader3D.set("resolution", float(width), float(height));
+  shader3D.set("LeftTex", lefttex);
+  shader3D.set("RightTex", righttex);
+  lefttex.noStroke();
+  righttex.noStroke();
+  center.noStroke();
+  mira = loadImage("mira.png");
   fotoover=loadImage("fuadover.jpg");
   fotoover.resize(width, height);
   img = loadImage("fondo.jpeg");
@@ -34,6 +49,14 @@ void InitConfigurations()
   bulletrad = height*2.5/600.;
   faudo = loadImage("faud.jpg");
   fuas=new PImage[15];
+  zmax=width*-2000/600.;
+  zmin=200;
+  hallradx= (width)/2.;
+  hallrady=(height)/2.;
+  two= new shoter();
+  for (int i=0; i<numsurfaces;i++) {
+    cara[i]=new surfaces();
+  }
   for(int i=0; i<15; i++){
     fuas[i] = loadImage("level" + (i+1) + ".jpg");
     fuas[i].resize(width, height);
@@ -44,6 +67,8 @@ void InitConfigurations()
   for (int i=0; i<numballs; i++) {
     fuad[i]= new Ball();
   }
+  if (!kin.InitKinect())
+    println("Faaaaail!");
 }
 void setupMenus()
 {
@@ -70,7 +95,7 @@ void ShowStartMenu()
   }
 }
 
-
+int choosegame=0;
 void ShowMainMenu()
 {
   textSize((int)width*38/600.);
@@ -79,6 +104,26 @@ void ShowMainMenu()
   text("KILL F.. PANG!!", width*150/600., height*150/600.);
   text("PULSE START", width*150/600., height*400/600.);
   namePlayer.writingName();
+  if(namePlayer.getnameWrited()){
+    /*if(!(trygame==0)){
+      rectMode(CENTER);
+      rect(150+50*trygame,520, 100,40);
+    }*/
+    if(Ardu.getX()>0) choosegame=1;
+    else if(Ardu.getX()<0) choosegame=-1;
+    if(Ardu.getSWTriggerState()==0){
+      if(choosegame==-1) display.setControlDisplay(2);
+      if(choosegame==1)display.setControlDisplay(7);
+      choosegame=0;
+    }
+  }
+  noStroke();
+  if(choosegame==-1) fill(color(240, 20, 20));
+  else fill(color(0, 0, 0));
+  text("Game V1", width*200/600., height*500/600.);
+  if(choosegame==1) fill(color(240, 20, 20));
+  else fill(color(0, 0, 0));
+  text("Game V2", width*300/600., height*500/600.);
 }
 
 void addranking(String name, int point) {

@@ -106,6 +106,59 @@ void nextLevel()
   display.setControlDisplay(3);
 }
 
+void InitGameV2(){
+  for(int i=0; i<numsurfaces; i++){
+    cara[i].resetsurface();
+  }
+  two.resetshoter();
+  controlsur=0;
+  ballshit3d = new BallShit3D("ball");
+  ballshit3d.start();
+  cara[0].activesurface(4, 15);
+  display.setControlDisplay(8);
+}
+
+void ShowGameV2(){
+  thrcontrol=true;
+  lefttex.camera(dif+two.getmanposx(), two.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), two.getmanposx(), two.getmanposy(), width*-500/600., 0, 1, 0);
+  righttex.camera(-dif+two.getmanposx(), two.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), two.getmanposx(), two.getmanposy(), width*-500/600., 0, 1, 0);
+  center.camera(two.getmanposx(), two.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), two.getmanposx(), two.getmanposy(), width*-500/600., 0, 1, 0);
+  //two.setvelx(Ardu.getX()/50.);
+  //two.setvely(Ardu.getY()/50.);
+  if (Ardu.getSWTriggerState()==0) {
+    two.shot(cara, center);
+  }
+  drawall(lefttex);
+  drawall(righttex);
+  drawallcenter(center);
+  two.updateman(kin.getNeck());
+  two.updateshot(kin.getHand());
+  for (int i=0; i<5;i++) {
+    cara[i].updatesurface();
+    if (cara[i].getz()>zmin) {
+      cara[i].removesurface();
+      two.loselive();
+    }
+  }
+  if (cara[controlsur].getz()>zmax*3/4.) {
+    controlsur++;
+    controlsur%=5;
+    cara[controlsur].activesurface(4, 15*controlsur);
+  }
+  shader(shader3D);
+  rect(0, 0, width, height);
+  resetShader();
+  two.drawshot();
+  kin.update();
+  kin.trackUserOne();
+  if(two.asklives()<=0){
+    display.setControlDisplay(6);
+    background(255);
+    ballshit3d.quit();
+    imageMode(CORNER);
+  }
+}
+
 void gameover() {
   background(fotoover);
   textSize(40);
@@ -119,3 +172,71 @@ void gameover() {
   }
 }
 
+
+void drawall(PGraphics cam) {
+  cam.beginDraw();
+  cam.background(128);
+  cam.noStroke();
+  cam.spotLight(247, 221, 164, width/2.0, 0, zmax/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247, 221, 164, width/2.0, 0, zmax*2/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247, 221, 164, width/2.0, 0, zmax*3/4., 0, 1, 0, PI, 2);
+  cam.spotLight(247, 221, 164, width/2.0, 0, zmax, 0, 1, 0, PI, 2);
+  cam.ambientLight(102, 102, 102);
+  cam.fill(255);
+  cuad1(cam);
+  cuad2(cam);
+  cuad3(cam);
+  cuad4(cam);
+  cam.fill(255);
+  for (int i=0; i<5;i++) {
+    cara[i].drawsurface(cam);
+  }
+  cam.endDraw();
+}
+void drawallcenter(PGraphics cam) {
+  cam.beginDraw();
+  cam.background(0);
+  cam.noStroke();
+  cam.fill(255);
+  for (int i=0; i<5;i++) {
+    cara[i].drawsurfacecenter(cam, i+1);
+  }
+  cam.endDraw();
+}
+
+
+void cuad1(PGraphics cam) {
+  cam.beginShape(QUADS);
+  cam.vertex(width/2.-hallradx, height/2.-hallrady, 2000);
+  cam.vertex(width/2.-hallradx, height/2.-hallrady, zmax);
+  cam.vertex(width/2.-hallradx, height/2.+hallrady, zmax);
+  cam.vertex(width/2.-hallradx, height/2.+hallrady, 2000);
+  cam.endShape();
+}
+
+void cuad2(PGraphics cam) {
+  cam.beginShape(QUADS);
+  cam.vertex(width/2.+hallradx, height/2.-hallrady, 2000);
+  cam.vertex(width/2.+hallradx, height/2.-hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.+hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.+hallrady, 2000);
+  cam.endShape();
+}
+
+void cuad3(PGraphics cam) {
+  cam.beginShape(QUADS);
+  cam.vertex(width/2.-hallradx, height/2.-hallrady, 2000);
+  cam.vertex(width/2.-hallradx, height/2.-hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.-hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.-hallrady, 2000);
+  cam.endShape();
+}
+
+void cuad4(PGraphics cam) {
+  cam.beginShape(QUADS);
+  cam.vertex(width/2.-hallradx, height/2.+hallrady, 2000);
+  cam.vertex(width/2.-hallradx, height/2.+hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.+hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.+hallrady, 2000);
+  cam.endShape();
+}

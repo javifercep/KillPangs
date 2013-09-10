@@ -95,6 +95,8 @@ class DataFromArduino {
 }
 
 void keyPressed() {
+  if (key=='a') dif--;
+  if (key=='d') dif++;
   if (keyCode==UP) {
     Ardu.setY(-1023);
     Ardu.setBinY(-1);
@@ -118,6 +120,12 @@ void keyPressed() {
   }
 }
 
+void mouseReleased() {
+  if (mouseButton==RIGHT) {
+    Ardu.setSWTriggerState(0);
+    Ardu.setPushed();
+  }
+}
 
 void keyReleased() {
   if (keyCode==LEFT) {

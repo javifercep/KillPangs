@@ -1,16 +1,24 @@
 
 static final int numballs = 30;
+static final int numsurfaces = 5;
 static final int ballrad = 150;
 static final int maxLevel = 30;
 float bulletrad;
-static final float zmax=1000;
-static final float zmin=0;
+float zmax;
+float zmin;
 static final int ballExploted = 10;
 static final long timedivisor = 60000;
-
+float hallradx;
+float hallrady;
 long finaltime=0;
-
+PImage mira;
 int numLives = 3;
+PShader shader3D;
+PGraphics lefttex;
+PGraphics righttex;
+PGraphics center;
+float dif=0;
+int controlsur=0;
 
 volatile boolean thrcontrol=false;
 DataFromArduino Ardu = new DataFromArduino();
@@ -19,3 +27,7 @@ Bullet bala[]=new Bullet[5];
 Ball fuad[]= new Ball[numballs];
 DisplayStateMachine display = new DisplayStateMachine(0);
 BallShit ballshit;
+AudioSample disparo;
+surfaces cara[]=new surfaces[numsurfaces];
+BallShit3D ballshit3d;
+shoter two;

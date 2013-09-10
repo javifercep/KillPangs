@@ -33,6 +33,12 @@ public class DisplayStateMachine {
     case 6:
       gameover();
       break;
+    case 7:
+      InitGameV2();
+      break;
+    case 8:
+      ShowGameV2();
+      break;
     }
   }
 

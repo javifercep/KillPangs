@@ -91,7 +91,7 @@ public class PlayerName {
       if (charsIntroduced == 3)
       {
         nameWrited = true;
-        display.incControlDisplay();
+        //display.incControlDisplay();
       }
     }
   }
