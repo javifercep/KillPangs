@@ -42,7 +42,7 @@ class DataFromArduino {
     pby=t;
   }
   void setBinX(int t) {
-     pbx=t;
+    pbx=t;
   }
   void setSWState(int t) {
     swon=t;
@@ -109,11 +109,11 @@ void keyPressed() {
     Ardu.setPushed();
   }
 }
-void mouseReleased(){
- if(mouseButton==RIGHT){
-  Ardu.setSWTriggerState(0);
+void mouseReleased() {
+  if (mouseButton==RIGHT) {
+    Ardu.setSWTriggerState(0);
     Ardu.setPushed();
- } 
+  }
 }
 
 void keyReleased() {

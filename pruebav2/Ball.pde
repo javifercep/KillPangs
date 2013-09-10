@@ -35,9 +35,17 @@ class Ball {
     if (posx-rad<0 && velx>0) velx*=-1;
     if (posx+rad>width && velx<0) velx*=-1;
     if (posy-rad<0 && vely>0) vely*=-1;
-    if (posy+rad>height-100 && vely<0) vely*=-1;
+    if (posy+rad>height-height/6. && vely<0) vely*=-1;
   }
-  
+  void ballupdatesurface() {
+    posy-=vely;
+    posx-=velx;
+    if (posx-rad<width/2.-hallradx && velx>0) velx*=-1;
+    if (posx+rad>width/2.+hallradx && velx<0) velx*=-1;
+    if (posy-rad<height/2.-hallrady && vely>0) vely*=-1;
+    if (posy+rad>height/2.+hallrady && vely<0) vely*=-1;
+  }
+
   void drawball(float z, PGraphics cam) {
     if (activate) {
 
@@ -116,13 +124,13 @@ class Ball {
     activate=false;
     //numPoints.addPuntuation(ballExploted*numLives);
   }
-   void resetball(){
+  void resetball() {
     activate=false;
   }
 }
 
 
-class BallShit extends Thread {
+class BallShit3D extends Thread {
 
   boolean running;           // Is the thread running?  Yes or no?
   String id;                 // Thread name
@@ -131,7 +139,7 @@ class BallShit extends Thread {
 
   // Constructor, create the thread
   // It is not running by default
-  BallShit (String s) {
+  BallShit3D (String s) {
     running = false;
     id = s;
     count = 0;

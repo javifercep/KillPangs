@@ -1,10 +1,11 @@
 class shoter {
-  float manposx, manposy, shotposx, shotposy, velx=0, vely=0, screenposx=0, screenposy=0,srx=0,sry=0;
+  float manposx, manposy, shotposx, shotposy, velx=0, vely=0, screenposx=0, screenposy=0, srx=0, sry=0;
   int lives=3;
+  TimeControl reload;
   shoter() {
     shotposx=250;
     shotposy=250;
-    
+    reload= new TimeControl();
   }
   void setvelx(float v) {
     velx=v;
@@ -34,15 +35,15 @@ class shoter {
   void updateman() {//with velocity
     manposx+=velx;
     manposy+=vely;
-    if (manposx>width) manposx=width;
-    if (manposy>height) manposy=height;
-    if (manposx<0) manposx=0;
-    if (manposy<0) manposy=0;
+    if (manposx>width/2.+hallradx) manposx=width/2.+hallradx;
+    if (manposy>height/2.+hallrady) manposy=height/2.+hallrady;
+    if (manposx<width/2.-hallradx) manposx=width/2.-hallradx;
+    if (manposy<height/2.-hallrady) manposy=height/2.-hallrady;
   }
   void updateshot(PVector vec) {//with vector of position
     shotposx=manposx+vec.x-width/2.;
     shotposy=manposy+vec.y-height/2.;
-    
+
     /*if (shotposx>width) shotposx=width;
      if (shotposy>height) shotposy=height;
      if (shotposx<0) shotposx=0;
@@ -79,13 +80,34 @@ class shoter {
 
   void drawshot(PGraphics cam) {
     cam.imageMode(CENTER);
-    cam.image(mira,shotposx, shotposy, 100, 100);
+    cam.image(mira, shotposx, shotposy, 100, 100);
     //cam.ellipse(shotposx, shotposy, 10, 10);
   }
   void drawshot() {
+    if(!reload.EventTime())tint(255,0,0);
+    else tint(0,0,0);
     imageMode(CENTER);
-    image(mira,screenposx, screenposy, 100, 100);
+    image(mira, screenposx, screenposy, 100, 100);
     //cam.ellipse(shotposx, shotposy, 10, 10);
+    noTint();
+  }
+  void shot(surfaces face[], PGraphics center) {
+    if (reload.EventTime()) {
+      disparo.trigger();
+      PVector mouse=one.getscreenpos();
+      if (mouse.x>width || mouse.x<0 || mouse.y>width || mouse.y<0) {
+      }
+      else {
+        center.loadPixels();
+        //color ct=center.pixels[(int)(mouse.x+mouse.y*width)];
+        color ct= center.get((int)mouse.x, (int)mouse.y);
+        if (ct!=color(0, 0, 0)) {
+          cara[(int)green(ct)-1].surfuads[(int)blue(ct)-1].removeball();
+          cara[(int)green(ct)-1].removeball();
+        }
+      }
+      reload.startTime(1000);
+    }
   }
   void shot(surfaces face[]) {//deprecated
     boolean onlyone=true;

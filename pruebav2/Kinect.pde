@@ -5,7 +5,7 @@ public class Kinect {
   private PVector neck;
   private PVector hand;
   private boolean right;
-  float x0=1,y0=2,x1=3,y1=4;
+  float x0=1, y0=2, x1=3, y1=4;
 
   public Kinect(boolean userhand)
   {
@@ -64,44 +64,44 @@ public class Kinect {
   {
     pushMatrix();
     translate(width/2., height/2.);
-    fill(255,200, 150, 200);
+    fill(255, 200, 150, 200);
     ellipse(neck.x/2., -neck.y/2., neck.z/4.0, neck.z / 4.0);
-    fill(0,200, 150);
+    fill(0, 200, 150);
     PVector m=getHand();
     ellipse(m.x, m.y, hand.z/100.0, hand.z / 100.0);
     popMatrix();
   }
-  
+
   PVector getNeck()
   {
     return neck;
   }
-  
+
   PVector getHand()
   {
     /*PVector ret=new PVector();
-    ret.x=(int)(width*(hand.x-x0)/(x1-x0));
-    ret.y=(int)(width*(hand.y-y0)/(y1-y0));
-    println(x0+"  "+x1+"  "+y0+"  "+y1);
-    return ret;*/
+     ret.x=(int)(width*(hand.x-x0)/(x1-x0));
+     ret.y=(int)(width*(hand.y-y0)/(y1-y0));
+     println(x0+"  "+x1+"  "+y0+"  "+y1);
+     return ret;*/
     PVector cent=PVector.sub(hand, neck);
     cent.y*=-1;
-    cent.add(new PVector(width/2.,height/2.));
-    
-    return new PVector((int)cent.x,(int)cent.y);
+    cent.add(new PVector(width/2., height/2.));
+
+    return new PVector((int)cent.x, (int)cent.y);
   }
   PVector getHandreal()
   {
     return hand;
   }
-  void setx0y0(PVector v){
+  void setx0y0(PVector v) {
     x0=v.x;
     y0=v.y;
   }
-  void setx1(float v){
+  void setx1(float v) {
     x1=v;
   }
-  void sety1(float v){
+  void sety1(float v) {
     y1=v;
   }
 }
@@ -110,7 +110,7 @@ void onNewUser(SimpleOpenNI curContext, int userId)
 {
   println("onNewUser - userId: " + userId);
   println("\tstart tracking skeleton");
-  
+
   curContext.startTrackingSkeleton(userId);
 }
 

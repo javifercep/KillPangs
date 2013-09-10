@@ -1,13 +1,22 @@
+import ddf.minim.spi.*;
+import ddf.minim.signals.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.ugens.*;
+import ddf.minim.effects.*;
+
 import SimpleOpenNI.*;
 
 import processing.serial.*;
+Minim minim;
+AudioSample disparo;
 
 float zmax;
 float zmin;
 PImage faudo;
 boolean thrcontrol=false;
 surfaces cara[];
-BallShit ballshit;
+BallShit3D ballshit;
 DataFromArduino Ardu = new DataFromArduino();
 shoter one= new shoter();
 PShader shader3D;
@@ -19,17 +28,21 @@ int controlsur=0;
 float dif=0;
 int cal=1;
 PImage mira;
+float hallradx, hallrady;
 void setup() {
-  int displaysize=min(displayWidth, displayHeight);
-  size(displaysize, displaysize, OPENGL);
+  //int displaysize=min(displayWidth, displayHeight);
+  size((int)(displayHeight*1.25), displayHeight, OPENGL);
   zmax=width*-2000/600.;
   zmin=200;
+  hallradx=(width)/2.;
+  hallrady=(height)/2.;
   cara=new surfaces[5];
   for (int i=0; i<5;i++) {
     cara[i]=new surfaces();
   }
-
-  ballshit = new BallShit("ball");
+  minim = new Minim(this);
+  disparo = minim.loadSample("disparo.mp3", 2048);
+  ballshit = new BallShit3D("ball");
   ballshit.start();
   mira = loadImage("mira.png");
   faudo = loadImage("faud.jpg");
@@ -64,17 +77,19 @@ void draw() {
   one.setvelx(Ardu.getX()/50.);
   one.setvely(Ardu.getY()/50.);
   if (Ardu.getSWTriggerState()==0) {
-    PVector mouse=kin.getHand();
-    //PVector mouse=one.getscreenpos();
-    if (mouse.x>width || mouse.x<0 || mouse.y>width || mouse.y<0) {
-    }
-    else {
-      center.loadPixels();
-      color ct=center.pixels[(int)(mouse.x+mouse.y*width)];
-      if (ct!=color(0, 0, 0)) {
-        cara[(int)green(ct)-1].surfuads[(int)blue(ct)-1].removeball();
-      }
-    }
+    one.shot(cara, center);
+    //PVector mouse=kin.getHand();
+    /*PVector mouse=one.getscreenpos();
+     if (mouse.x>width || mouse.x<0 || mouse.y>width || mouse.y<0) {
+     }
+     else {
+     //center.loadPixels();
+     //color ct=center.pixels[(int)(mouse.x+mouse.y*width)];
+     color ct= center.get((int)mouse.x,(int)mouse.y);
+     if (ct!=color(0, 0, 0)) {
+     cara[(int)green(ct)-1].surfuads[(int)blue(ct)-1].removeball();
+     }
+     }*/
   }
   ////////////////////////////////////////
   drawall(lefttex);
@@ -85,7 +100,7 @@ void draw() {
   //one.updateshot();
   one.updateman(kin.getNeck());
   one.updateshot(kin.getHand());
-  
+
   while (thrcontrol) {
   }
   for (int i=0; i<5;i++) {
@@ -143,56 +158,55 @@ void drawallcenter(PGraphics cam) {
 
 void cuad1(PGraphics cam) {
   cam.beginShape(QUADS);
-  cam.vertex(0, 0, 2000);
-  cam.vertex(0, 0, zmax);
-  cam.vertex(0, width, zmax);
-  cam.vertex(0, width, 2000);
+  cam.vertex(width/2.-hallradx, height/2.-hallrady, 2000);
+  cam.vertex(width/2.-hallradx, height/2.-hallrady, zmax);
+  cam.vertex(width/2.-hallradx, height/2.+hallrady, zmax);
+  cam.vertex(width/2.-hallradx, height/2.+hallrady, 2000);
   cam.endShape();
 }
 
 void cuad2(PGraphics cam) {
   cam.beginShape(QUADS);
-  cam.vertex(width, 0, 2000);
-  cam.vertex(width, 0, zmax);
-  cam.vertex(width, width, zmax);
-  cam.vertex(width, width, 2000);
+  cam.vertex(width/2.+hallradx, height/2.-hallrady, 2000);
+  cam.vertex(width/2.+hallradx, height/2.-hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.+hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.+hallrady, 2000);
   cam.endShape();
 }
 
 void cuad3(PGraphics cam) {
   cam.beginShape(QUADS);
-  cam.vertex(0, 0, 2000);
-  cam.vertex(0, 0, zmax);
-  cam.vertex(width, 0, zmax);
-  cam.vertex(width, 0, 2000);
+  cam.vertex(width/2.-hallradx, height/2.-hallrady, 2000);
+  cam.vertex(width/2.-hallradx, height/2.-hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.-hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.-hallrady, 2000);
   cam.endShape();
 }
 
 void cuad4(PGraphics cam) {
   cam.beginShape(QUADS);
-  cam.vertex(0, width, 2000);
-  cam.vertex(0, width, zmax);
-  cam.vertex(width, width, zmax);
-  cam.vertex(width, width, 2000);
+  cam.vertex(width/2.-hallradx, height/2.+hallrady, 2000);
+  cam.vertex(width/2.-hallradx, height/2.+hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.+hallrady, zmax);
+  cam.vertex(width/2.+hallradx, height/2.+hallrady, 2000);
   cam.endShape();
 }
 
 
 
 /*void mouseClicked() {
-
-
-  if (cal==3) {
-    kin.sety1(kin.getHandreal().y);
-    cal++;
-  }
-  if (cal==2) {
-    kin.setx1(kin.getHandreal().x);
-    cal++;
-  }
-  if (cal==1) {
-    kin.setx0y0(kin.getHandreal());
-    cal++;
-  }
-}*/
-
+ 
+ 
+ if (cal==3) {
+ kin.sety1(kin.getHandreal().y);
+ cal++;
+ }
+ if (cal==2) {
+ kin.setx1(kin.getHandreal().x);
+ cal++;
+ }
+ if (cal==1) {
+ kin.setx0y0(kin.getHandreal());
+ cal++;
+ }
+ }*/

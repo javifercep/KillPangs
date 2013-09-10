@@ -4,6 +4,7 @@ class surfaces {
   boolean activate;
   int numsurballs;
   int radio;
+  int numactivateballs;
   surfaces () {
     surfuads= new Ball[30];
     for (int i=0; i<30; i++) {
@@ -17,14 +18,14 @@ class surfaces {
       posz=zmax;
       velz=2;
       numsurballs=nsbs;
+      numactivateballs=nsbs;
       radio=rad;
       genballs();
     }
   }
-
   void genballs() {
     for (int i=0; i<numsurballs; i++) {
-      surfuads[i].activate(random(15, 500), random(15, 500), 5*0.2*(random(-2, 2)), 5*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), height*radio/600.);
+      surfuads[i].activate(random( width*radio/600., width - width*radio/600.), random( width*radio/600., height- width*radio/600.), 5*0.2*(random(-2, 2)), 5*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), width*radio/600.);
     }
   }
 
@@ -32,7 +33,7 @@ class surfaces {
     if (activate) {
       posz+=velz;
       for (int i=0; i<numsurballs; i++) {
-        surfuads[i].ballupdate();
+        surfuads[i].ballupdatesurface();
       }
     }
   }
@@ -43,17 +44,21 @@ class surfaces {
       }
     }
   }
-  
-  void drawsurfacecenter(PGraphics cam,int g) {
+
+  void drawsurfacecenter(PGraphics cam, int g) {
     if (activate) {
       for (int i=0; i<numsurballs; i++) {
-        surfuads[i].drawballcenter(posz, cam,g,i+1);
+        surfuads[i].drawballcenter(posz, cam, g, i+1);
       }
     }
   }
   void removesurface() {
     activate=false;
     activesurface(4, radio);
+  }
+  void removeball(){
+    numactivateballs--;
+    if(numactivateballs<=0) removesurface();
   }
   float getz() {
     return posz;
