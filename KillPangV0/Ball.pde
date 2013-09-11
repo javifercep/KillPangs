@@ -166,8 +166,8 @@ class BallShit extends Thread {
               if (fuad[m].ballask()) {
                 if (PVector.dist(fuad[n].nextpos(), fuad[m].nextpos())<2*fuad[n].getrad()) {
                   colision(fuad[n], fuad[m]);
-                  /*fuad[n].touch();
-                   fuad[m].touch();*/
+                  //fuad[n].touch();
+                  //fuad[m].touch();
                 }
               }
             }
@@ -222,7 +222,7 @@ class BallShit3D extends Thread {
                   if (PVector.dist(cara[s].surfuads[n].nextpos(), cara[s].surfuads[m].nextpos())<cara[s].surfuads[n].getrad()+cara[s].surfuads[m].getrad()) {
                     colision(cara[s].surfuads[n], cara[s].surfuads[m]);
                     //fuad[n].touch();
-                    // fuad[m].touch();
+                    //fuad[m].touch();
                   }
                 }
               }

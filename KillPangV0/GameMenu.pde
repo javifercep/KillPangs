@@ -114,7 +114,6 @@ void ShowMainMenu()
     if(Ardu.getSWTriggerState()==0){
       if(choosegame==-1) display.setControlDisplay(2);
       if(choosegame==1)display.setControlDisplay(7);
-      choosegame=0;
     }
   }
   noStroke();
@@ -126,13 +125,15 @@ void ShowMainMenu()
   text("Game V2", width*300/600., height*500/600.);
 }
 
-void addranking(String name, int point) {
+void addranking(String name, int point, int ngame) {
   BufferedReader reader;
   String line;
   PrintWriter output;
   int shownum=0;
   boolean stop=true;
-  reader = createReader("data/Ranking.txt");
+  if(ngame==-1)reader = createReader("data/Ranking.txt");
+  else if(ngame==1) reader = createReader("data/RankingV2.txt");
+  else reader = createReader("");
   output = createWriter("data/temporal");
   while (stop) {
     try {
@@ -173,7 +174,8 @@ void addranking(String name, int point) {
   output.flush();
   output.close();
   String ranktemp[] = loadStrings("data/temporal");
-  saveStrings("data/Ranking.txt", ranktemp);
+  if(ngame==-1)saveStrings("data/Ranking.txt", ranktemp);
+  if(ngame==1) saveStrings("data/RankingV2.txt", ranktemp);
   File file = sketchFile("data/temporal");
   file.delete();
 }
@@ -217,7 +219,8 @@ void InitHighScoreMenu()
   shaderfondo.set("mask", graphfondo);  
   background(255);
   ranking=new String[10][2];
-  addranking(namePlayer.getName(), (int)(numPoints.getPuntuation()*timing.getMul()));
+  addranking(namePlayer.getName(), (int)(numPoints.getPuntuation()*timing.getMul()),choosegame);
+  choosegame=0;
 }
 void ShowHighScoreMenu()
 {

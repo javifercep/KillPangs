@@ -107,6 +107,9 @@ void nextLevel()
 }
 
 void InitGameV2(){
+  level=0;
+  numPoints.clearPuntuation();
+  timing.startTime();
   for(int i=0; i<numsurfaces; i++){
     cara[i].resetsurface();
   }
@@ -116,6 +119,10 @@ void InitGameV2(){
   ballshit3d.start();
   cara[0].activesurface(4, 15);
   display.setControlDisplay(8);
+}
+
+void nextLevelV2(){
+  level++;
 }
 
 void ShowGameV2(){
@@ -152,6 +159,7 @@ void ShowGameV2(){
   kin.update();
   kin.trackUserOne();
   if(two.asklives()<=0){
+    timing.stopTime();
     display.setControlDisplay(6);
     background(255);
     ballshit3d.quit();
@@ -187,6 +195,12 @@ void drawall(PGraphics cam) {
   cuad2(cam);
   cuad3(cam);
   cuad4(cam);
+  cam.hint(DISABLE_DEPTH_TEST);
+  cam.textSize(46);
+  cam.fill(0);
+  cam.text(level,width*100/600.,height*100/600.);
+  cam.text(two.asklives(),width*500/600.,height*100/600.);
+  cam.hint(ENABLE_DEPTH_TEST);
   cam.fill(255);
   for (int i=0; i<5;i++) {
     cara[i].drawsurface(cam);
