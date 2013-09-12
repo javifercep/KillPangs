@@ -95,18 +95,15 @@ class shoter {
     if (reload.EventTime()) {
       disparo.trigger();
       PVector mouse=getscreenpos();
-      if (mouse.x>width || mouse.x<0 || mouse.y>width || mouse.y<0) {
-      }
-      else {
-        center.loadPixels();
+      if (mouse.x<width || mouse.x>0 || mouse.y<width || mouse.y>0) {
         //color ct=center.pixels[(int)(mouse.x+mouse.y*width)];
         color ct= center.get((int)mouse.x, (int)mouse.y);
-        if (ct!=color(0, 0, 0)) {
+        if (ct!=color(0, 0, 0) && ct!=0 ) {
           face[(int)green(ct)-1].surfuads[(int)blue(ct)-1].removeball();
           face[(int)green(ct)-1].removeball();
         }
       }
-      reload.startTime(1000);
+      reload.startTime(100);
     }
   }
   void shot(surfaces face[]) {//deprecated

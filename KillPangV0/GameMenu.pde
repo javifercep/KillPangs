@@ -119,10 +119,10 @@ void ShowMainMenu()
   noStroke();
   if(choosegame==-1) fill(color(240, 20, 20));
   else fill(color(0, 0, 0));
-  text("Game V1", width*200/600., height*500/600.);
+  text("Game V1", width*170/600., height*500/600.);
   if(choosegame==1) fill(color(240, 20, 20));
   else fill(color(0, 0, 0));
-  text("Game V2", width*300/600., height*500/600.);
+  text("Game V2", width*330/600., height*500/600.);
 }
 
 void addranking(String name, int point, int ngame) {

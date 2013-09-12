@@ -14,6 +14,7 @@ void setup()
 
 void draw()
 {
+  println(frameRate);
   display.ShowDisplay();
 }
 

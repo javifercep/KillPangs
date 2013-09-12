@@ -16,7 +16,7 @@ class surfaces {
     if (activate==false) {
       activate=true;
       posz=zmax;
-      velz=15;
+      velz=2;
       numsurballs=nsbs;
       numactivateballs=nsbs;
       radio=rad;
