@@ -62,7 +62,7 @@ void ShowGame()
     background(255);
     ballshit.quit();
   }
-  
+
   for (int i=0; i<numballs; i++) {
     if (fuad[i].ballask()) {
       fuad[i].drawball();
@@ -80,7 +80,7 @@ void InitGame()
     bala[i].removebullet();
   }
   for (int i=0; i<numballs; i++) {
-   fuad[i].resetball();
+    fuad[i].resetball();
   }
   one.resetplayer();
   nextLevel();
@@ -101,64 +101,81 @@ void nextLevel()
   level++;
   int levelBalls = level;
   for (int i=0; i<levelBalls; i++) {
-   fuad[i].activate(random(width*(ballrad/level)/600., width-width*(ballrad/level)/600.), random(width*(ballrad/level)/600., height*5/6.-width*(ballrad/level)/600.-height*30/600.), level*0.2*(random(-2, 2)), level*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), width*(ballrad/level)/600.);
+    fuad[i].activate(random(width*(ballrad/level)/600., width-width*(ballrad/level)/600.), random(width*(ballrad/level)/600., height*5/6.-width*(ballrad/level)/600.-height*30/600.), level*0.2*(random(-2, 2)), level*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), width*(ballrad/level)/600.);
   }
   display.setControlDisplay(3);
 }
 
-void InitGameV2(){
-  level=0;
+void InitGameV2() {
+  nivel.resetlevelv2();
   numPoints.clearPuntuation();
   timing.startTime();
-  for(int i=0; i<numsurfaces; i++){
+  for (int i=0; i<numsurfaces; i++) {
     cara[i].resetsurface();
   }
   two.resetshoter();
   controlsur=0;
   ballshit3d = new BallShit3D("ball");
   ballshit3d.start();
-  cara[0].activesurface(4, 15);
+  ///cara[0].activesurface(4, 15);
   display.setControlDisplay(8);
+  nivel.nextlevelv2();
 }
 
-void nextLevelV2(){
-  level++;
+void nextLevelV2() {
+  nivel.nextlevelv2();
 }
 
-void ShowGameV2(){
+void ShowGameV2() {
   thrcontrol=true;
   lefttex.camera(dif+two.getmanposx(), two.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), two.getmanposx(), two.getmanposy(), width*-500/600., 0, 1, 0);
   righttex.camera(-dif+two.getmanposx(), two.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), two.getmanposx(), two.getmanposy(), width*-500/600., 0, 1, 0);
   center.camera(two.getmanposx(), two.getmanposy(), (height/2.0) / tan(PI*30.0 / 180.0), two.getmanposx(), two.getmanposy(), width*-500/600., 0, 1, 0);
-  //two.setvelx(Ardu.getX()/50.);
-  //two.setvely(Ardu.getY()/50.);
+  two.setvelx(Ardu.getX()/50.);
+  two.setvely(Ardu.getY()/50.);
   if (Ardu.getSWTriggerState()==0) {
     two.shot(cara, center);
   }
-  drawall(lefttex);
-  drawall(righttex);
-  drawallcenter(center);
-  two.updateman(kin.getNeck());
-  two.updateshot(kin.getHand());
+  /////////////////////////
+  drawall(lefttex);      //
+  drawall(righttex);     //
+  drawallcenter(center); //
+  /////////////////////////
+  two.updateman();
+  two.updateshot(new PVector(mouseX, mouseY));
+  //two.updateman(kin.getNeck());
+  //two.updateshot(kin.getHand());
   for (int i=0; i<5;i++) {
     cara[i].updatesurface();
     if (cara[i].getz()>zmin) {
       cara[i].removesurface();
       two.loselive();
+      nivel.deadface();
     }
   }
-  if (cara[controlsur].getz()>zmax*3/4.) {
-    controlsur++;
-    controlsur%=5;
-    cara[controlsur].activesurface(4, 15*controlsur);
+  if (nivel.updatelevel()) {
+    println("asasasas");
+    boolean onlyone=true;
+    for (int i=0; i<30 && onlyone;i++) {
+      if (!cara[i].surfaceask()) {
+        cara[i].activesurface(4, 15);
+        onlyone=false;
+      }
+    }
   }
+  /*if (cara[controlsur].getz()>zmax*3/4.) {
+   controlsur++;
+   controlsur%=5;
+   cara[controlsur].activesurface(4, 15*controlsur);
+   }*/
   shader(shader3D);
   rect(0, 0, width, height);
   resetShader();
   two.drawshot();
   kin.update();
+  
   kin.trackUserOne();
-  if(two.asklives()<=0){
+  if (two.asklives()<=0) {
     timing.stopTime();
     display.setControlDisplay(6);
     background(255);
@@ -198,8 +215,8 @@ void drawall(PGraphics cam) {
   cam.hint(DISABLE_DEPTH_TEST);
   cam.textSize(46);
   cam.fill(0);
-  cam.text(level,width*100/600.,height*100/600.);
-  cam.text(two.asklives(),width*500/600.,height*100/600.);
+  cam.text(nivel.asklevelv2(), width*100/600., height*100/600.);
+  cam.text(two.asklives(), width*500/600., height*100/600.);
   cam.hint(ENABLE_DEPTH_TEST);
   cam.fill(255);
   for (int i=0; i<5;i++) {
@@ -254,3 +271,4 @@ void cuad4(PGraphics cam) {
   cam.vertex(width/2.+hallradx, height/2.+hallrady, 2000);
   cam.endShape();
 }
+

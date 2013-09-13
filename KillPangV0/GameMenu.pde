@@ -54,6 +54,7 @@ void InitConfigurations()
   hallradx= (width)/2.;
   hallrady=(height)/2.;
   two= new shoter();
+  nivel= new levelv2();
   for (int i=0; i<numsurfaces;i++) {
     cara[i]=new surfaces();
   }

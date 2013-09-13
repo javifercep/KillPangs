@@ -54,11 +54,14 @@ class surfaces {
   }
   void removesurface() {
     activate=false;
-    activesurface(4, radio);
+    //activesurface(4, radio);
   }
   void removeball(){
     numactivateballs--;
-    if(numactivateballs<=0) removesurface();
+    if(numactivateballs<=0) {
+      removesurface();
+      nivel.deadface(); ////////////CUIDADO QUE NO PETE, NO CREO PERO NUNCA SE SABE
+    }
   }
   float getz() {
     return posz;
