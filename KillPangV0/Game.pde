@@ -122,9 +122,9 @@ void InitGameV2() {
   nivel.nextlevelv2();
 }
 
-void nextLevelV2() {
+/*void nextLevelV2() {
   nivel.nextlevelv2();
-}
+}*/
 
 void ShowGameV2() {
   thrcontrol=true;
@@ -145,9 +145,9 @@ void ShowGameV2() {
   two.updateshot(new PVector(mouseX, mouseY));
   //two.updateman(kin.getNeck());
   //two.updateshot(kin.getHand());
-  for (int i=0; i<5;i++) {
+  for (int i=0; i<numsurfaces;i++) {
     cara[i].updatesurface();
-    if (cara[i].getz()>zmin) {
+    if (cara[i].getz()>zmin && cara[i].surfaceask()) {
       cara[i].removesurface();
       two.loselive();
       nivel.deadface();
@@ -156,9 +156,9 @@ void ShowGameV2() {
   if (nivel.updatelevel()) {
     println("asasasas");
     boolean onlyone=true;
-    for (int i=0; i<30 && onlyone;i++) {
+    for (int i=0; i<numsurfaces && onlyone;i++) {
       if (!cara[i].surfaceask()) {
-        cara[i].activesurface(4, 15);
+        cara[i].activesurface(nivel.numballs, nivel.radio, nivel.velz, nivel.vel);
         onlyone=false;
       }
     }

@@ -12,20 +12,20 @@ class surfaces {
     }
   } 
 
-  void activesurface(int nsbs, int rad) {
+  void activesurface(int nsbs, int rad, float vz, float v) {
     if (activate==false) {
       activate=true;
       posz=zmax;
-      velz=2;
+      velz=vz;
       numsurballs=nsbs;
       numactivateballs=nsbs;
       radio=rad;
-      genballs();
+      genballs(v);
     }
   }
-  void genballs() {
+  void genballs(float v) {
     for (int i=0; i<numsurballs; i++) {
-      surfuads[i].activate(random( width*radio/600., width - width*radio/600.), random( width*radio/600., height- width*radio/600.), 5*0.2*(random(-2, 2)), 5*0.2*(random(-2, 2)), random(-.1, .1), random(-.1, .1), width*radio/600.);
+      surfuads[i].activate(random( width*radio/600., width - width*radio/600.), random( width*radio/600., height- width*radio/600.), v*(random(-2, 2)), v*(random(-2, 2)), random(-.1, .1), random(-.1, .1), width*radio/600.);
     }
   }
 

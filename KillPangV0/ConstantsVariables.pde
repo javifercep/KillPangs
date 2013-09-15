@@ -1,6 +1,6 @@
 
 static final int numballs = 30;
-static final int numsurfaces = 5;
+static final int numsurfaces = 30;
 static final int ballrad = 150;
 static final int maxLevel = 30;
 float bulletrad;

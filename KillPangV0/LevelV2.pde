@@ -29,6 +29,7 @@ class levelv2 {
     vel=level*0.2;
     velz=level;
     numfaceshow=0;
+    timesep=(long)(8*radio/ (velz*frameRate)) *1000;
     nextface.startTime(0);
   }
   void deadface() {
