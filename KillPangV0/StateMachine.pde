@@ -39,6 +39,9 @@ public class DisplayStateMachine {
     case 8:
       ShowGameV2();
       break;
+    case 9:
+      showuser();
+      break;
     }
   }
 

@@ -114,7 +114,7 @@ void ShowMainMenu()
     else if(Ardu.getX()<0) choosegame=-1;
     if(Ardu.getSWTriggerState()==0){
       if(choosegame==-1) display.setControlDisplay(2);
-      if(choosegame==1)display.setControlDisplay(7);
+      if(choosegame==1) display.setControlDisplay(9); 
     }
   }
   noStroke();
@@ -261,6 +261,15 @@ void ShowHighScoreMenu()
     Ardu.resetAll();
   }
 }
+
+void showuser(){
+  kin.update();
+  kin.userImage();
+  if(Ardu.getSWTriggerState()==0){
+    display.setControlDisplay(7);
+  }
+}
+
 void keyTyped()
 {
   if (key=='1')
