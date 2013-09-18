@@ -118,7 +118,7 @@ void InitGameV2() {
   ballshit3d = new BallShit3D("ball");
   ballshit3d.start();
   ///cara[0].activesurface(4, 15);
-  display.setControlDisplay(8);
+  display.setControlDisplay(9);
   nivel.nextlevelv2();
 }
 
@@ -141,10 +141,10 @@ void ShowGameV2() {
   drawall(righttex);     //
   drawallcenter(center); //
   /////////////////////////
-  two.updateman();
-  two.updateshot(new PVector(mouseX, mouseY));
-  //two.updateman(kin.getNeck());
-  //two.updateshot(kin.getHand());
+  //two.updateman();
+  //two.updateshot(new PVector(mouseX, mouseY));
+  two.updateman(kin.getNeck());
+  two.updateshot(kin.getHand());
   for (int i=0; i<numsurfaces;i++) {
     cara[i].updatesurface();
     if (cara[i].getz()>zmin && cara[i].surfaceask()) {
@@ -173,7 +173,7 @@ void ShowGameV2() {
   resetShader();
   two.drawshot();
   kin.update();
-  
+  //kin.userImage(200,200);
   kin.trackUserOne();
   if (two.asklives()<=0) {
     timing.stopTime();

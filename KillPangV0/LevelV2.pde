@@ -28,7 +28,7 @@ class levelv2 {
     if(level%3==1) numfaces++;
     deadfaces=0;
     vel=level*0.2;
-    velz*=1.2;
+    velz*=2.7;
     numfaceshow=0;
     //timesep=(long)(8*radio/ (velz*frameRate)) *1000;
     timesep=4000;

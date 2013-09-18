@@ -32,9 +32,9 @@ public class Kinect {
     }
     return temp;
   }
-  public void userImage(){ //Kinect
-  int[] userList = context.getUsers();
-    if (userList.length>0) image(context.userImage(),0,0,width,height); 
+  public void userImage(int w,int h){ //Kinect
+  
+     image(context.userImage(),0,0,w,h); 
   }
   public void update()
   {

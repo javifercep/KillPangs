@@ -114,7 +114,7 @@ void ShowMainMenu()
     else if(Ardu.getX()<0) choosegame=-1;
     if(Ardu.getSWTriggerState()==0){
       if(choosegame==-1) display.setControlDisplay(2);
-      if(choosegame==1) display.setControlDisplay(9); 
+      if(choosegame==1) display.setControlDisplay(7); 
     }
   }
   noStroke();
@@ -264,9 +264,12 @@ void ShowHighScoreMenu()
 
 void showuser(){
   kin.update();
-  kin.userImage();
-  if(Ardu.getSWTriggerState()==0){
-    display.setControlDisplay(7);
+  kin.userImage(width,height);
+  int[] userList = context.getUsers();
+  for(int i=0; i<userList.length; i++){
+    if(context.isTrackingSkeleton(userList[i])){
+    display.setControlDisplay(8);
+    }
   }
 }
 
